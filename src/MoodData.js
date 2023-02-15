@@ -1,0 +1,26 @@
+let MoodData = {
+    "Clear0" : ["chilly", "cold", "crisp", "refreshing", "Brisk", "Frosty", "Nippy", "Wintery"],
+    "Clouds0" : ["chill", "raw", "brisk", "Dreary", "Misty", "Overcast", "Somber"],
+    "Rain0" : ["Chilly", "Damp", "Miserable", "Dreary", "Gloomy", "Raw"],
+    "Snow0" : ["Brisk", "invigorating", "refreshing", "crisp", "Beautiful", "Cheerful", "Festive", "Glistening", "Winter Wonderland"],
+    "under0" : ["chill", "freeze", "harsh", "bitter", "frozen"],
+    "Clear10" : ["cool", "chilly", "crisp", "invigorating", "Mild", "Refreshing", "Sharp"],
+    "Clouds10" : ["mild", "comfortable", "overcast", "Dull", "Grey", "Misty", "Tepid"],
+    "Rain10" : ["Cold", "Wet", "Gloomy", "Dank", "Misty", "Rainy"],
+    "Snow10" : ["Cold", "brisk", "crisp", "fresh", "Beautiful", "Fluffy", "Snowy", "Wintery"],
+    "under10" : ["chilly", "cool", "crisp", "refreshing", "invigorating"],
+    "Clear20" : ["warm", "mild", "comfortable", "Bright", "Chilly", "Nice", "Sunny"],
+    "Clouds20" : ["warm", "humid", "sticky", "Cloudy", "Dull", "Hazy", "Misty", "Overcast"],
+    "Rain20" : ["Damp", "Humid", "Overcast", "Dreary", "Rainy", "Wet", "Moody"],
+    "under20" : ["comfortable", "mild", "temperate", "pleasant"],
+    "Clear30" : ["hot", "warm", "sunny", "refreshing"],
+    "Clouds30" : ["hot", "humid", "muggy"],
+    "Rain30" : ["Muggy", "Stick", "Hot"],
+    "under30" : ["warm", "cozy", "inviting", "sunny", "mild"],
+    "ClearHot" : ["scorching", "boiling", "sweltering", "oppressive"],
+    "CloudsHot" : ["scorching", "oppressive", "unbearable"],
+    "RainHot" : ["Steamy", "Sultry", "Oppressive"],
+    "Hot" : ["hot", "humid", "scorching", "sultry", "oppressive"],
+}
+
+export default MoodData;
