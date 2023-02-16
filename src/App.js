@@ -4,7 +4,7 @@ import { Configuration, OpenAIApi } from "openai";
 import "./App.css";
 import Loading from "./Loading";
 import Keyword from "./Keyword";
-import styled from "styled-components";
+import Login from "./Login";
 
 const client_id = process.env.REACT_APP_CLIENT_ID;
 const client_secret = process.env.REACT_APP_CLIENT_SECRET;
@@ -68,7 +68,7 @@ function App() {
           openai
             .createCompletion({
               model: "text-davinci-003",
-              prompt: `The current weather condition is ${weather} and the temperature is ${temperature} degrees. Please suggest one keyword that matches the current weather.`,
+              prompt: `The current weather condition is ${weather} and the temperature is ${temperature} degrees. Please suggest one keyword.`,
               temperature: 0.7,
               max_tokens: 256,
               top_p: 1,
@@ -103,7 +103,7 @@ function App() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + accessToken,
+        Authorization: "Bearer " + accessToken,
       },
     };
 
@@ -137,43 +137,45 @@ function App() {
 
   return (
     <div className="bg">
-      <div className="content-left">
-        {moodTag ? (
-          <Keyword mood={mood} weather={weather} temperature={temperature} />
-        ) : (
-          <div className="keyword-load">
-            <Loading />
+      {moodTag ? (
+        <>
+          <div className="content-left">
+            <Keyword mood={mood} weather={weather} temperature={temperature} />
           </div>
-        )}
-      </div>
-      <div className="content-right">
-        <div className="card">
-          {playlistTag ? (
-            <div style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${playlists[randomNum].images[0].url})` }}>
-              {/* <p>PLAYLIST: {playlists[randomNum].name}</p> */}
-              <p>PLAYLIST</p>
+          <div className="content-right">
+            <div className="card">
+              {playlistTag ? (
+                <div style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${playlists[0].images[0].url})` }}>
+                  {/* <p>PLAYLIST: {playlists[randomNum].name}</p> */}
+                  <p>PLAYLIST</p>
+                </div>
+              ) : (
+                <Loading />
+              )}
+              {trackTag ? (
+                <div style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${tracks[0].album.images[0].url})` }}>
+                  {/* <span>{tracks[randomNum].name}</span> */}
+                  <p>TRACK</p>
+                </div>
+              ) : (
+                <Loading />
+              )}
+              {artistTag ? (
+                <div style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${artists[0].images[0].url})` }}>
+                  {/* <span>{artists[0].name}</span> */}
+                  <p>ARTIST</p>
+                </div>
+              ) : (
+                <Loading />
+              )}
             </div>
-          ) : (
-            <Loading />
-          )}
-          {trackTag ? (
-            <div style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${tracks[randomNum].album.images[0].url})` }}>
-              {/* <span>{tracks[randomNum].name}</span> */}
-              <p>TRACK</p>
-            </div>
-          ) : (
-            <Loading />
-          )}
-          {artistTag ? (
-            <div style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${artists[randomNum].images[0].url})` }}>
-              {/* <span>{artists[0].name}</span> */}
-              <p>ARTIST</p>
-            </div>
-          ) : (
-            <Loading />
-          )}
+          </div>
+        </>
+      ) : (
+        <div className="keyword-load">
+          <Loading />
         </div>
-      </div>
+      )}
     </div>
   );
 }

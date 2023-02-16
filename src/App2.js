@@ -174,7 +174,7 @@ function App() {
           </div>
         </>
       ) : (
-        <div classㅋName="keyword-load">
+        <div className="keyword-load">
           <Loading />
         </div>
       )}

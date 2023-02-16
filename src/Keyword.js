@@ -1,6 +1,7 @@
 import "./Keyword.css";
 import { useEffect, useState } from "react";
 import Search from "./Search";
+import Login from "./Login";
 
 function Keyword(props) {
   const [now, setNow] = useState("");
@@ -39,11 +40,12 @@ function Keyword(props) {
     <div className="keyword">
       <div>
         {nowTag === true ? <p>{now}</p> : null}
-        <p>{props.mood}</p>
+        <p>Today's music is {props.mood}</p>
         <p>
           {props.weather}, {props.temperature}℃
         </p>
         <Search />
+        <Login />
       </div>
     </div>
   );
