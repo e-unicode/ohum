@@ -1,8 +1,13 @@
-.search div {
-    display: inline-block;
+div {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0px;
 }
 
 .form {
+  display: inline-block;
     --width-of-input: 200px;
     --border-height: 1px;
     --border-before-color: #F2F2F2;
@@ -58,7 +63,7 @@ input:focus ~ .input-border {
 
 .enter {
     height: 45px;
-    width: 70px;
+    width: 49%;
     border-radius: 5px;
     border: 0.5px solid #F2F2F2;
     cursor: pointer;
@@ -69,7 +74,6 @@ input:focus ~ .input-border {
     color:#F2F2F2;
     letter-spacing: 2px;
     margin-bottom: 3em;
-    margin-left: 10px;
 }
   
 .enter:hover {
