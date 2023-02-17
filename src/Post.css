@@ -1,0 +1,120 @@
+div {
+	box-sizing: border-box;
+}
+
+.post {
+    width: 100vw;
+    height: 100vh;
+    background: #3F7EA6;
+}
+
+.post-search {
+    position: relative;
+    width: 100%;
+    height: 5vh;
+    background: #3F7EA6;
+}
+
+.search2 {
+    width: 30vw;
+    height: 4vh;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.search-input {
+    width: 90%;
+}
+
+.post-content {
+    width: 100vw;
+    height: 95vh;
+    background: #3F7EA6;
+}
+
+.content-side {
+    width: 10%;
+    height: 100%;
+    float: left;
+    background: #F2F2F2;
+    padding: 20px 0 0 20px;
+}
+
+.side-btn {
+    width: 100%;
+    height: 50px;
+    background: #3F7EA6;
+    margin-bottom: 10px;
+}
+
+.content-main {
+    width: 90%;
+    height: 100%;
+    float: left;
+    background: #F2F2F2;
+    padding: 20px 0 20px 0;
+    /* position: relative; */
+    border-radius: 0;
+    overflow: scroll;
+}
+
+.card2 {
+    width: 600px;
+    height: 300px;
+    background: #ffff;
+    box-shadow: 0 1px 25px rgba(0,0,0,0.2);
+    /* transform: translate(-50%, -50%); */
+    margin: auto;
+    margin-bottom: 10px;
+    padding: 12px 10px;
+}
+
+.card_load {
+  width: 48%;
+  height: 100%;
+  position: relative;
+  float: left;
+  background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 
+  40%, #e5e5e5 48%);
+  border-radius: 50%;
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  /* animation: load89234 2s infinite; */
+}
+
+.card_load_extreme_title {
+  width: 50%;
+  height: 20%;
+  position: relative;
+  float: right;
+  border-radius: 5px;
+  background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 
+  40%, #e5e5e5 48%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  /* animation: load89234 2s infinite; */
+}
+
+.card_load_extreme_descripion {
+  width: 50%;
+  height: 76%;
+  position: relative;
+  float: right;
+  border-radius: 5px;
+  background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 
+  40%, #e5e5e5 48%);
+  margin-top: 10px;
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  /* animation: load89234 2s infinite; */
+}
+
+@keyframes load89234 {
+  100% {
+    background-position: -100% 0;
+  }
+}

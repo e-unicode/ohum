@@ -1,9 +1,9 @@
-import "./Search.css";
+import "./Login.css";
 import { useEffect, useState } from "react";
 
 function Login() {
   return (
-    <div className="search">
+    <div>
       <div className="form">
         <input className="input" placeholder="ID" required="" type="input" />
         <span className="input-border"></span>
@@ -13,8 +13,8 @@ function Login() {
         <span className="input-border"></span>
       </div>
       <div>
-        <button className="enter">Sign in</button>
-        <button className="enter" style={{ marginLeft: "2%" }}>Join</button>
+        <button className="enter">Login</button>
+        <button className="enter" style={{ marginLeft: "5px" }}>Join</button>
       </div>
     </div>
   );

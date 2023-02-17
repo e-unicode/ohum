@@ -4,7 +4,9 @@ import { Configuration, OpenAIApi } from "openai";
 import "./App.css";
 import Loading from "./Loading";
 import Keyword from "./Keyword";
-import Login from "./Login";
+import Post from "./Post";
+import { Routes, Route, Link } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const client_id = process.env.REACT_APP_CLIENT_ID;
 const client_secret = process.env.REACT_APP_CLIENT_SECRET;
@@ -43,7 +45,7 @@ function App() {
     //결과중 몇번째를 가져올지 정하는 랜덤 숫자
     setRandomNum(Math.floor(Math.random() * 20));
 
-    //위치&날씨 가져오기
+    //위치&날씨 가져온 후 ai로 mood가져오기
     function getWeatherAndMood(position) {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
@@ -53,7 +55,7 @@ function App() {
         .then((result) => {
           const 온도 = Math.round(Number(result.main.temp) - 273.15);
           const 습도 = result.main.humidity;
-          const 날씨 = result.weather[0].description;
+          const 날씨 = result.weather[0].main;
           setTemperature(온도);
           setHumidity(습도);
           setWeather(날씨);
@@ -68,7 +70,7 @@ function App() {
           openai
             .createCompletion({
               model: "text-davinci-003",
-              prompt: `The current weather condition is ${weather} and the temperature is ${temperature} degrees. Please suggest one keyword.`,
+              prompt: `The current weather condition is ${weather}, the temperature is ${temperature} degrees and the humidity is ${humidity}. Based on the given weather, temperature, and humidity, suggest a suitable atmosphere as a keyword. Please be careful not to present anything that doesn't suit you.`,
               temperature: 0.7,
               max_tokens: 256,
               top_p: 1,
@@ -83,12 +85,13 @@ function App() {
             });
         });
     }
-
+    //위치&날씨 가져오기
     navigator.geolocation.getCurrentPosition(getWeatherAndMood, () => {
       console.log("Can't find you.");
     });
   }, []);
 
+  //mood가 바뀔때마다 노래 다시 추천
   useEffect(() => {
     if (mood) {
       searchSpotify();
@@ -96,6 +99,7 @@ function App() {
     }
   }, [mood]);
 
+  //노래찾는 함수
   async function searchSpotify() {
     console.log("Search for " + mood);
 
@@ -136,47 +140,55 @@ function App() {
   }
 
   return (
-    <div className="bg">
-      {moodTag ? (
-        <>
-          <div className="content-left">
-            <Keyword mood={mood} weather={weather} temperature={temperature} />
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <div className="bg">
+            {moodTag ? (
+              <>
+                <div className="content-left">
+                  <Keyword mood={mood} weather={weather} temperature={temperature} />
+                </div>
+                <div className="content-right">
+                  <div className="card">
+                    {playlistTag ? (
+                      <div style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${playlists[0].images[0].url})` }}>
+                        <p>PLAYLIST: {playlists[randomNum].name}</p>
+                        {/* <p>PLAYLIST</p> */}
+                      </div>
+                    ) : (
+                      <Loading />
+                    )}
+                    {trackTag ? (
+                      <div style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${tracks[0].album.images[0].url})` }}>
+                        <p>{tracks[randomNum].name}</p>
+                        {/* <p>TRACK</p> */}
+                      </div>
+                    ) : (
+                      <Loading />
+                    )}
+                    {artistTag ? (
+                      <div style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${artists[0].images[0].url})` }}>
+                        <p>{artists[0].name}</p>
+                        {/* <p>ARTIST</p> */}
+                      </div>
+                    ) : (
+                      <Loading />
+                    )}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="keyword-load">
+                <Loading />
+              </div>
+            )}
           </div>
-          <div className="content-right">
-            <div className="card">
-              {playlistTag ? (
-                <div style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${playlists[0].images[0].url})` }}>
-                  {/* <p>PLAYLIST: {playlists[randomNum].name}</p> */}
-                  <p>PLAYLIST</p>
-                </div>
-              ) : (
-                <Loading />
-              )}
-              {trackTag ? (
-                <div style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${tracks[0].album.images[0].url})` }}>
-                  {/* <span>{tracks[randomNum].name}</span> */}
-                  <p>TRACK</p>
-                </div>
-              ) : (
-                <Loading />
-              )}
-              {artistTag ? (
-                <div style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${artists[0].images[0].url})` }}>
-                  {/* <span>{artists[0].name}</span> */}
-                  <p>ARTIST</p>
-                </div>
-              ) : (
-                <Loading />
-              )}
-            </div>
-          </div>
-        </>
-      ) : (
-        <div className="keyword-load">
-          <Loading />
-        </div>
-      )}
-    </div>
+        }
+      />
+      <Route path="/main" element={<Post />} />
+    </Routes>
   );
 }
 

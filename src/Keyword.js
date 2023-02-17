@@ -41,10 +41,7 @@ function Keyword(props) {
       <div>
         {nowTag === true ? <p>{now}</p> : null}
         <p>Today's music is {props.mood}</p>
-        <p>
-          {props.weather}, {props.temperature}℃
-        </p>
-        <Search />
+        <p>{props.weather}, {props.temperature}℃</p>
         <Login />
       </div>
     </div>
