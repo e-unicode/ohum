@@ -4,9 +4,10 @@ import { Configuration, OpenAIApi } from "openai";
 import "./App.css";
 import Loading from "./Loading";
 import Keyword from "./Keyword";
-import Post from "./Post";
+import PostPage from "./PostPage";
+import SearchPage from "./SearchPage";
 import { Routes, Route, Link } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const client_id = process.env.REACT_APP_CLIENT_ID;
 const client_secret = process.env.REACT_APP_CLIENT_SECRET;
@@ -15,6 +16,7 @@ const openai_api_key = process.env.REACT_APP_OPENAI_API_KEY;
 
 function App() {
   const [accessToken, setAccessToken] = useState("");
+  const [albums, setAlbums] = useState([]);
   const [playlists, setPlaylists] = useState([]);
   const [tracks, setTracks] = useState([]);
   const [artists, setArtists] = useState([]);
@@ -107,9 +109,22 @@ function App() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + accessToken,
+        "Authorization": "Bearer " + accessToken,
       },
     };
+
+    let searchInput= "bts"
+
+    var artistID = await fetch("https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist", searchParameters)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.artists.items[0].id)
+        return data.artists.items[0].id;
+      });
+
+    await fetch("https://api.spotify.com/v1/artists/" + artistID + "/albums?include_groups=album&market=KR&limit=50", searchParameters)
+      .then((response) => response.json())
+      .then((data) => setAlbums(data.items));
 
     await fetch("https://api.spotify.com/v1/search?q=" + mood + "&type=playlist", searchParameters)
       .then((response) => response.json())
@@ -137,8 +152,8 @@ function App() {
       .then(() => {
         setArtistTag(true);
       });
-  }
-
+    }
+  console.log(albums)
   return (
     <Routes>
       <Route
@@ -151,7 +166,7 @@ function App() {
                   <Keyword mood={mood} weather={weather} temperature={temperature} />
                 </div>
                 <div className="content-right">
-                  <div className="card">
+                  <div className="main-card">
                     {playlistTag ? (
                       <div style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${playlists[0].images[0].url})` }}>
                         <p>PLAYLIST: {playlists[randomNum].name}</p>
@@ -187,7 +202,8 @@ function App() {
           </div>
         }
       />
-      <Route path="/main" element={<Post />} />
+      <Route path="/post" element={<PostPage />} />
+      <Route path="/search" element={<SearchPage albums={albums} />} />
     </Routes>
   );
 }

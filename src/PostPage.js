@@ -1,5 +1,4 @@
 import "./Post.css";
-import Search from "./Search";
 import { Container, Row } from "react-bootstrap";
 
 function Post() {
