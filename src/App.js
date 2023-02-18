@@ -2,11 +2,11 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import { Configuration, OpenAIApi } from "openai";
-import Loading from "./Loading";
 import MainPage from "./MainPage";
 import PostPage from "./PostPage";
 import SearchPage from "./SearchPage";
-import { Routes, Route, Link } from "react-router-dom";
+import JoinPage from "./JoinPage";
+import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const client_id = process.env.REACT_APP_CLIENT_ID;
@@ -72,7 +72,7 @@ function App() {
           openai
             .createCompletion({
               model: "text-davinci-003",
-              prompt: `Current weather conditions are ${weather}, temperature is ${temperature}, humidity is ${humidity}. Based on the given weather, temperature, and humidity, please suggest the appropriate atmosphere in g-Hangul keywords. Be careful not to suggest anything out of step with the weather.`,
+              prompt: `Current weather conditions are ${weather}, temperature is ${temperature}, humidity is ${humidity}. Based on the given weather, temperature, and humidity, please present the appropriate atmosphere in one Korean keyword. Be careful not to suggest anything out of step with the weather.`,
               temperature: 0.7,
               max_tokens: 256,
               top_p: 1,
@@ -109,16 +109,16 @@ function App() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + accessToken,
+        Authorization: "Bearer " + accessToken,
       },
     };
 
-    let searchInput= "bts"
+    let searchInput = "bts";
 
     var artistID = await fetch("https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist", searchParameters)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.artists.items[0].id)
+        console.log(data.artists.items[0].id);
         return data.artists.items[0].id;
       });
 
@@ -148,14 +148,33 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         setArtists(data.artists.items);
+        console.log(data.artists.items);
       })
       .then(() => {
         setArtistTag(true);
       });
-    }
+  }
   return (
     <Routes>
-      <Route path="/"element={<MainPage moodTag={moodTag} playlistTag={playlistTag} playlists={playlists} trackTag={trackTag} tracks={tracks} artistTag={artistTag} artists={artists} randomNum={randomNum} mood={mood} weather={weather} temperature={temperature}/>} />
+      <Route
+        path="/"
+        element={
+          <MainPage
+            moodTag={moodTag}
+            playlistTag={playlistTag}
+            playlists={playlists}
+            trackTag={trackTag}
+            tracks={tracks}
+            artistTag={artistTag}
+            artists={artists}
+            randomNum={randomNum}
+            mood={mood}
+            weather={weather}
+            temperature={temperature}
+          />
+        }
+      />
+      <Route path="/join" element={<JoinPage mood={mood} />} />
       <Route path="/post" element={<PostPage />} />
       <Route path="/search" element={<SearchPage albums={albums} />} />
     </Routes>
