@@ -1,9 +1,9 @@
+import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import { Configuration, OpenAIApi } from "openai";
-import "./App.css";
 import Loading from "./Loading";
-import Keyword from "./Keyword";
+import MainPage from "./MainPage";
 import PostPage from "./PostPage";
 import SearchPage from "./SearchPage";
 import { Routes, Route, Link } from "react-router-dom";
@@ -72,7 +72,7 @@ function App() {
           openai
             .createCompletion({
               model: "text-davinci-003",
-              prompt: `The current weather condition is ${weather}, the temperature is ${temperature} degrees and the humidity is ${humidity}. Based on the given weather, temperature, and humidity, suggest a suitable atmosphere as a keyword. Please be careful not to present anything that doesn't suit you.`,
+              prompt: `Current weather conditions are ${weather}, temperature is ${temperature}, humidity is ${humidity}. Based on the given weather, temperature, and humidity, please suggest the appropriate atmosphere in g-Hangul keywords. Be careful not to suggest anything out of step with the weather.`,
               temperature: 0.7,
               max_tokens: 256,
               top_p: 1,
@@ -153,55 +153,9 @@ function App() {
         setArtistTag(true);
       });
     }
-  console.log(albums)
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <div className="bg">
-            {moodTag ? (
-              <>
-                <div className="content-left">
-                  <Keyword mood={mood} weather={weather} temperature={temperature} />
-                </div>
-                <div className="content-right">
-                  <div className="main-card">
-                    {playlistTag ? (
-                      <div style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${playlists[0].images[0].url})` }}>
-                        <p>PLAYLIST: {playlists[randomNum].name}</p>
-                        {/* <p>PLAYLIST</p> */}
-                      </div>
-                    ) : (
-                      <Loading />
-                    )}
-                    {trackTag ? (
-                      <div style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${tracks[0].album.images[0].url})` }}>
-                        <p>{tracks[randomNum].name}</p>
-                        {/* <p>TRACK</p> */}
-                      </div>
-                    ) : (
-                      <Loading />
-                    )}
-                    {artistTag ? (
-                      <div style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${artists[0].images[0].url})` }}>
-                        <p>{artists[0].name}</p>
-                        {/* <p>ARTIST</p> */}
-                      </div>
-                    ) : (
-                      <Loading />
-                    )}
-                  </div>
-                </div>
-              </>
-            ) : (
-              <div className="keyword-load">
-                <Loading />
-              </div>
-            )}
-          </div>
-        }
-      />
+      <Route path="/"element={<MainPage moodTag={moodTag} playlistTag={playlistTag} playlists={playlists} trackTag={trackTag} tracks={tracks} artistTag={artistTag} artists={artists} randomNum={randomNum} mood={mood} weather={weather} temperature={temperature}/>} />
       <Route path="/post" element={<PostPage />} />
       <Route path="/search" element={<SearchPage albums={albums} />} />
     </Routes>

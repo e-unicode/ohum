@@ -1,5 +1,7 @@
-import "./Login.css";
-import { useEffect, useState } from "react";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
+
 
 function Login() {
   return (
@@ -13,8 +15,8 @@ function Login() {
         <span className="input-border"></span>
       </div>
       <div>
-        <button className="enter">Login</button>
-        <button className="enter" style={{ marginLeft: "5px" }}>Join</button>
+        <Link to="/post"><button className="enter">Login</button></Link>
+        <button className="enter" style={{ marginLeft: "10px" }}>Join</button>
       </div>
     </div>
   );
