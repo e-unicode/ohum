@@ -2,10 +2,10 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import { Configuration, OpenAIApi } from "openai";
-import MainPage from "./MainPage";
-import PostPage from "./PostPage";
-import SearchPage from "./SearchPage";
-import JoinPage from "./JoinPage";
+import MainPage from "./Pages/MainPage";
+import PostPage from "./Pages/PostPage";
+import SearchPage from "./Pages/SearchPage";
+import JoinPage from "./Pages/JoinPage";
 import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -175,7 +175,7 @@ function App() {
         }
       />
       <Route path="/join" element={<JoinPage mood={mood} />} />
-      <Route path="/post" element={<PostPage />} />
+      <Route path="/post" element={<PostPage mood={mood} />} />
       <Route path="/search" element={<SearchPage albums={albums} />} />
     </Routes>
   );

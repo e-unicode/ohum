@@ -1,4 +1,4 @@
-// import "./Search.css";
+import "../App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, InputGroup, FormControl, Button, Row, Card } from "react-bootstrap";
 import { useState, useEffect } from "react";
@@ -9,27 +9,23 @@ function SearchPage(props) {
   return (
     <div className="post">
       <div className="post-search">
-        <Container>
-          <InputGroup>
-            <FormControl
-              placeholder="SEARCH"
-              type="input"
+        <div className="post-search-input">
+          <div style={{width: '100%'}} className="form mt-0">
+            <input type="input"
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
                   console.log("pressed");
                 }
               }}
-              onChange={(e) => setSearchInput(e.target.value)}
-            />
-            <Button
-              onClick={() => {
+              onChange={(e) => setSearchInput(e.target.value)} className="input" placeholder="검색어를 입력하세요." required="" />
+            <span className="input-border"></span>
+            <button onClick={() => {
                 console.log("clicked");
-              }}
-            >
-              🔎
-            </Button>
-          </InputGroup>
-        </Container>
+              }} className="enter">
+                가입
+              </button>
+          </div>
+        </div>
       </div>
       <div className="post-content">
         <div className="content-side">

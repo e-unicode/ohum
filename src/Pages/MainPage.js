@@ -1,7 +1,7 @@
-import "./App.css";
+import "../App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
-import Loading from "./Loading";
+import Loading from "../Components/Loading";
 import JoinPage from "./JoinPage";
 import { Routes, Route, Link, Navigate } from "react-router-dom";
 import { Location } from "react-router-dom";
@@ -145,7 +145,7 @@ function MainPage(props) {
                   {artistCardTag ? (
                     <p style={{ textAlign: "left" }}>
                       {props.artists[0].name}
-                      <span style={{ fontSize: "17px", display: "block" }}>go track</span>
+                      <span style={{ fontSize: "17px", display: "block" }}>더보기</span>
                     </p>
                   ) : (
                     <p>이 가수의 음악 어때요?</p>

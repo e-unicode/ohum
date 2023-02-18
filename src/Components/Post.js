@@ -1,8 +1,8 @@
-import "./App.css";
+import "../App.css";
 
-function Loading() {
+function Post() {
   return (
-    <div className="loader">
+    <div className="post">
       <span className="bar"></span>
       <span className="bar"></span>
       <span className="bar"></span>
@@ -10,4 +10,4 @@ function Loading() {
   );
 }
 
-export default Loading;
+export default Post;
