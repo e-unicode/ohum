@@ -8,26 +8,34 @@ function SearchPage(props) {
 
   return (
     <div className="post">
-      <div className="post-search">
-        <div className="post-search-input">
-          <div style={{width: '100%'}} className="form mt-0">
-            <input type="input"
+      <div className="post-top">
+        <div className="search-form">
+          <div className="form" style={{ width: "100%" }}>
+            <input
+              className="search-input"
+              type="input"
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
                   console.log("pressed");
                 }
               }}
-              onChange={(e) => setSearchInput(e.target.value)} className="input" placeholder="검색어를 입력하세요." required="" />
-            <span className="input-border"></span>
-            <button onClick={() => {
+              onChange={(e) => setSearchInput(e.target.value)}
+              placeholder="노래 제목, 가수 이름, 관련 키워드를 입력하세요."
+              required=""
+            />
+            <button
+              onClick={() => {
                 console.log("clicked");
-              }} className="enter">
-                가입
-              </button>
+              }}
+              className="search-enter"
+            >
+              찾기
+            </button>
           </div>
         </div>
       </div>
-      <div className="post-content">
+
+      <div className="post-content pt-5">
         <div className="content-side">
           <div className="side-btn">메인피드페이지</div>
           <div className="side-btn">나랑 같은 날씨</div>

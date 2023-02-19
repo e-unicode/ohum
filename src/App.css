@@ -1,5 +1,7 @@
 /* 기본세팅 */
-body, div, p {
+body,
+div,
+p {
   margin: 0px;
   font-family: 'Noto Sans KR', sans-serif;
 }
@@ -15,37 +17,37 @@ div {
 }
 
 .bar {
-display: inline-block;
-width: 3px;
-height: 20px;
-background-color: #3F7EA6;
-border-radius: 10px;
-animation: scale-up4 1s linear infinite;
+  display: inline-block;
+  width: 3px;
+  height: 20px;
+  background-color: #3F7EA6;
+  border-radius: 10px;
+  animation: scale-up4 1s linear infinite;
 }
 
 .bar:nth-child(2) {
-height: 35px;
-margin: 0 5px;
-animation-delay: .25s;
+  height: 35px;
+  margin: 0 5px;
+  animation-delay: .25s;
 }
 
 .bar:nth-child(3) {
-animation-delay: .5s;
+  animation-delay: .5s;
 }
 
 @keyframes scale-up4 {
-20% {
-  background-color: #8399a7;
-  transform: scaleY(1.5);
-}
+  20% {
+    background-color: #8399a7;
+    transform: scaleY(1.5);
+  }
 
-40% {
-  transform: scaleY(1);
-}
+  40% {
+    transform: scaleY(1);
+  }
 }
 
 /* 메인페이지 */
-.main-bg {
+.main {
   width: 100vw;
   height: 100vh;
   background: #F2F2F2;
@@ -53,9 +55,19 @@ animation-delay: .5s;
   position: relative;
 }
 
+.main-content {
+  width: 100%;
+  height: 90%;
+}
+
+.main-bottom {
+  width: 100%;
+  height: 10%;
+}
+
 .main-content-left {
   width: 40%;
-  height: 90%;
+  height: 100%;
   float: left;
   color: #3F7EA6;
   position: relative;
@@ -104,48 +116,53 @@ animation-delay: .5s;
 /* 메인페이지 로그인 폼 */
 .form {
   display: inline-block;
-    --width-of-input: 200px;
-    --border-height: 0.5px;
-    --border-before-color: #3F7EA6;
-    --border-after-color: #F2F2F2;
-    --input-hovered-color: #F2F2F2;
-    position: relative;
-    width: var(--width-of-input);
-}
-/* styling of Input */
-.input {
- color: #3F7EA6;
- font-size: 1rem;
- background-color: transparent;
- width: 100%;
- box-sizing: border-box;
- /* padding: 0.5em; */
- padding-block: 0.8em;
- border: none;
- border-bottom: var(--border-height) solid var(--border-before-color);
-}
-/* styling of animated border */
-.input-border {
- position: absolute;
- background: var(--border-after-color);
- width: 0%;
- height: 2px;
- bottom: 0;
- left: 0;
- transition: 0.3s;
-}
-/* Hover on Input */
-input:hover {
- background: var(--input-hovered-color);
+  --width-of-input: 200px;
+  --border-height: 0.5px;
+  --border-before-color: #3F7EA6;
+  --border-after-color: #F2F2F2;
+  --input-hovered-color: #F2F2F2;
+  position: relative;
+  width: var(--width-of-input);
 }
 
-input:focus {
- outline: none;
+/* styling of Input */
+.input {
+  color: #3F7EA6;
+  font-size: 1rem;
+  background-color: transparent;
+  width: 100%;
+  box-sizing: border-box;
+  /* padding: 0.5em; */
+  padding-block: 0.8em;
+  border: none;
+  border-bottom: var(--border-height) solid var(--border-before-color);
 }
+
+/* styling of animated border */
+.input-border {
+  position: absolute;
+  background: var(--border-after-color);
+  width: 0%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  transition: 0.3s;
+}
+
+/* Hover on Input */
+.input:hover {
+  background: var(--input-hovered-color);
+}
+
+.input:focus {
+  outline: none;
+}
+
 /* here is code of animated border */
-input:focus ~ .input-border {
- width: 100%;
+.input:focus~.input-border {
+  width: 100%;
 }
+
 /* === if you want to do animated border on typing === */
 /* remove input:focus code and uncomment below code */
 /* input:valid ~ .input-border{
@@ -153,25 +170,25 @@ input:focus ~ .input-border {
 } */
 
 ::placeholder {
-    color: #3F7EA6;
-    font-size: 12px;
+  color: #3F7EA6;
+  font-size: 12px;
 }
 
 .enter {
-    height: 50px;
-    width: 195px;
-    border-radius: 5px;
-    border: 0.5px solid #3F7EA6;
-    cursor: pointer;
-    background-color: transparent;
-    transition: 0.5s;
-    text-transform: uppercase;
-    font-size: 12px;
-    color:#3F7EA6;
-    letter-spacing: 2px;
-    display: inline-block;
+  height: 50px;
+  width: 195px;
+  border-radius: 5px;
+  border: 0.5px solid #3F7EA6;
+  cursor: pointer;
+  background-color: transparent;
+  transition: 0.5s;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: #3F7EA6;
+  letter-spacing: 2px;
+  display: inline-block;
 }
-  
+
 .enter:hover {
   background-color: #3F7EA6;
   color: #F2F2F2;
@@ -180,7 +197,7 @@ input:focus ~ .input-border {
 /* 메인페이지 오른쪽 카드 */
 .main-content-right {
   width: 60%;
-  height: 90%;
+  height: 100%;
   float: left;
   color: #F2F2F2;
   position: relative;
@@ -215,24 +232,24 @@ input:focus ~ .input-border {
   align-items: center;
   text-align: center;
   position: relative;
-  background-position : center;
-  background-size : cover;
-  background-repeat : no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .main-card div:hover {
   flex: 6;
-  background-position : center;
+  background-position: center;
   background-size: cover;
-  background-repeat : repeat;
+  background-repeat: repeat;
 }
 
 .main-card div img {
-  position: absolute; 
-  top:0; 
+  position: absolute;
+  top: 0;
   left: 0;
   width: 100%;
-  background-position:center;
+  background-position: center;
 }
 
 /* .main-card div img:hover {
@@ -258,21 +275,21 @@ input:focus ~ .input-border {
   word-wrap: break-word;
 }
 
-/* 메인페이지 아래 */
-.main-footer {
+/* Footer */
+.footer {
   width: 100%;
-  height: 10%;
+  height: 100%;
   float: left;
   color: #3F7EA6;
   position: relative;
 }
 
-.main-footer-content {
+.footer-content {
   width: 60%;
   height: 50%;
   position: absolute;
   top: 0;
-  bottom:0; 
+  bottom: 0;
   left: 0;
   right: 0;
   margin: auto;
@@ -280,17 +297,27 @@ input:focus ~ .input-border {
   text-align: center;
 }
 
-.main-footer-content p {
+.footer-content p {
   font-size: 12px;
   margin: auto;
 }
 
 /* 회원가입 모달 페이지 */
-.join-bg {
+.join {
   width: 100vw;
   height: 100vh;
   background: #F2F2F2, linear-gradient(#000000b3, #000000b3);
+}
+
+.join-content {
+  width: 100%;
+  height: 90%;
   position: relative;
+}
+
+.join-bottom {
+  width: 100%;
+  height: 10%;
 }
 
 .join-box {
@@ -299,7 +326,7 @@ input:focus ~ .input-border {
   background: #F2F2F2;
   position: absolute;
   top: 0;
-  bottom:0; 
+  bottom: 0;
   left: 0;
   right: 0;
   margin: auto;
@@ -320,72 +347,63 @@ input:focus ~ .input-border {
   font-size: 10px;
 }
 
-/* 포스트페이지 *//* 포스트페이지 *//* 포스트페이지 *//* 포스트페이지 *//* 포스트페이지 *//* 포스트페이지 *//* 포스트페이지 *//* 포스트페이지 *//* 포스트페이지 */
+/* 포스트페이지 */
 .post {
-    width: 100vw;
-    height: 100vh;
-    background: #3F7EA6;
+  width: 100vw;
+  height: 100vh;
+  background: #F2F2F2;
 }
 
-.post-search {
-    position: relative;
-    width: 100%;
-    height: 7%;
-    background: #F2F2F2;
+.post-top {
+  position: relative;
+  width: 100%;
+  height: 10%;
+  /* background: #F2F2F2; */
 }
 
-.post-search-input {
-    width: 50%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
+.post-bottom {
+  width: 100%;
+  height: 10%;
+  /* background: #F2F2F2; */
 }
 
 .post-content {
-    width: 100%;
-    height: 93%;
-    background: #3F7EA6;
+  width: 100%;
+  height: 80%;
+  /* background: #3F7EA6; */
 }
 
-.content-side {
-    width: 10%;
-    height: 100%;
-    float: left;
-    background: #F2F2F2;
-    padding: 0 0 0 20px;
+.post-content-side {
+  width: 20%;
+  height: 100%;
+  float: left;
+  /* display: block; */
+  /* background: #F2F2F2; */
+  /* padding: 0 0 0 20px; */
 }
 
-.side-btn {
-    width: 100%;
-    height: 50px;
-    background: #3F7EA6;
-    margin-bottom: 10px;
-}
 
-.content-main {
-    width: 90%;
-    height: 100%;
-    float: left;
-    background: #F2F2F2;
-    padding: 0 0 20px 0;
-    /* position: relative; */
-    border-radius: 0;
-    overflow: scroll;
+
+.post-content-main {
+  width: 80%;
+  height: 100%;
+  float: left;
+  /* background: #F2F2F2; */
+  /* padding: 0 0 20px 0; */
+  /* position: relative; */
+  /* border-radius: 0; */
+  overflow: scroll;
 }
 
 .card2 {
-    width: 600px;
-    height: 300px;
-    background: #ffff;
-    box-shadow: 0 1px 25px rgba(0,0,0,0.2);
-    /* transform: translate(-50%, -50%); */
-    margin: auto;
-    margin-bottom: 10px;
-    padding: 12px 10px;
+  width: 600px;
+  height: 300px;
+  background: #ffff;
+  box-shadow: 0 1px 25px rgba(0, 0, 0, 0.2);
+  /* transform: translate(-50%, -50%); */
+  margin: auto;
+  margin-bottom: 10px;
+  padding: 12px 10px;
 }
 
 .card_load {
@@ -393,8 +411,7 @@ input:focus ~ .input-border {
   height: 100%;
   position: relative;
   float: left;
-  background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 
-  40%, #e5e5e5 48%);
+  background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 40%, #e5e5e5 48%);
   border-radius: 50%;
   background-size: 200% 100%;
   background-position: 100% 0;
@@ -407,8 +424,7 @@ input:focus ~ .input-border {
   position: relative;
   float: right;
   border-radius: 5px;
-  background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 
-  40%, #e5e5e5 48%);
+  background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 40%, #e5e5e5 48%);
   background-size: 200% 100%;
   background-position: 100% 0;
   /* animation: load89234 2s infinite; */
@@ -420,8 +436,7 @@ input:focus ~ .input-border {
   position: relative;
   float: right;
   border-radius: 5px;
-  background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 
-  40%, #e5e5e5 48%);
+  background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 40%, #e5e5e5 48%);
   margin-top: 10px;
   background-size: 200% 100%;
   background-position: 100% 0;
@@ -432,4 +447,242 @@ input:focus ~ .input-border {
   100% {
     background-position: -100% 0;
   }
+}
+
+/* 서치바 */
+.search-form {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  display: inline-block;
+}
+
+/* styling of Input */
+.search-input {
+  color: #3F7EA6;
+  font-size: 1rem;
+  background-color: transparent;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px;
+  padding-block: 1em;
+  border: none;
+  border-bottom: 0.5px solid #3F7EA6;
+}
+
+.search-input:focus {
+  outline: none;
+}
+
+::placeholder {
+  color: #3F7EA6;
+  font-size: 12px;
+}
+
+.search-enter {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 12px;
+  color: #3F7EA6;
+  letter-spacing: 2px;
+  text-align: right;
+}
+
+/* Banner */
+.banner {
+  width: 100%;
+  height: 100%;
+}
+
+/*bg*/
+/*txt*/
+/*success*/
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  top: 20px;
+  left: 20px;
+}
+
+.buttons button {
+  width: 150px;
+  height: 50px;
+  background-color: #F2F2F2;
+  margin: 20px;
+  color: #3F7EA6;
+  position: relative;
+  overflow: hidden;
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+}
+
+.buttons button:before,
+.buttons button:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: #3F7EA6;
+  transition: all 0.3s cubic-bezier(0.35, 0.1, 0.25, 1);
+}
+
+.buttons button:before {
+  right: 0;
+  top: 0;
+  transition: all 0.5s cubic-bezier(0.35, 0.1, 0.25, 1);
+}
+
+.buttons button:after {
+  left: 0;
+  bottom: 0;
+}
+
+.buttons button span {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+}
+
+.buttons button span:before,
+.buttons button span:after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 0;
+  background-color: #3F7EA6;
+  transition: all 0.3s cubic-bezier(0.35, 0.1, 0.25, 1);
+}
+
+.buttons button span:before {
+  right: 0;
+  top: 0;
+  transition: all 0.5s cubic-bezier(0.35, 0.1, 0.25, 1);
+}
+
+.buttons button span:after {
+  left: 0;
+  bottom: 0;
+}
+
+.buttons button p {
+  padding: 0;
+  margin: 0;
+  transition: all 0.4s cubic-bezier(0.35, 0.1, 0.25, 1);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.buttons button p:before,
+.buttons button p:after {
+  position: absolute;
+  width: 100%;
+  transition: all 0.4s cubic-bezier(0.35, 0.1, 0.25, 1);
+  z-index: 1;
+  left: 0;
+}
+
+.buttons button p:before {
+  content: attr(data-title);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.buttons button p:after {
+  content: attr(data-text);
+  top: 150%;
+  color: #3F7EA6;
+}
+
+.buttons button:hover:before,
+.buttons button:hover:after {
+  width: 100%;
+}
+
+.buttons button:hover span {
+  z-index: 1;
+}
+
+.buttons button:hover span:before,
+.buttons button:hover span:after {
+  height: 100%;
+}
+
+.buttons button:hover p:before {
+  top: -50%;
+  transform: rotate(5deg);
+}
+
+.buttons button:hover p:after {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.buttons button.start {
+  background-color: #3F7EA6;
+  box-shadow: 0px 5px 10px -10px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.buttons button.start p:before {
+  top: -50%;
+  transform: rotate(5deg);
+}
+
+.buttons button.start p:after {
+  color: white;
+  transition: all 0s ease;
+  content: attr(data-start);
+  top: 50%;
+  transform: translateY(-50%);
+  animation: start 0.3s ease;
+  animation-fill-mode: forwards;
+}
+
+@keyframes start {
+  from {
+    top: -50%;
+  }
+}
+
+.buttons button.start:hover:before,
+.buttons button.start:hover:after {
+  display: none;
+}
+
+.buttons button.start:hover span {
+  display: none;
+}
+
+.buttons button:active {
+  outline: none;
+  border: none;
+}
+
+.buttons button:focus {
+  outline: 0;
 }
