@@ -1,6 +1,8 @@
 import "../App.css";
+import { useState } from "react";
 
 function Search() {
+  const [searchInput, setSearchInput] = useState("");
   return (
     <div className="search-form">
       <div className="form" style={{ width: "100%" }}>

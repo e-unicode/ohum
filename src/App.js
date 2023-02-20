@@ -6,6 +6,8 @@ import MainPage from "./Pages/MainPage";
 import PostPage from "./Pages/PostPage";
 import SearchPage from "./Pages/SearchPage";
 import JoinPage from "./Pages/JoinPage";
+import Banner from "./Components/Banner";
+import Search from "./Components/Search";
 import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -176,7 +178,40 @@ function App() {
       />
       <Route path="/join" element={<JoinPage mood={mood} />} />
       <Route path="/post" element={<PostPage mood={mood} />} />
-      <Route path="/search" element={<SearchPage albums={albums} />} />
+      <Route path="/search" element={<div className="post">
+      <div className="post-top">
+        <Search />
+      </div>
+
+      <div className="post-content">
+        <div className="post-content-side">
+          <Banner />
+        </div>
+
+        <div className="post-content-main">
+          <div className="search-result">
+            <h2 style={{ color: "#F2F2F2", marginBottom: "10px", fontWeight: "900" }}>Albums</h2>
+            <div className="post-content-result">
+              {albums.map((album, i) => {
+                return (
+                  <div className="result-box">
+                    <div className="result-box-card">
+                      <div className="result-box-card-cover">
+                        <img src={album.images[0].url} />
+                      </div>
+                      <div className="result-box-card-title">
+                        <p style={{ fontWeight: "700" }}>{album.name}</p>
+                        <p>{album.name}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>} />
     </Routes>
   );
 }
