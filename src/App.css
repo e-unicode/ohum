@@ -351,7 +351,7 @@ div {
 .post {
   width: 100vw;
   height: 100vh;
-  background: #F2F2F2;
+  background: #262626;
 }
 
 .post-top {
@@ -370,6 +370,7 @@ div {
 .post-content {
   width: 100%;
   height: 80%;
+  /* position: relative; */
   /* background: #3F7EA6; */
 }
 
@@ -382,28 +383,26 @@ div {
   /* padding: 0 0 0 20px; */
 }
 
-
-
 .post-content-main {
   width: 80%;
   height: 100%;
   float: left;
   /* background: #F2F2F2; */
   /* padding: 0 0 20px 0; */
-  /* position: relative; */
+  position: relative;
   /* border-radius: 0; */
   overflow: scroll;
+  /* display: flex; */
 }
 
-.card2 {
-  width: 600px;
-  height: 300px;
-  background: #ffff;
-  box-shadow: 0 1px 25px rgba(0, 0, 0, 0.2);
-  /* transform: translate(-50%, -50%); */
+.post-content-post-box {
+  width: 500px;
+  position: absolute;
+  /* top: 0; */
+  /* bottom: 0; */
+  right: 20%;
+  left: 0;
   margin: auto;
-  margin-bottom: 10px;
-  padding: 12px 10px;
 }
 
 .card_load {
@@ -460,11 +459,12 @@ div {
   right: 0;
   margin: auto;
   display: inline-block;
+  /* color: #F2F2F2; */
 }
 
 /* styling of Input */
 .search-input {
-  color: #3F7EA6;
+  color: #F2F2F2;
   font-size: 1rem;
   background-color: transparent;
   width: 100%;
@@ -472,7 +472,7 @@ div {
   padding: 6px;
   padding-block: 1em;
   border: none;
-  border-bottom: 0.5px solid #3F7EA6;
+  border-bottom: 0.5px solid #F2F2F2;
 }
 
 .search-input:focus {
@@ -480,7 +480,7 @@ div {
 }
 
 ::placeholder {
-  color: #3F7EA6;
+  color: #F2F2F2;
   font-size: 12px;
 }
 
@@ -493,196 +493,216 @@ div {
   cursor: pointer;
   background-color: transparent;
   font-size: 12px;
-  color: #3F7EA6;
+  color: #F2F2F2;
   letter-spacing: 2px;
   text-align: right;
 }
 
-/* Banner */
-.banner {
-  width: 100%;
-  height: 100%;
-}
-
-/*bg*/
-/*txt*/
-/*success*/
+/* 배너 컴포넌트 */
 .buttons {
-  display: flex;
-  justify-content: space-around;
-  top: 20px;
-  left: 20px;
+  width: 80%;
 }
 
 .buttons button {
-  width: 150px;
-  height: 50px;
-  background-color: #F2F2F2;
-  margin: 20px;
-  color: #3F7EA6;
-  position: relative;
-  overflow: hidden;
-  font-size: 14px;
-  letter-spacing: 1px;
-  font-weight: 500;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  border: 0;
+  margin: 0 0 20px 20px;
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  font-size: 25px;
+  background-color: #262626;
+  color: #F2F2F2;
+  border: none;
+  padding: 5px 0 7px 7px;
+  border-radius: 20px;
+}
+
+.buttons button:hover {
+  background-color: #f2f2f234;
+}
+
+.buttons span {
+  text-align: center;
+  width: 20%;
+}
+
+.buttons p {
+  margin: 0 0 0 10px;
+  font-weight: 500;
+  text-align: right;
+}
+
+/* 포스트박스 */
+.post-box {
+  width: 500px;
+  height: 550px;
+  margin-bottom: 30px;
+}
+
+.post-box-user {
+  width: 500px;
+  height: 50px;
+  background-color: #262626;
+  position: relative;
+  display: flex;
+  /* margin-top: 30px; */
+}
+
+.post-box-user img {
+  width: 40px;
+  height: 40px;
+  color: #F2F2F2;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  border-radius: 50%;
+}
+
+.post-box-like {
+  width: 40px;
+  height: 40px;
+  color: #F2F2F2;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  /* border-radius: 50%; */
+}
+
+.post-box-user-name {
+  width: 420px;
+  height: 35px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  padding-left: 10px;
+}
+
+.post-box-user-name h6 {
+  color: #F2F2F2;
+  font-size: 14px;
+  position: absolute;
+  top: 0;
+  margin: auto;
+}
+
+.post-box-user-name p {
+  color: #F2F2F2;
+  font-size: 10px;
+  position: absolute;
+  bottom: 0;
+  margin: auto;
+}
+
+.post-box-card {
+  width: 500px;
+  height: 500px;
+  background-image: linear-gradient(#00000000, #000000c2), url(../public/oh-um-logo.jpg);
+  background-position: center;
+  background-size: cover;
+  position: relative;
   border-radius: 3px;
 }
 
-.buttons button:before,
-.buttons button:after {
-  content: "";
+.post-box-card-title {
+  width: 90%;
+  font-size: 50px;
   position: absolute;
-  width: 0;
-  height: 2px;
-  background-color: #3F7EA6;
-  transition: all 0.3s cubic-bezier(0.35, 0.1, 0.25, 1);
-}
-
-.buttons button:before {
-  right: 0;
-  top: 0;
-  transition: all 0.5s cubic-bezier(0.35, 0.1, 0.25, 1);
-}
-
-.buttons button:after {
-  left: 0;
+  font-weight: 700;
   bottom: 0;
-}
-
-.buttons button span {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  margin: 0;
-  padding: 0;
-  z-index: 1;
-}
-
-.buttons button span:before,
-.buttons button span:after {
-  content: "";
-  position: absolute;
-  width: 2px;
-  height: 0;
-  background-color: #3F7EA6;
-  transition: all 0.3s cubic-bezier(0.35, 0.1, 0.25, 1);
-}
-
-.buttons button span:before {
   right: 0;
-  top: 0;
-  transition: all 0.5s cubic-bezier(0.35, 0.1, 0.25, 1);
-}
-
-.buttons button span:after {
   left: 0;
-  bottom: 0;
+  margin: 0 0 50px 50px;
+  color: #F2F2F2;
 }
 
-.buttons button p {
-  padding: 0;
+.post-box-card-title p {
   margin: 0;
-  transition: all 0.4s cubic-bezier(0.35, 0.1, 0.25, 1);
-  position: absolute;
-  width: 100%;
-  height: 100%;
 }
 
-.buttons button p:before,
-.buttons button p:after {
-  position: absolute;
-  width: 100%;
-  transition: all 0.4s cubic-bezier(0.35, 0.1, 0.25, 1);
-  z-index: 1;
-  left: 0;
+/* 체크박스 */
+.checkbox label {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 15px 10px 10px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 10px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  color: black;
 }
 
-.buttons button p:before {
-  content: attr(data-title);
-  top: 50%;
-  transform: translateY(-50%);
+.checkbox input {
+  display: none;
 }
 
-.buttons button p:after {
-  content: attr(data-text);
-  top: 150%;
-  color: #3F7EA6;
+.checkbox input:checked+label svg {
+  fill: hsl(0deg 100% 50%);
+  stroke: hsl(0deg 100% 50%);
+  animation: heartButton 1s;
 }
 
-.buttons button:hover:before,
-.buttons button:hover:after {
-  width: 100%;
-}
+@keyframes heartButton {
+  0% {
+    transform: scale(1);
+  }
 
-.buttons button:hover span {
-  z-index: 1;
-}
+  25% {
+    transform: scale(1.3);
+  }
 
-.buttons button:hover span:before,
-.buttons button:hover span:after {
-  height: 100%;
-}
+  50% {
+    transform: scale(1);
+  }
 
-.buttons button:hover p:before {
-  top: -50%;
-  transform: rotate(5deg);
-}
+  75% {
+    transform: scale(1.3);
+  }
 
-.buttons button:hover p:after {
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.buttons button.start {
-  background-color: #3F7EA6;
-  box-shadow: 0px 5px 10px -10px rgba(0, 0, 0, 0.2);
-  transition: all 0.2s ease;
-}
-
-.buttons button.start p:before {
-  top: -50%;
-  transform: rotate(5deg);
-}
-
-.buttons button.start p:after {
-  color: white;
-  transition: all 0s ease;
-  content: attr(data-start);
-  top: 50%;
-  transform: translateY(-50%);
-  animation: start 0.3s ease;
-  animation-fill-mode: forwards;
-}
-
-@keyframes start {
-  from {
-    top: -50%;
+  100% {
+    transform: scale(1);
   }
 }
 
-.buttons button.start:hover:before,
-.buttons button.start:hover:after {
-  display: none;
+.checkbox input+.label .action {
+  position: relative;
+  overflow: hidden;
+  display: grid;
 }
 
-.buttons button.start:hover span {
-  display: none;
+.checkbox input+label .action {
+  grid-column-start: 1;
+  grid-column-end: 1;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  transition: all .5s;
 }
 
-.buttons button:active {
-  outline: none;
-  border: none;
+.checkbox input+label .action .option-1 {
+  transform: translate(0px, 0%);
+  opacity: 1;
 }
 
-.buttons button:focus {
-  outline: 0;
+.checkbox input:checked+label .action .option-1 {
+  transform: translate(0px, -100%);
+  opacity: 0;
 }
+
+.checkbox input+label .action .option-2 {
+  transform: translate(0px, 100%);
+  opacity: 0;
+}
+
+.checkbox input:checked+label .action .option-2 {
+  transform: translate(0px, 0%);
+  opacity: 1;
+}
+
+/* 컬러바꾸기클래스 */
