@@ -170,7 +170,7 @@ div {
 } */
 
 ::placeholder {
-  color: #3F7EA6;
+  color: #F2F2F2;
   font-size: 12px;
 }
 
@@ -361,15 +361,10 @@ div {
   /* background: #F2F2F2; */
 }
 
-.post-bottom {
-  width: 100%;
-  height: 10%;
-  /* background: #F2F2F2; */
-}
-
 .post-content {
   width: 100%;
-  height: 80%;
+  height: 90%;
+  padding-bottom: 10px;
   /* position: relative; */
   /* background: #3F7EA6; */
 }
@@ -479,8 +474,8 @@ div {
   outline: none;
 }
 
-::placeholder {
-  color: #F2F2F2;
+.join-box-content ::placeholder {
+  color: #3F7EA6;
   font-size: 12px;
 }
 
@@ -508,7 +503,7 @@ div {
   width: 100%;
   display: flex;
   align-items: center;
-  font-size: 25px;
+  font-size: 20px;
   background-color: #262626;
   color: #F2F2F2;
   border: none;
@@ -606,18 +601,18 @@ div {
   background-position: center;
   background-size: cover;
   position: relative;
-  border-radius: 3px;
+  border-radius: 2px;
 }
 
 .post-box-card-title {
   width: 90%;
   font-size: 50px;
   position: absolute;
-  font-weight: 700;
+  font-weight: 500;
   bottom: 0;
   right: 0;
   left: 0;
-  margin: 0 0 50px 50px;
+  margin: 0 30px 40px 40px;
   color: #F2F2F2;
 }
 
@@ -625,84 +620,3 @@ div {
   margin: 0;
 }
 
-/* 체크박스 */
-.checkbox label {
-  background-color: white;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 10px 15px 10px 10px;
-  cursor: pointer;
-  user-select: none;
-  border-radius: 10px;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  color: black;
-}
-
-.checkbox input {
-  display: none;
-}
-
-.checkbox input:checked+label svg {
-  fill: hsl(0deg 100% 50%);
-  stroke: hsl(0deg 100% 50%);
-  animation: heartButton 1s;
-}
-
-@keyframes heartButton {
-  0% {
-    transform: scale(1);
-  }
-
-  25% {
-    transform: scale(1.3);
-  }
-
-  50% {
-    transform: scale(1);
-  }
-
-  75% {
-    transform: scale(1.3);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
-
-.checkbox input+.label .action {
-  position: relative;
-  overflow: hidden;
-  display: grid;
-}
-
-.checkbox input+label .action {
-  grid-column-start: 1;
-  grid-column-end: 1;
-  grid-row-start: 1;
-  grid-row-end: 1;
-  transition: all .5s;
-}
-
-.checkbox input+label .action .option-1 {
-  transform: translate(0px, 0%);
-  opacity: 1;
-}
-
-.checkbox input:checked+label .action .option-1 {
-  transform: translate(0px, -100%);
-  opacity: 0;
-}
-
-.checkbox input+label .action .option-2 {
-  transform: translate(0px, 100%);
-  opacity: 0;
-}
-
-.checkbox input:checked+label .action .option-2 {
-  transform: translate(0px, 0%);
-  opacity: 1;
-}
-
-/* 컬러바꾸기클래스 */
