@@ -1,4 +1,8 @@
 /* 기본세팅 */
+html {
+  line-height : 1.15; /*기본 행간 높이*/
+}
+
 body,
 div,
 p {
@@ -170,7 +174,7 @@ div {
 } */
 
 ::placeholder {
-  color: #F2F2F2;
+  color: #3F7EA6;
   font-size: 12px;
 }
 
@@ -465,8 +469,8 @@ div {
   outline: none;
 }
 
-.join-box-content ::placeholder {
-  color: #3F7EA6;
+.search-form ::placeholder {
+  color: #F2F2F2;
   font-size: 12px;
 }
 
@@ -611,33 +615,34 @@ div {
   margin: 0;
 }
 
-.post-content-result {
-  width: 100%;
-  height: 50%;
-  display: flex;
-  margin-bottom: 20px;
+/* 검색결과박스 */
+.search-result {
+  /* width: 330px; */
+  height: 100%;
   overflow: scroll;
+  /* margin-right: 10px; */
 }
 
-
-/* 검색결과박스 */
 .result-box {
-  /* width: 100%; */
+  width: 100%;
   height: 100%;
-  margin-right: 10px;
-  padding: 15px;
+  margin-bottom: 10px;
+  padding: 20px;
   background-color: #383838;
   border-radius: 5px;
+  cursor: pointer;
+  /* overflow: scroll; */
+
 }
 
 .result-box-card {
-  width: 300px;
+  width: 100%;
   /* height: 400px; */
 }
 
 .result-box-card-cover {
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  height: 100%;
   background-position: center;
   background-size: cover;
   border-radius: 2px;

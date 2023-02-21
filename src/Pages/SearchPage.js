@@ -21,7 +21,7 @@ function SearchPage(props) {
         <div className="post-content-main">
           <div className="search-result">
             <h2 style={{ color: "#F2F2F2", marginBottom: "10px", fontWeight: "900" }}>Albums</h2>
-            <div className="post-content-result">
+            <div>
               {props.albums.map((album, i) => {
                 return (
                   <div className="result-box">

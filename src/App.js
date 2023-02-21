@@ -8,7 +8,7 @@ import SearchPage from "./Pages/SearchPage";
 import JoinPage from "./Pages/JoinPage";
 import Banner from "./Components/Banner";
 import Search from "./Components/Search";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const client_id = process.env.REACT_APP_CLIENT_ID;
@@ -19,6 +19,8 @@ const openai_api_key = process.env.REACT_APP_OPENAI_API_KEY;
 function App() {
   const [accessToken, setAccessToken] = useState("");
   const [albums, setAlbums] = useState([]);
+  const [topTracks, setTopTracks] = useState([]);
+  const [artistPlaylists, setArtistPlaylists] = useState([]);
   const [playlists, setPlaylists] = useState([]);
   const [tracks, setTracks] = useState([]);
   const [artists, setArtists] = useState([]);
@@ -31,6 +33,7 @@ function App() {
   const [artistTag, setArtistTag] = useState(false);
   const [playlistTag, setPlaylistTag] = useState(false);
   const [randomNum, setRandomNum] = useState(0);
+  const [searchInput, setSearchInput] = useState("");
 
   useEffect(() => {
     //API access token
@@ -115,18 +118,29 @@ function App() {
       },
     };
 
-    let searchInput = "bts";
-
-    var artistID = await fetch("https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist", searchParameters)
+    let artistID = await fetch("https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist", searchParameters)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.artists.items[0].id);
         return data.artists.items[0].id;
       });
 
     await fetch("https://api.spotify.com/v1/artists/" + artistID + "/albums?include_groups=album&market=KR&limit=50", searchParameters)
       .then((response) => response.json())
-      .then((data) => setAlbums(data.items));
+      .then((data) => {
+        setAlbums(data.items);
+      });
+
+    await fetch("https://api.spotify.com/v1/artists/" + artistID + "/top-tracks?market=KR", searchParameters)
+      .then((response) => response.json())
+      .then((data) => {
+        setTopTracks(data.tracks);
+      });
+
+    await fetch("https://api.spotify.com/v1/search?q=" + artistID + "&type=playlist", searchParameters)
+      .then((response) => response.json())
+      .then((data) => {
+        setArtistPlaylists(data.playlists.items);
+      });
 
     await fetch("https://api.spotify.com/v1/search?q=" + mood + "&type=playlist", searchParameters)
       .then((response) => response.json())
@@ -150,7 +164,7 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         setArtists(data.artists.items);
-        console.log(data.artists.items);
+        // console.log(data.artists.items);
       })
       .then(() => {
         setArtistTag(true);
@@ -178,40 +192,105 @@ function App() {
       />
       <Route path="/join" element={<JoinPage mood={mood} />} />
       <Route path="/post" element={<PostPage mood={mood} />} />
-      <Route path="/search" element={<div className="post">
-      <div className="post-top">
-        <Search />
-      </div>
+      <Route
+        path="/search"
+        element={
+          <div className="post">
+            <div className="post-top">
+              <div className="search-form">
+                <div className="form" style={{ width: "100%" }}>
+                  <input
+                    className="search-input"
+                    type="input"
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter") {
+                        searchSpotify();
+                      }
+                    }}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                    placeholder="노래 제목, 가수 이름, 관련 키워드를 입력하세요."
+                    required=""
+                  />
+                  <button onClick={searchSpotify} className="search-enter">
+                    찾기
+                  </button>
+                </div>
+              </div>
+            </div>
 
-      <div className="post-content">
-        <div className="post-content-side">
-          <Banner />
-        </div>
+            <div className="post-content">
+              <div className="post-content-side">
+                <Banner />
+              </div>
 
-        <div className="post-content-main">
-          <div className="search-result">
-            <h2 style={{ color: "#F2F2F2", marginBottom: "10px", fontWeight: "900" }}>Albums</h2>
-            <div className="post-content-result">
-              {albums.map((album, i) => {
-                return (
-                  <div className="result-box">
-                    <div className="result-box-card">
-                      <div className="result-box-card-cover">
-                        <img src={album.images[0].url} />
-                      </div>
-                      <div className="result-box-card-title">
-                        <p style={{ fontWeight: "700" }}>{album.name}</p>
-                        <p>{album.name}</p>
-                      </div>
-                    </div>
+              <div className="post-content-main row">
+                <div className="search-result col">
+                  <h2 style={{ color: "#F2F2F2", marginBottom: "10px", fontWeight: "900" }}>TopTracks</h2>
+                  <div className="post-content-result">
+                    {topTracks.map((topTrack, i) => {
+                      return (
+                        <div className="result-box" onClick={() => window.open(`${topTrack.external_urls.spotify}`, "_blank")}>
+                          <div className="result-box-card">
+                            <div className="result-box-card-cover">
+                              <img src={topTrack.album.images[0].url} />
+                            </div>
+                            <div className="result-box-card-title">
+                              <p style={{ fontWeight: "700" }}>{topTrack.name}</p>
+                              <p style={{ fontSize: "15px" }}>{topTrack.artists[0].name}</p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
-                );
-              })}
+                </div>
+
+                <div className="search-result col">
+                  <h2 style={{ color: "#F2F2F2", marginBottom: "10px", fontWeight: "900" }}>Albums</h2>
+                  <div className="post-content-result">
+                    {albums.map((album, i) => {
+                      return (
+                        <div className="result-box" onClick={() => window.open(`${album.external_urls.spotify}`, "_blank")}>
+                          <div className="result-box-card">
+                            <div className="result-box-card-cover">
+                              <img src={album.images[0].url} />
+                            </div>
+                            <div className="result-box-card-title">
+                              <p style={{ fontWeight: "700" }}>{album.name}</p>
+                              <p style={{ fontSize: "15px" }}>{album.artists[0].name}</p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="search-result col">
+                  <h2 style={{ color: "#F2F2F2", marginBottom: "10px", fontWeight: "900" }}>Playlists</h2>
+                  <div className="post-content-result">
+                    {artistPlaylists.map((artistPlaylist, i) => {
+                      return (
+                        <div className="result-box" onClick={() => window.open(`${artistPlaylist.external_urls.spotify}`, "_blank")}>
+                          <div className="result-box-card">
+                            <div className="result-box-card-cover">
+                              <img src={artistPlaylist.images[0].url} />
+                            </div>
+                            <div className="result-box-card-title">
+                              <p style={{ fontWeight: "700" }}>{artistPlaylist.name}</p>
+                              <p style={{ fontSize: "15px" }}>{artistPlaylist.owner.display_name}</p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>} />
+        }
+      />
     </Routes>
   );
 }
