@@ -5,7 +5,6 @@ import { Configuration, OpenAIApi } from "openai";
 import MainPage from "./Pages/MainPage";
 import JoinPage from "./Pages/JoinPage";
 import Banner from "./Components/Banner";
-import Search from "./Components/Search";
 import PostBox from "./Components/PostBox";
 import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
