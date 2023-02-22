@@ -3,11 +3,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import { Configuration, OpenAIApi } from "openai";
 import MainPage from "./Pages/MainPage";
-import PostPage from "./Pages/PostPage";
-import SearchPage from "./Pages/SearchPage";
 import JoinPage from "./Pages/JoinPage";
 import Banner from "./Components/Banner";
 import Search from "./Components/Search";
+import PostBox from "./Components/PostBox";
 import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -22,16 +21,16 @@ function App() {
   const [topTracks, setTopTracks] = useState([]);
   const [artistPlaylists, setArtistPlaylists] = useState([]);
   const [playlists, setPlaylists] = useState([]);
+  const [playlistTag, setPlaylistTag] = useState(false);
   const [tracks, setTracks] = useState([]);
+  const [trackTag, setTrackTag] = useState(false);
   const [artists, setArtists] = useState([]);
+  const [artistTag, setArtistTag] = useState(false);
   const [temperature, setTemperature] = useState("");
   const [humidity, setHumidity] = useState("");
   const [weather, setWeather] = useState("");
   const [mood, setMood] = useState("");
   const [moodTag, setMoodTag] = useState(false);
-  const [trackTag, setTrackTag] = useState(false);
-  const [artistTag, setArtistTag] = useState(false);
-  const [playlistTag, setPlaylistTag] = useState(false);
   const [randomNum, setRandomNum] = useState(0);
   const [searchInput, setSearchInput] = useState("");
 
@@ -101,7 +100,7 @@ function App() {
   //mood가 바뀔때마다 노래 다시 추천
   useEffect(() => {
     if (mood) {
-      searchSpotify();
+      recommendSpotify();
       console.log(randomNum);
     }
   }, [mood]);
@@ -141,11 +140,24 @@ function App() {
       .then((data) => {
         setArtistPlaylists(data.playlists.items);
       });
+  }
+
+  async function recommendSpotify() {
+    console.log("Search for " + mood);
+
+    var searchParameters = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + accessToken,
+      },
+    };
 
     await fetch("https://api.spotify.com/v1/search?q=" + mood + "&type=playlist", searchParameters)
       .then((response) => response.json())
       .then((data) => {
         setPlaylists(data.playlists.items);
+        console.log(data.playlists.items);
       })
       .then(() => {
         setPlaylistTag(true);
@@ -164,7 +176,6 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         setArtists(data.artists.items);
-        // console.log(data.artists.items);
       })
       .then(() => {
         setArtistTag(true);
@@ -190,12 +201,60 @@ function App() {
           />
         }
       />
+
       <Route path="/join" element={<JoinPage mood={mood} />} />
-      <Route path="/post" element={<PostPage mood={mood} />} />
       <Route
-        path="/search"
+        path="/post"
         element={
-          <div className="post">
+          <>
+            <div className="post-top">
+              <div className="search-form">
+                <div className="form" style={{ width: "100%" }}>
+                  
+                    <input
+                      className="search-input"
+                      type="input"
+                      onKeyPress={(e) => {
+                        if (e.key === "Enter") {
+                          searchSpotify();
+                          document.querySelector(".search-enter").click();
+                        }
+                      }}
+                      onChange={(e) => setSearchInput(e.target.value)}
+                      placeholder="노래 제목, 가수 이름, 관련 키워드를 입력하세요."
+                      required=""
+                    />
+                
+                  <Link to="/search">
+                    <button onClick={searchSpotify} className="search-enter">
+                      찾기
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className="post-content">
+              <div className="post-content-side">
+                <Banner />
+              </div>
+
+              <div className="post-content-main">
+                <div className="post-content-post-box">
+                  <PostBox />
+                  <PostBox />
+                  <PostBox />
+                  <PostBox />
+                  <PostBox />
+                </div>
+              </div>
+            </div>
+          </>
+        }
+      />
+      <Route
+        path="/search/:id"
+        element={
+          <>
             <div className="post-top">
               <div className="search-form">
                 <div className="form" style={{ width: "100%" }}>
@@ -217,7 +276,6 @@ function App() {
                 </div>
               </div>
             </div>
-
             <div className="post-content">
               <div className="post-content-side">
                 <Banner />
@@ -288,7 +346,7 @@ function App() {
                 </div>
               </div>
             </div>
-          </div>
+          </>
         }
       />
     </Routes>
