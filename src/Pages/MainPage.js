@@ -12,6 +12,12 @@ function MainPage(props) {
   const [playlistCardTag, setPlaylistCardTag] = useState(false);
   const [trackCardTag, setTrackCardTag] = useState(false);
   const [artistCardTag, setArtistCardTag] = useState(false);
+  const [playlists, setPlaylists] = useState([]);
+  const [playlistTag, setPlaylistTag] = useState(false);
+  const [tracks, setTracks] = useState([]);
+  const [trackTag, setTrackTag] = useState(false);
+  const [artists, setArtists] = useState([]);
+  const [artistTag, setArtistTag] = useState(false);
 
   useEffect(() => {
     (function printNow() {
@@ -41,6 +47,52 @@ function MainPage(props) {
       setNowTag(true);
     })();
   }, [now]);
+
+  //mood가 바뀔때마다 노래 다시 추천
+  useEffect(() => {
+    if (props.mood) {
+      recommendSpotify();
+    }
+  }, [props.mood]);
+
+  async function recommendSpotify() {
+    console.log("Search for " + props.mood);
+
+    var searchParameters = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + props.accessToken,
+      },
+    };
+
+    await fetch("https://api.spotify.com/v1/search?q=" + props.mood + "&type=playlist", searchParameters)
+      .then((response) => response.json())
+      .then((data) => {
+        setPlaylists(data.playlists.items);
+      })
+      .then(() => {
+        setPlaylistTag(true);
+      });
+
+    await fetch("https://api.spotify.com/v1/search?q=" + props.mood + "&type=track", searchParameters)
+      .then((response) => response.json())
+      .then((data) => {
+        setTracks(data.tracks.items);
+      })
+      .then(() => {
+        setTrackTag(true);
+      });
+
+    await fetch("https://api.spotify.com/v1/search?q=" + props.mood + "&type=artist", searchParameters)
+      .then((response) => response.json())
+      .then((data) => {
+        setArtists(data.artists.items);
+      })
+      .then(() => {
+        setArtistTag(true);
+      });
+  }
 
   return (
     <div className="main">
@@ -80,7 +132,7 @@ function MainPage(props) {
             </div>
             <div className="main-content-right">
               <div className="main-card">
-                {props.playlistTag ? (
+                {playlistTag ? (
                   <div
                     onMouseOver={() => {
                       setPlaylistCardTag(true);
@@ -88,15 +140,15 @@ function MainPage(props) {
                     onMouseOut={() => {
                       setPlaylistCardTag(false);
                     }}
-                    onClick={() => window.open(`${props.playlists[0].external_urls.spotify}`, "_blank")}
+                    onClick={() => window.open(`${playlists[0].external_urls.spotify}`, "_blank")}
                     style={{
-                      backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${props.playlists[0].images[0].url})`,
+                      backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${playlists[0].images[0].url})`,
                     }}
                   >
                     {playlistCardTag ? (
                       <p style={{ textAlign: "left" }}>
-                        {props.playlists[0].name}
-                        <span style={{ fontSize: "17px", display: "block" }}>displayed by {props.playlists[0].owner.display_name}</span>
+                        {playlists[0].name}
+                        <span style={{ fontSize: "17px", display: "block" }}>displayed by {playlists[0].owner.display_name}</span>
                       </p>
                     ) : (
                       <p>이 플레이리스트 어때요?</p>
@@ -105,7 +157,7 @@ function MainPage(props) {
                 ) : (
                   <Loading />
                 )}
-                {props.trackTag ? (
+                {trackTag ? (
                   <div
                     onMouseOver={() => {
                       setTrackCardTag(true);
@@ -113,15 +165,15 @@ function MainPage(props) {
                     onMouseOut={() => {
                       setTrackCardTag(false);
                     }}
-                    onClick={() => window.open(`${props.tracks[0].external_urls.spotify}`, "_blank")}
+                    onClick={() => window.open(`${tracks[0].external_urls.spotify}`, "_blank")}
                     style={{
-                      backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${props.tracks[0].album.images[0].url})`,
+                      backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${tracks[0].album.images[0].url})`,
                     }}
                   >
                     {trackCardTag ? (
                       <p style={{ textAlign: "left" }}>
-                        {props.tracks[0].name}
-                        <span style={{ fontSize: "17px", display: "block" }}>song by {props.tracks[0].artists[0].name}</span>
+                        {tracks[0].name}
+                        <span style={{ fontSize: "17px", display: "block" }}>song by {tracks[0].artists[0].name}</span>
                       </p>
                     ) : (
                       <p>이 노래 어때요?</p>
@@ -131,7 +183,7 @@ function MainPage(props) {
                   <Loading />
                 )}
 
-                {props.artistTag ? (
+                {artistTag ? (
                   <div
                     onMouseOver={() => {
                       setArtistCardTag(true);
@@ -139,12 +191,12 @@ function MainPage(props) {
                     onMouseOut={() => {
                       setArtistCardTag(false);
                     }}
-                    onClick={() => window.open(`${props.artists[0].external_urls.spotify}`, "_blank")}
-                    style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${props.artists[0].images[0].url})` }}
+                    onClick={() => window.open(`${artists[0].external_urls.spotify}`, "_blank")}
+                    style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${artists[0].images[0].url})` }}
                   >
                     {artistCardTag ? (
                       <p style={{ textAlign: "left" }}>
-                        {props.artists[0].name}
+                        {artists[0].name}
                         <span style={{ fontSize: "17px", display: "block" }}>더보기</span>
                       </p>
                     ) : (

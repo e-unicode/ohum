@@ -1,13 +1,11 @@
 import "../App.css";
-import Search from "../Components/Search";
 import Banner from "../Components/Banner";
 import PostBox from "../Components/PostBox";
 
 function PostPage(props) {
   return (
-    <div className="post">
+    <>
       <div className="post-top">
-        <Search />
       </div>
       <div className="post-content">
         <div className="post-content-side">
@@ -23,7 +21,7 @@ function PostPage(props) {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

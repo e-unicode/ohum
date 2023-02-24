@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function Banner() {
   return (
     <div className="buttons">
-      <Link to="/post" style={{ textDecoration: "none" }}>
+      <Link to="/" style={{ textDecoration: "none" }}>
         <button>
           <span>
             <FontAwesomeIcon icon={faHashtag} />
@@ -14,7 +14,7 @@ function Banner() {
           <p>오늘</p>
         </button>
       </Link>
-      <Link to="/post" style={{ textDecoration: "none" }}>
+      <Link to="/" style={{ textDecoration: "none" }}>
         <button>
           <span>
             <FontAwesomeIcon icon={faMusic} />
@@ -22,7 +22,7 @@ function Banner() {
           <p>음악</p>
         </button>
       </Link>
-      <Link to="/post" style={{ textDecoration: "none" }}>
+      <Link to="/search" style={{ textDecoration: "none" }}>
         <button>
           <span>
             <FontAwesomeIcon icon={faCloud} />
