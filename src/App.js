@@ -6,7 +6,7 @@ import MainPage from "./Pages/MainPage";
 import JoinPage from "./Pages/JoinPage";
 import Banner from "./Components/Banner";
 import PostBox from "./Components/PostBox";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useParams, useSearchParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const client_id = process.env.REACT_APP_CLIENT_ID;
@@ -32,6 +32,7 @@ function App() {
   const [moodTag, setMoodTag] = useState(false);
   const [randomNum, setRandomNum] = useState(0);
   const [searchInput, setSearchInput] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     //API access token
@@ -94,6 +95,7 @@ function App() {
     navigator.geolocation.getCurrentPosition(getWeatherAndMood, () => {
       console.log("Can't find you.");
     });
+
   }, []);
 
   //mood가 바뀔때마다 노래 다시 추천
@@ -106,19 +108,18 @@ function App() {
 
   //노래찾는 함수
   async function searchSpotify() {
-    console.log("Search for " + mood);
-
     var searchParameters = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + accessToken,
+        "Authorization": "Bearer " + accessToken,
       },
     };
 
-    let artistID = await fetch("https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist", searchParameters)
+    let artistID = await fetch(`https://api.spotify.com/v1/search?q=${searchInput}&type=artist`, searchParameters)
       .then((response) => response.json())
       .then((data) => {
+        setSearchParams({ q: searchInput });
         return data.artists.items[0].id;
       });
 
@@ -139,6 +140,8 @@ function App() {
       .then((data) => {
         setArtistPlaylists(data.playlists.items);
       });
+
+    document.querySelector(".search-enter").click();
   }
 
   async function recommendSpotify() {
@@ -180,6 +183,9 @@ function App() {
         setArtistTag(true);
       });
   }
+
+  
+
   return (
     <Routes>
       <Route
@@ -209,23 +215,26 @@ function App() {
             <div className="post-top">
               <div className="search-form">
                 <div className="form" style={{ width: "100%" }}>
-                  
-                    <input
-                      className="search-input"
-                      type="input"
-                      onKeyPress={(e) => {
-                        if (e.key === "Enter") {
-                          searchSpotify();
-                          document.querySelector(".search-enter").click();
-                        }
-                      }}
-                      onChange={(e) => setSearchInput(e.target.value)}
-                      placeholder="노래 제목, 가수 이름, 관련 키워드를 입력하세요."
-                      required=""
-                    />
-                
+                <input
+                    className="search-input"
+                    type="input"
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter") {
+                        searchSpotify();
+                        document.querySelector(".search-enter").click();
+                      }
+                    }}
+                    onChange={(e) => {
+                      setSearchInput(e.target.value);
+                    }}
+                    placeholder="노래 제목, 가수 이름, 관련 키워드를 입력하세요."
+                    required=""
+                  />
+
                   <Link to="/search">
-                    <button onClick={searchSpotify} className="search-enter">
+                    <button onClick={
+                      searchSpotify
+                      } className="search-enter">
                       찾기
                     </button>
                   </Link>
@@ -251,7 +260,7 @@ function App() {
         }
       />
       <Route
-        path="/search/:id"
+        path="/search"
         element={
           <>
             <div className="post-top">
@@ -265,7 +274,9 @@ function App() {
                         searchSpotify();
                       }
                     }}
-                    onChange={(e) => setSearchInput(e.target.value)}
+                    onChange={(e) => {
+                      setSearchInput(e.target.value);
+                    }}
                     placeholder="노래 제목, 가수 이름, 관련 키워드를 입력하세요."
                     required=""
                   />
