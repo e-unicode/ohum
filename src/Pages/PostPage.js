@@ -2,7 +2,7 @@ import "../App.css";
 import Banner from "../Components/Banner";
 import PostBox from "../Components/PostBox";
 
-function PostPage(props) {
+function PostPage() {
   return (
     <>
       <div className="post-top">

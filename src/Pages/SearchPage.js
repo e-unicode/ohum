@@ -1,8 +1,8 @@
 import "../App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
-import Banner from "../Components/Banner";
 import { useSearchParams } from "react-router-dom";
+import Banner from "../Components/Banner";
 
 function SearchPage(props) {
   const [albums, setAlbums] = useState([]);
@@ -16,7 +16,7 @@ function SearchPage(props) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + props.accessToken,
+        "Authorization": "Bearer " + props.accessToken,
       },
     };
 

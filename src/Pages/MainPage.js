@@ -18,6 +18,7 @@ function MainPage(props) {
   const [trackTag, setTrackTag] = useState(false);
   const [artists, setArtists] = useState([]);
   const [artistTag, setArtistTag] = useState(false);
+  const [randomNum, setRandomNum] = useState(0);
 
   useEffect(() => {
     (function printNow() {
@@ -47,6 +48,11 @@ function MainPage(props) {
       setNowTag(true);
     })();
   }, [now]);
+
+  useEffect(() => {
+    //결과중 몇번째를 가져올지 정하는 랜덤 숫자
+    setRandomNum(Math.floor(Math.random() * 20));
+  }, []);
 
   //mood가 바뀔때마다 노래 다시 추천
   useEffect(() => {

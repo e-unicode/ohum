@@ -1,9 +1,12 @@
 import "../App.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHashtag, faMusic, faCloud, faRightFromBracket, faNoteSticky } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Banner() {
+
+  let navigate = useNavigate();
+
   return (
     <div className="buttons">
       <Link to="/" style={{ textDecoration: "none" }}>
@@ -30,7 +33,7 @@ function Banner() {
           <p>맑음</p>
         </button>
       </Link>
-      <Link to="/post" style={{ textDecoration: "none" }}>
+      <Link to="/post" style={{ textDecoration: "none" }} onClick={() => { navigate('/post') }}>
         <button>
           <span>
             <FontAwesomeIcon icon={faNoteSticky} />

@@ -20,7 +20,6 @@ function App() {
   const [weather, setWeather] = useState("");
   const [mood, setMood] = useState("");
   const [moodTag, setMoodTag] = useState(false);
-  const [randomNum, setRandomNum] = useState(0);
 
   useEffect(() => {
     //API access token
@@ -35,9 +34,6 @@ function App() {
     fetch("https://accounts.spotify.com/api/token", authParameters)
       .then((result) => result.json())
       .then((data) => setAccessToken(data.access_token));
-
-    //결과중 몇번째를 가져올지 정하는 랜덤 숫자
-    setRandomNum(Math.floor(Math.random() * 20));
 
     //위치&날씨 가져온 후 ai로 mood가져오기
     function getWeatherAndMood(position) {
@@ -87,7 +83,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<MainPage mood={mood} moodTag={moodTag} randomNum={randomNum} accessToken={accessToken} />} />
+      <Route path="/" element={<MainPage mood={mood} moodTag={moodTag} accessToken={accessToken} />} />
       <Route path="/join" element={<JoinPage mood={mood} />} />
       <Route path="/post" element={<PostPage />} />
       <Route path="/search" element={<SearchPage accessToken={accessToken} />} />
