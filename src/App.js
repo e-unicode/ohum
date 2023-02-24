@@ -95,7 +95,6 @@ function App() {
     navigator.geolocation.getCurrentPosition(getWeatherAndMood, () => {
       console.log("Can't find you.");
     });
-
   }, []);
 
   //mood가 바뀔때마다 노래 다시 추천
@@ -112,7 +111,7 @@ function App() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + accessToken,
+        Authorization: "Bearer " + accessToken,
       },
     };
 
@@ -184,8 +183,6 @@ function App() {
       });
   }
 
-  
-
   return (
     <Routes>
       <Route
@@ -213,33 +210,33 @@ function App() {
         element={
           <>
             <div className="post-top">
-              <div className="search-form">
-                <div className="form" style={{ width: "100%" }}>
-                <input
-                    className="search-input"
-                    type="input"
-                    onKeyPress={(e) => {
-                      if (e.key === "Enter") {
-                        searchSpotify();
-                        document.querySelector(".search-enter").click();
-                      }
-                    }}
-                    onChange={(e) => {
-                      setSearchInput(e.target.value);
-                    }}
-                    placeholder="노래 제목, 가수 이름, 관련 키워드를 입력하세요."
-                    required=""
-                  />
+              <form action="/post" method="POST">
+                <div className="search-form">
+                  <div className="form" style={{ width: "100%" }}>
+                    <input
+                      className="search-input"
+                      type="input"
+                      onKeyPress={(e) => {
+                        if (e.key === "Enter") {
+                          searchSpotify();
+                          document.querySelector(".search-enter").click();
+                        }
+                      }}
+                      onChange={(e) => {
+                        setSearchInput(e.target.value);
+                      }}
+                      placeholder="노래 제목, 가수 이름, 관련 키워드를 입력하세요."
+                      name="search"
+                    />
 
-                  <Link to="/search">
-                    <button onClick={
-                      searchSpotify
-                      } className="search-enter">
-                      찾기
-                    </button>
-                  </Link>
+                    <Link to="/search">
+                      <button onClick={searchSpotify} className="search-enter">
+                        찾기
+                      </button>
+                    </Link>
+                  </div>
                 </div>
-              </div>
+              </form>
             </div>
             <div className="post-content">
               <div className="post-content-side">
@@ -264,27 +261,29 @@ function App() {
         element={
           <>
             <div className="post-top">
-              <div className="search-form">
-                <div className="form" style={{ width: "100%" }}>
-                  <input
-                    className="search-input"
-                    type="input"
-                    onKeyPress={(e) => {
-                      if (e.key === "Enter") {
-                        searchSpotify();
-                      }
-                    }}
-                    onChange={(e) => {
-                      setSearchInput(e.target.value);
-                    }}
-                    placeholder="노래 제목, 가수 이름, 관련 키워드를 입력하세요."
-                    required=""
-                  />
-                  <button onClick={searchSpotify} className="search-enter">
-                    찾기
-                  </button>
+              <form action="/post" method="POST">
+                <div className="search-form">
+                  <div className="form" style={{ width: "100%" }}>
+                    <input
+                      className="search-input"
+                      type="input"
+                      onKeyPress={(e) => {
+                        if (e.key === "Enter") {
+                          searchSpotify();
+                        }
+                      }}
+                      onChange={(e) => {
+                        setSearchInput(e.target.value);
+                      }}
+                      placeholder="노래 제목, 가수 이름, 관련 키워드를 입력하세요."
+                      name="search"
+                    />
+                    <button onClick={searchSpotify} className="search-enter">
+                      찾기
+                    </button>
+                  </div>
                 </div>
-              </div>
+              </form>
             </div>
             <div className="post-content">
               <div className="post-content-side">
