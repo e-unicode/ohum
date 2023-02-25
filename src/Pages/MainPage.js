@@ -127,7 +127,7 @@ function MainPage(props) {
                         <button className="enter">로그인</button>
                       </Link>
                       <Link to="/join">
-                        <button className="enter" style={{ marginLeft: "10px" }}>
+                        <button className="enter enter-ml">
                           가입하기
                         </button>
                       </Link>
@@ -154,7 +154,7 @@ function MainPage(props) {
                     {playlistCardTag ? (
                       <p style={{ textAlign: "left" }}>
                         {playlists[0].name}
-                        <span style={{ fontSize: "17px", display: "block" }}>displayed by {playlists[0].owner.display_name}</span>
+                        <span>displayed by {playlists[0].owner.display_name}</span>
                       </p>
                     ) : (
                       <p>이 플레이리스트 어때요?</p>
@@ -179,7 +179,7 @@ function MainPage(props) {
                     {trackCardTag ? (
                       <p style={{ textAlign: "left" }}>
                         {tracks[0].name}
-                        <span style={{ fontSize: "17px", display: "block" }}>song by {tracks[0].artists[0].name}</span>
+                        <span>song by {tracks[0].artists[0].name}</span>
                       </p>
                     ) : (
                       <p>이 노래 어때요?</p>
@@ -203,7 +203,7 @@ function MainPage(props) {
                     {artistCardTag ? (
                       <p style={{ textAlign: "left" }}>
                         {artists[0].name}
-                        <span style={{ fontSize: "17px", display: "block" }}>더보기</span>
+                        <span>더보기</span>
                       </p>
                     ) : (
                       <p>이 가수의 음악 어때요?</p>

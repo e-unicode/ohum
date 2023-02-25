@@ -4,9 +4,14 @@ html {
   /*기본 행간 높이*/
 }
 
+.w-50 {
+  width: 50%;
+}
+
 body,
 div,
-p {
+p,
+a {
   margin: 0px;
   font-family: 'Noto Sans KR', sans-serif;
 }
@@ -51,6 +56,18 @@ div {
   }
 }
 
+/* 키워드로딩중 */
+.keyword-load {
+  width: 25px;
+  height: 30px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+}
+
 /* 메인페이지 */
 .main {
   width: 100vw;
@@ -80,11 +97,9 @@ div {
 
 /* 메인페이지 왼쪽 키워드 */
 .main-keyword {
-  width: 400px;
+  width: 70%;
   height: 70%;
   color: #3F7EA6;
-  font-size: 30px;
-  font-weight: 900;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -93,95 +108,67 @@ div {
   margin: auto;
   display: flex;
   align-items: center;
-  /* overflow: auto; */
   text-align: justify;
 }
 
 .main-keyword-box {
-  width: 400px;
-  /* font-size: 12px; */
-  margin: auto;
+  width: 100%;
+  /* margin: auto; */
 }
 
 .main-keyword h1 {
   font-weight: 900;
 }
 
-.keyword-load {
-  width: 25px;
-  height: 30px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  margin: auto;
-}
-
-/* 메인페이지 로그인 폼 */
+/* form 로그인 폼 */
 .form {
   display: inline-block;
-  --width-of-input: 200px;
+  margin-bottom: 10px;
+  width: 100%;
   --border-height: 0.5px;
   --border-before-color: #3F7EA6;
   --border-after-color: #F2F2F2;
   --input-hovered-color: #F2F2F2;
   position: relative;
-  width: var(--width-of-input);
 }
 
-/* styling of Input */
 .input {
   color: #3F7EA6;
-  font-size: 1rem;
+  font-size: 12px;
   background-color: transparent;
   width: 100%;
-  box-sizing: border-box;
-  /* padding: 0.5em; */
-  padding-block: 0.8em;
+  padding-block: 10px;
   border: none;
-  border-bottom: var(--border-height) solid var(--border-before-color);
+  border-bottom: 0.5px solid #3F7EA6;
 }
 
-/* styling of animated border */
 .input-border {
   position: absolute;
-  background: var(--border-after-color);
+  background: #F2F2F2;
   width: 0%;
-  height: 2px;
+  height: 1px;
   bottom: 0;
   left: 0;
   transition: 0.3s;
-}
-
-/* Hover on Input */
-.input:hover {
-  background: var(--input-hovered-color);
 }
 
 .input:focus {
   outline: none;
 }
 
-/* here is code of animated border */
 .input:focus~.input-border {
   width: 100%;
 }
-
-/* === if you want to do animated border on typing === */
-/* remove input:focus code and uncomment below code */
-/* input:valid ~ .input-border{
-  width: 100%;
-} */
 
 ::placeholder {
   color: #3F7EA6;
   font-size: 12px;
 }
 
+/* 버튼 */
 .enter {
-  height: 50px;
-  width: 195px;
+  padding-block: 15px;
+  width: 49%;
   border-radius: 5px;
   border: 0.5px solid #3F7EA6;
   cursor: pointer;
@@ -192,6 +179,10 @@ div {
   color: #3F7EA6;
   letter-spacing: 2px;
   display: inline-block;
+}
+
+.enter-ml {
+  margin-left: 2%;
 }
 
 .enter:hover {
@@ -230,8 +221,6 @@ div {
   border-radius: 2px;
   transition: all .5s;
   background: #3F7EA6;
-  /* background-image: url({playlists[randomNum].images[0].url}); */
-  /* border: 1px solid #F2F2F2; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -249,19 +238,8 @@ div {
   background-repeat: repeat;
 }
 
-.main-card div img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-position: center;
-}
-
-/* .main-card div img:hover {
-  background: linear-gradient( rgba(0,0,0,0), rgba(0,0,0,0) );
-} */
-
 .main-card div p {
+  font-size: 17px;
   font-weight: 900;
   min-width: 14em;
   padding: .5em;
@@ -269,15 +247,24 @@ div {
   transform: rotate(-90deg);
   transition: all .5s;
   text-transform: uppercase;
+  /* text-align: left; */
   color: #F2F2F2;
   letter-spacing: .1em;
 }
+.main-card span {
+  font-size: 17px;
+  display: block;
+}
 
 .main-card div:hover p {
+  min-width: 14em;
   transform: rotate(0);
   font-size: 30px;
   font-weight: 900;
-  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
 }
 
 /* Footer */
@@ -668,4 +655,100 @@ div {
   text-overflow: ellipsis;
   white-space: nowrap;
   word-break: break-all;
+}
+
+@media screen and (max-width : 992px) {
+  .main-keyword h1 {
+    font-size: 27px;
+  }
+
+  .main-keyword h5 {
+    font-size: 15px;
+  }
+
+  .main-card {
+    height: 50%;
+  }
+  
+  .main-card div p {
+    font-size: 15px;
+  }
+
+  .main-card span {
+    font-size: 15px;
+  }
+
+  .main-card div:hover p {
+    font-size: 23px;
+  }
+
+  .footer-content p {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width : 768px) {
+  .main-content {
+    display: block;
+  }
+
+  .main-content-left {
+    width: 100%;
+    height: 60%;
+  }
+
+  .main-keyword {
+    width: 70%;
+  }
+
+  .main-content-right {
+    width: 100%;
+    height: 30%;
+  }
+
+  .main-card {
+    width: 70%;
+    height: 100%;
+  }
+
+  .footer-content {
+    width: 70%;
+  }
+
+  .footer-content p {
+    font-size: 9px;
+  }
+
+}
+
+@media screen and (max-width : 576px) {
+  .main-card div p {
+    font-size: 9px;
+  }
+
+  .main-card span {
+    font-size: 9px;
+  }
+
+  .main-card div:hover p {
+    font-size: 15px;
+  }
+
+  .footer-content p {
+    font-size: 7px;
+  }
+}
+
+@media screen and (max-width : 375px) {
+  .footer {
+    overflow-y: scroll;
+  }
+  
+  .footer-content {
+    display: inline-block;
+  }
+
+  .footer-content p {
+    margin-bottom: 2px;
+  }
 }
