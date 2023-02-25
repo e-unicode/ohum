@@ -3,8 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import Loading from "../Components/Loading";
 import Footer from "../Components/Footer";
-import { Routes, Route, Link, Navigate } from "react-router-dom";
-import { Location } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function MainPage(props) {
   const [now, setNow] = useState("");

@@ -9,7 +9,7 @@ function Banner() {
 
   return (
     <div className="buttons">
-      <Link to="/" style={{ textDecoration: "none" }}>
+      <Link to="/post" style={{ textDecoration: "none" }}>
         <button>
           <span>
             <FontAwesomeIcon icon={faHashtag} />
@@ -17,7 +17,7 @@ function Banner() {
           <p>오늘</p>
         </button>
       </Link>
-      <Link to="/" style={{ textDecoration: "none" }}>
+      <Link to="/recommend" style={{ textDecoration: "none" }}>
         <button>
           <span>
             <FontAwesomeIcon icon={faMusic} />
@@ -33,7 +33,7 @@ function Banner() {
           <p>맑음</p>
         </button>
       </Link>
-      <Link to="/post" style={{ textDecoration: "none" }} onClick={() => { navigate('/post') }}>
+      <Link to="/" style={{ textDecoration: "none" }} onClick={() => { navigate('/post') }}>
         <button>
           <span>
             <FontAwesomeIcon icon={faNoteSticky} />

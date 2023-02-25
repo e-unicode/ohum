@@ -88,9 +88,9 @@ function SearchPage(props) {
         </div>
 
         <div className="post-content-main row">
-          <div className="search-result col">
+          <div className="search-result col-6">
             <h2 style={{ color: "#F2F2F2", marginBottom: "10px", fontWeight: "900" }}>TopTracks</h2>
-            <div className="post-content-result">
+            <div>
               {topTracks.map((topTrack, i) => {
                 return (
                   <div className="result-box" onClick={() => window.open(`${topTrack.external_urls.spotify}`, "_blank")}>
@@ -111,7 +111,7 @@ function SearchPage(props) {
 
           <div className="search-result col">
             <h2 style={{ color: "#F2F2F2", marginBottom: "10px", fontWeight: "900" }}>Albums</h2>
-            <div className="post-content-result">
+            <div>
               {albums.map((album, i) => {
                 return (
                   <div className="result-box" onClick={() => window.open(`${album.external_urls.spotify}`, "_blank")}>
@@ -132,7 +132,7 @@ function SearchPage(props) {
 
           <div className="search-result col">
             <h2 style={{ color: "#F2F2F2", marginBottom: "10px", fontWeight: "900" }}>Playlists</h2>
-            <div className="post-content-result">
+            <div>
               {artistPlaylists.map((artistPlaylist, i) => {
                 return (
                   <div className="result-box" onClick={() => window.open(`${artistPlaylist.external_urls.spotify}`, "_blank")}>

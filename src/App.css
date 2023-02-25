@@ -251,6 +251,7 @@ div {
   color: #F2F2F2;
   letter-spacing: .1em;
 }
+
 .main-card span {
   font-size: 17px;
   display: block;
@@ -292,13 +293,16 @@ div {
 .footer-content p {
   font-size: 12px;
   margin: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
 }
 
 /* 회원가입 모달 페이지 */
 .join {
   width: 100vw;
   height: 100vh;
-  background: #F2F2F2, linear-gradient(#000000b3, #000000b3);
 }
 
 .join-content {
@@ -313,8 +317,8 @@ div {
 }
 
 .join-box {
-  width: 30%;
-  height: 50%;
+  width: 400px;
+  height: 500px;
   background: #F2F2F2;
   position: absolute;
   top: 0;
@@ -601,7 +605,7 @@ div {
 
 /* 검색결과박스 */
 .search-result {
-  /* width: 330px; */
+  width: 100%;
   height: 100%;
   overflow: scroll;
   /* margin-right: 10px; */
@@ -615,8 +619,6 @@ div {
   background-color: #383838;
   border-radius: 5px;
   cursor: pointer;
-  /* overflow: scroll; */
-
 }
 
 .result-box-card {
@@ -669,7 +671,7 @@ div {
   .main-card {
     height: 50%;
   }
-  
+
   .main-card div p {
     font-size: 15px;
   }
@@ -734,8 +736,8 @@ div {
     font-size: 15px;
   }
 
-  .footer-content p {
-    font-size: 7px;
+  .join-box {
+    background: none;
   }
 }
 
@@ -743,12 +745,17 @@ div {
   .footer {
     overflow-y: scroll;
   }
-  
+
   .footer-content {
     display: inline-block;
   }
 
   .footer-content p {
     margin-bottom: 2px;
+  }
+
+  .join-box {
+    width: 300px;
+    background: none;
   }
 }
