@@ -1,6 +1,6 @@
 import "../App.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHashtag, faMusic, faCloud, faRightFromBracket, faNoteSticky } from "@fortawesome/free-solid-svg-icons";
+import { faHashtag, faMusic, faCloud, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 
 function Banner() {
@@ -9,7 +9,7 @@ function Banner() {
 
   return (
     <div className="buttons">
-      <Link to="/post" style={{ textDecoration: "none" }}>
+      <Link to="/search" style={{ textDecoration: "none" }}>
         <button>
           <span>
             <FontAwesomeIcon icon={faHashtag} />
@@ -17,7 +17,7 @@ function Banner() {
           <p>오늘</p>
         </button>
       </Link>
-      <Link to="/recommend" style={{ textDecoration: "none" }}>
+      <Link to="/post" style={{ textDecoration: "none" }}>
         <button>
           <span>
             <FontAwesomeIcon icon={faMusic} />
@@ -25,20 +25,12 @@ function Banner() {
           <p>음악</p>
         </button>
       </Link>
-      <Link to="/search" style={{ textDecoration: "none" }}>
+      <Link to="/" style={{ textDecoration: "none" }}>
         <button>
           <span>
             <FontAwesomeIcon icon={faCloud} />
           </span>
           <p>맑음</p>
-        </button>
-      </Link>
-      <Link to="/" style={{ textDecoration: "none" }} onClick={() => { navigate('/post') }}>
-        <button>
-          <span>
-            <FontAwesomeIcon icon={faNoteSticky} />
-          </span>
-          <p>마이페이지</p>
         </button>
       </Link>
       <Link to="/" style={{ textDecoration: "none" }}>

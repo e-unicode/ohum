@@ -14,11 +14,23 @@ p,
 a {
   margin: 0px;
   font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Cabin', sans-serif;
 }
 
 div {
   box-sizing: border-box;
 }
+
+.logo-font {
+  color: #3F7EA6;
+  text-align: center;
+}
+
+.logo-font img {
+  width: 40px;
+  float: left;
+}
+
 
 /* 로딩페이지 */
 .loader {
@@ -247,9 +259,9 @@ div {
   transform: rotate(-90deg);
   transition: all .5s;
   text-transform: uppercase;
-  /* text-align: left; */
   color: #F2F2F2;
   letter-spacing: .1em;
+  margin: 0;
 }
 
 .main-card span {
@@ -349,7 +361,19 @@ div {
   width: 100vw;
   height: 10vh;
   background: #262626;
-  /* background: #F2F2F2; */
+  background: #F2F2F2;;
+  color: #F2F2F2;
+}
+
+.post-top-logo {
+  width: 25%;
+  float: left;
+}
+
+.post-top-mood {
+  width: 25%;
+  float: left;
+  color: #3F7EA6;
 }
 
 .post-content {
@@ -357,8 +381,8 @@ div {
   height: 90vh;
   padding-bottom: 10px;
   background: #262626;
+  background: #F2F2F2;
   /* position: relative; */
-  /* background: #3F7EA6; */
 }
 
 .post-content-side {
@@ -375,6 +399,7 @@ div {
   overflow: scroll;
 }
 
+/* 포스트박스 */
 .post-content-post-box {
   width: 500px;
   position: absolute;
@@ -430,19 +455,13 @@ div {
 .search-form {
   width: 50%;
   height: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  display: inline-block;
-  /* color: #F2F2F2; */
+  float: left;
 }
 
 /* styling of Input */
 .search-input {
   color: #F2F2F2;
+  color: #3F7EA6;
   font-size: 1rem;
   background-color: transparent;
   width: 100%;
@@ -451,6 +470,7 @@ div {
   padding-block: 1em;
   border: none;
   border-bottom: 0.5px solid #F2F2F2;
+  border-bottom: 0.5px solid #3F7EA6;
 }
 
 .search-input:focus {
@@ -459,6 +479,7 @@ div {
 
 .search-form ::placeholder {
   color: #F2F2F2;
+  color: #3F7EA6;
   font-size: 12px;
 }
 
@@ -472,6 +493,7 @@ div {
   background-color: transparent;
   font-size: 12px;
   color: #F2F2F2;
+  color: #3F7EA6;
   letter-spacing: 2px;
   text-align: right;
 }
@@ -487,8 +509,9 @@ div {
   display: flex;
   align-items: center;
   font-size: 20px;
-  background-color: #262626;
+  /* background-color: #262626; */
   color: #F2F2F2;
+  color: #3F7EA6;
   border: none;
   padding: 5px 0 7px 7px;
   border-radius: 20px;
@@ -497,6 +520,11 @@ div {
 .buttons button:hover {
   background-color: #f2f2f21b;
 }
+
+.buttons button p:hover {
+  font-weight: 900;
+}
+
 
 .buttons span {
   text-align: center;
@@ -606,17 +634,16 @@ div {
 /* 검색결과박스 */
 .search-result {
   width: 100%;
-  height: 100%;
   overflow: scroll;
-  /* margin-right: 10px; */
+  display: flex;
 }
 
 .result-box {
-  width: 100%;
-  height: 100%;
-  margin-bottom: 10px;
-  padding: 20px;
-  background-color: #383838;
+  /* width: 100px; */
+  /* height: 400px; */
+  margin: 0 10px 10px 0;
+  padding: 15px;
+  background-color: #053259;
   border-radius: 5px;
   cursor: pointer;
 }

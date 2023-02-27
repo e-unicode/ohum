@@ -107,7 +107,8 @@ function MainPage(props) {
             <div className="main-content-left">
               <div className="main-keyword">
                 <div className="main-keyword-box">
-                  <h1>오늘 음악: 맑음</h1>
+                  <h1>오늘 음악 맑음</h1>
+                  <p style={{letterSpacing: '8px'}}>음악 취향 공유 플랫폼</p>
                   <h5>
                     지금 어디서, 어떤 날씨에서, 어떤 플레이리스트를 재생하고 있는지 공유해 주세요. 갑자기 뜨거운 태양 아래이고 싶거나, 적당히 어두운
                     구름 아래서 내리는 비를 맞고 싶은 사람이 필요로 할 거예요.
@@ -122,7 +123,7 @@ function MainPage(props) {
                       <span className="input-border"></span>
                     </div>
                     <div>
-                      <Link to="/post">
+                      <Link to="/search">
                         <button className="enter">로그인</button>
                       </Link>
                       <Link to="/join">
@@ -145,15 +146,15 @@ function MainPage(props) {
                     onMouseOut={() => {
                       setPlaylistCardTag(false);
                     }}
-                    onClick={() => window.open(`${playlists[0].external_urls.spotify}`, "_blank")}
+                    onClick={() => window.open(`${playlists[randomNum].external_urls.spotify}`, "_blank")}
                     style={{
-                      backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${playlists[0].images[0].url})`,
+                      backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${playlists[randomNum].images[0].url})`,
                     }}
                   >
                     {playlistCardTag ? (
                       <p style={{ textAlign: "left" }}>
-                        {playlists[0].name}
-                        <span>displayed by {playlists[0].owner.display_name}</span>
+                        {playlists[randomNum].name}
+                        <span>displayed by {playlists[randomNum].owner.display_name}</span>
                       </p>
                     ) : (
                       <p>이 플레이리스트 어때요?</p>
@@ -170,15 +171,15 @@ function MainPage(props) {
                     onMouseOut={() => {
                       setTrackCardTag(false);
                     }}
-                    onClick={() => window.open(`${tracks[0].external_urls.spotify}`, "_blank")}
+                    onClick={() => window.open(`${tracks[randomNum].external_urls.spotify}`, "_blank")}
                     style={{
-                      backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${tracks[0].album.images[0].url})`,
+                      backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${tracks[randomNum].album.images[0].url})`,
                     }}
                   >
                     {trackCardTag ? (
                       <p style={{ textAlign: "left" }}>
-                        {tracks[0].name}
-                        <span>song by {tracks[0].artists[0].name}</span>
+                        {tracks[randomNum].name}
+                        <span>song by {tracks[randomNum].artists[0].name}</span>
                       </p>
                     ) : (
                       <p>이 노래 어때요?</p>
@@ -196,12 +197,12 @@ function MainPage(props) {
                     onMouseOut={() => {
                       setArtistCardTag(false);
                     }}
-                    onClick={() => window.open(`${artists[0].external_urls.spotify}`, "_blank")}
-                    style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${artists[0].images[0].url})` }}
+                    onClick={() => window.open(`${artists[randomNum].external_urls.spotify}`, "_blank")}
+                    style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${artists[randomNum].images[0].url})` }}
                   >
                     {artistCardTag ? (
                       <p style={{ textAlign: "left" }}>
-                        {artists[0].name}
+                        {artists[randomNum].name}
                         <span>더보기</span>
                       </p>
                     ) : (

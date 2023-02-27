@@ -6,7 +6,6 @@ import { Routes, Route } from "react-router-dom";
 import MainPage from "./Pages/MainPage";
 import JoinPage from "./Pages/JoinPage";
 import PostPage from "./Pages/PostPage";
-import RecommendPage from "./Pages/RecommendPage";
 import SearchPage from "./Pages/SearchPage";
 
 const client_id = process.env.REACT_APP_CLIENT_ID;
@@ -87,8 +86,7 @@ function App() {
       <Route path="/" element={<MainPage mood={mood} moodTag={moodTag} accessToken={accessToken} />} />
       <Route path="/join" element={<JoinPage mood={mood} />} />
       <Route path="/post" element={<PostPage />} />
-      <Route path="/recommend" element={<RecommendPage mood={mood} moodTag={moodTag} accessToken={accessToken} />} />
-      <Route path="/search" element={<SearchPage accessToken={accessToken} />} />
+      <Route path="/search" element={<SearchPage mood={mood} moodTag={moodTag} accessToken={accessToken} />} />
     </Routes>
   );
 }
