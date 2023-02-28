@@ -14,21 +14,11 @@ p,
 a {
   margin: 0px;
   font-family: 'Noto Sans KR', sans-serif;
-  font-family: 'Cabin', sans-serif;
+  /* font-family: 'Cabin', sans-serif; */
 }
 
 div {
   box-sizing: border-box;
-}
-
-.logo-font {
-  color: #3F7EA6;
-  text-align: center;
-}
-
-.logo-font img {
-  width: 40px;
-  float: left;
 }
 
 
@@ -126,6 +116,10 @@ div {
 .main-keyword-box {
   width: 100%;
   /* margin: auto; */
+}
+
+.main-keyword-box p {
+  letter-spacing: .54em;
 }
 
 .main-keyword h1 {
@@ -361,94 +355,87 @@ div {
   width: 100vw;
   height: 10vh;
   background: #262626;
-  background: #F2F2F2;;
+  background: #F2F2F2;
+  ;
   color: #F2F2F2;
 }
 
 .post-top-logo {
   width: 25%;
   float: left;
+  padding: 15px;
+  color: #262626;
+  text-align: center;
+}
+
+.post-top-logo img {
+  width: 15%;
+  float: left;
+}
+
+.post-top-logo div {
+  width: 50%;
+  float: left;
+  text-align: left;
+  padding: 0 0 0 5px;
+}
+
+.post-top-logo h4 {
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: -.02em;
+}
+
+.post-top-logo p {
+  margin: 0;
+  font-size: 9px;
+  letter-spacing: .5em;
 }
 
 .post-top-mood {
   width: 25%;
   float: left;
-  color: #3F7EA6;
+  color: #262626;
+  text-align: right;
+  padding: 15px;
+}
+
+.post-top-mood p {
+  margin: 0;
+  font-size: 9px;
+  letter-spacing: .5em;
+  font-weight: 500;
+}
+
+.post-side {
+  width: 15vw;
+  height: 90vh;
+  background: #F2F2F2;
+  float: left;
 }
 
 .post-content {
-  width: 100vw;
+  width: 85vw;
   height: 90vh;
+  float: left;
   padding-bottom: 10px;
   background: #262626;
   background: #F2F2F2;
   /* position: relative; */
 }
 
-.post-content-side {
-  width: 20%;
-  height: 100%;
-  float: left;
-}
 
 .post-content-main {
-  width: 80%;
+  width: 100%;
   height: 100%;
-  float: left;
   position: relative;
   overflow: scroll;
 }
 
-/* 포스트박스 */
-.post-content-post-box {
-  width: 500px;
-  position: absolute;
-  right: 20%;
-  left: 0;
-  margin: auto;
-}
-
-.card_load {
-  width: 48%;
-  height: 100%;
-  position: relative;
-  float: left;
-  background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 40%, #e5e5e5 48%);
-  border-radius: 50%;
-  background-size: 200% 100%;
-  background-position: 100% 0;
-  /* animation: load89234 2s infinite; */
-}
-
-.card_load_extreme_title {
-  width: 50%;
-  height: 20%;
-  position: relative;
-  float: right;
-  border-radius: 5px;
-  background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 40%, #e5e5e5 48%);
-  background-size: 200% 100%;
-  background-position: 100% 0;
-  /* animation: load89234 2s infinite; */
-}
-
-.card_load_extreme_descripion {
-  width: 50%;
-  height: 76%;
-  position: relative;
-  float: right;
-  border-radius: 5px;
-  background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 40%, #e5e5e5 48%);
-  margin-top: 10px;
-  background-size: 200% 100%;
-  background-position: 100% 0;
-  /* animation: load89234 2s infinite; */
-}
-
-@keyframes load89234 {
-  100% {
-    background-position: -100% 0;
-  }
+.post-content-main h2 {
+  color: #262626;
+  margin-bottom: 10px;
+  font-weight: 900;
 }
 
 /* 서치바 */
@@ -456,21 +443,26 @@ div {
   width: 50%;
   height: 100%;
   float: left;
+  margin-top: 15px;
+}
+
+.search-form .form {
+  width: 100%;
 }
 
 /* styling of Input */
 .search-input {
   color: #F2F2F2;
-  color: #3F7EA6;
-  font-size: 1rem;
+  color: #262626;
+  font-size: .9rem;
   background-color: transparent;
   width: 100%;
   box-sizing: border-box;
   padding: 6px;
-  padding-block: 1em;
+  padding-block: .5em;
   border: none;
   border-bottom: 0.5px solid #F2F2F2;
-  border-bottom: 0.5px solid #3F7EA6;
+  border-bottom: 0.5px solid #262626;
 }
 
 .search-input:focus {
@@ -479,7 +471,7 @@ div {
 
 .search-form ::placeholder {
   color: #F2F2F2;
-  color: #3F7EA6;
+  color: #26262668;
   font-size: 12px;
 }
 
@@ -493,7 +485,7 @@ div {
   background-color: transparent;
   font-size: 12px;
   color: #F2F2F2;
-  color: #3F7EA6;
+  color: #262626;
   letter-spacing: 2px;
   text-align: right;
 }
@@ -501,30 +493,27 @@ div {
 /* 배너 컴포넌트 */
 .buttons {
   width: 80%;
+  margin-top: 37px;
 }
 
 .buttons button {
-  margin: 0 0 20px 20px;
+  margin: 0 0 0 8px;
   width: 80%;
   display: flex;
   align-items: center;
   font-size: 20px;
-  /* background-color: #262626; */
+  background-color: #F2F2F2;
   color: #F2F2F2;
-  color: #3F7EA6;
+  color: #262626;
   border: none;
   padding: 5px 0 7px 7px;
   border-radius: 20px;
 }
 
 .buttons button:hover {
-  background-color: #f2f2f21b;
-}
-
-.buttons button p:hover {
   font-weight: 900;
+  color: #3F7EA6;
 }
-
 
 .buttons span {
   text-align: center;
@@ -538,6 +527,14 @@ div {
 }
 
 /* 포스트박스 */
+.post-content-post-box {
+  width: 500px;
+  position: absolute;
+  right: 20%;
+  left: 0;
+  margin: auto;
+}
+
 .post-box {
   width: 500px;
   height: 550px;
@@ -547,7 +544,7 @@ div {
 .post-box-user {
   width: 500px;
   height: 50px;
-  background-color: #262626;
+  background-color: #F2F2F2;
   position: relative;
   display: flex;
   /* margin-top: 30px; */
@@ -568,7 +565,7 @@ div {
 .post-box-like {
   width: 40px;
   height: 40px;
-  color: #F2F2F2;
+  color: #262626;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -590,7 +587,7 @@ div {
 }
 
 .post-box-user-name h6 {
-  color: #F2F2F2;
+  color: #262626;
   font-size: 14px;
   position: absolute;
   top: 0;
@@ -598,7 +595,7 @@ div {
 }
 
 .post-box-user-name p {
-  color: #F2F2F2;
+  color: #262626;
   font-size: 10px;
   position: absolute;
   bottom: 0;
@@ -634,6 +631,7 @@ div {
 /* 검색결과박스 */
 .search-result {
   width: 100%;
+  /* height: 30%; */
   overflow: scroll;
   display: flex;
 }
@@ -642,8 +640,9 @@ div {
   /* width: 100px; */
   /* height: 400px; */
   margin: 0 10px 10px 0;
-  padding: 15px;
-  background-color: #053259;
+  padding: 10px;
+  /* background-color: #262626; */
+  border: #262626 solid 1px;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -671,14 +670,14 @@ div {
 
 .result-box-card-title {
   width: 100%;
-  margin: 15px 0 0 5px;
+  margin: 10px 0 0 2px;
 }
 
 .result-box-card-title p {
   width: 100%;
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 300;
-  color: #F2F2F2;
+  color: #262626;
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -1,11 +1,9 @@
 import "../App.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHashtag, faMusic, faCloud, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Banner() {
-
-  let navigate = useNavigate();
 
   return (
     <div className="buttons">

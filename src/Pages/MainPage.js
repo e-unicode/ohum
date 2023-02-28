@@ -71,30 +71,16 @@ function MainPage(props) {
       },
     };
 
-    await fetch("https://api.spotify.com/v1/search?q=" + props.mood + "&type=playlist", searchParameters)
+    await fetch("https://api.spotify.com/v1/search?q=" + props.mood + "&type=playlist,track,artist", searchParameters)
       .then((response) => response.json())
       .then((data) => {
         setPlaylists(data.playlists.items);
-      })
-      .then(() => {
-        setPlaylistTag(true);
-      });
-
-    await fetch("https://api.spotify.com/v1/search?q=" + props.mood + "&type=track", searchParameters)
-      .then((response) => response.json())
-      .then((data) => {
         setTracks(data.tracks.items);
-      })
-      .then(() => {
-        setTrackTag(true);
-      });
-
-    await fetch("https://api.spotify.com/v1/search?q=" + props.mood + "&type=artist", searchParameters)
-      .then((response) => response.json())
-      .then((data) => {
         setArtists(data.artists.items);
       })
       .then(() => {
+        setPlaylistTag(true);
+        setTrackTag(true);
         setArtistTag(true);
       });
   }
@@ -108,7 +94,7 @@ function MainPage(props) {
               <div className="main-keyword">
                 <div className="main-keyword-box">
                   <h1>오늘 음악 맑음</h1>
-                  <p style={{letterSpacing: '8px'}}>음악 취향 공유 플랫폼</p>
+                  <p>음악 취향 공유 플랫폼</p>
                   <h5>
                     지금 어디서, 어떤 날씨에서, 어떤 플레이리스트를 재생하고 있는지 공유해 주세요. 갑자기 뜨거운 태양 아래이고 싶거나, 적당히 어두운
                     구름 아래서 내리는 비를 맞고 싶은 사람이 필요로 할 거예요.
@@ -127,9 +113,7 @@ function MainPage(props) {
                         <button className="enter">로그인</button>
                       </Link>
                       <Link to="/join">
-                        <button className="enter enter-ml">
-                          가입하기
-                        </button>
+                        <button className="enter enter-ml">가입하기</button>
                       </Link>
                     </div>
                   </div>

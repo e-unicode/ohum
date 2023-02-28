@@ -18,8 +18,13 @@ function App() {
   const [temperature, setTemperature] = useState("");
   const [humidity, setHumidity] = useState("");
   const [weather, setWeather] = useState("");
+  const [place, setPlace] = useState("");
   const [mood, setMood] = useState("");
   const [moodTag, setMoodTag] = useState(false);
+  const [now, setNow] = useState("");
+  const [nowTag, setNowTag] = useState(false);
+  const [추천음악, set추천음악] = useState("");
+  const [추천음악2, set추천음악2] = useState("");
 
   useEffect(() => {
     //API access token
@@ -43,12 +48,15 @@ function App() {
       fetch(weatherUrl)
         .then((response) => response.json())
         .then((result) => {
+          console.log(result);
           const 온도 = Math.round(Number(result.main.temp) - 273.15);
           const 습도 = result.main.humidity;
           const 날씨 = result.weather[0].main;
+          const 위치 = result.sys.country;
           setTemperature(온도);
           setHumidity(습도);
           setWeather(날씨);
+          setPlace(위치);
           console.log(온도 + "ºC", 습도 + "%", 날씨);
 
           const configuration = new Configuration({
@@ -56,11 +64,11 @@ function App() {
           });
           const openai = new OpenAIApi(configuration);
 
-          //ai로 날씨와 어울리는 키워드 가져오기->mood
+          //ai로 날씨와 어울리는 mood 키워드 가져오기
           openai
             .createCompletion({
               model: "text-davinci-003",
-              prompt: `Current weather conditions are ${weather}, temperature is ${temperature}, humidity is ${humidity}. Based on the given weather, temperature, and humidity, please present the appropriate atmosphere in one Korean keyword. Be careful not to suggest anything out of step with the weather.`,
+              prompt: `The current weather condition is ${weather} and the temperature is ${temperature} degrees. Please suggest the atmosphere or mood that matches the given weather conditions and temperatures as one keyword. Please be careful not to present keywords that are not appropriate.`,
               temperature: 0.7,
               max_tokens: 256,
               top_p: 1,
@@ -73,6 +81,38 @@ function App() {
             .then(() => {
               setMoodTag(true);
             });
+
+          //ai로 추천음악 키워드 불러오기
+          openai
+            .createCompletion({
+              model: "text-davinci-003",
+              prompt: `The current time is ${now}. Please recommend a song that goes well with the present. Please recommend K-pop songs. The answer type is song title: singer.`,
+              temperature: 0.7,
+              max_tokens: 256,
+              top_p: 1,
+              frequency_penalty: 0,
+              presence_penalty: 0,
+            })
+            .then((result) => {
+              set추천음악(result.data.choices[0].text);
+              console.log(result.data.choices[0].text);
+            });
+
+          //ai로 추천음악 키워드2 불러오기
+          openai
+            .createCompletion({
+              model: "text-davinci-003",
+              prompt: `The current time is ${now}. Please recommend a movie that goes well with now. The answer is the title of the movie. Just answer the title.`,
+              temperature: 0.7,
+              max_tokens: 256,
+              top_p: 1,
+              frequency_penalty: 0,
+              presence_penalty: 0,
+            })
+            .then((result) => {
+              set추천음악2(result.data.choices[0].text);
+              console.log(result.data.choices[0].text);
+            });
         });
     }
     //위치&날씨 가져오기
@@ -81,12 +121,44 @@ function App() {
     });
   }, []);
 
+  useEffect(() => {
+    (function printNow() {
+      const today = new Date();
+
+      const dayNames = ["(일)", "(월)", "(화)", "(수)", "(목)", "(금)", "(토)"];
+
+      const day = dayNames[today.getDay()];
+
+      const year = today.getFullYear();
+      const month = today.getMonth() + 1;
+      const date = today.getDate();
+      let hour = today.getHours();
+      let minute = today.getMinutes();
+      let second = today.getSeconds();
+      const ampm = hour >= 12 ? "오후" : "오전";
+
+      hour %= 12;
+      hour = hour || 12;
+
+      minute = minute < 10 ? "0" + minute : minute;
+      second = second < 10 ? "0" + second : second;
+
+      const now = `${month}. ${date}.${day} ${ampm} ${hour}:${minute}`;
+      setTimeout(printNow, 1000);
+      setNow(now);
+      setNowTag(true);
+    })();
+  }, [now]);
+
   return (
     <Routes>
       <Route path="/" element={<MainPage mood={mood} moodTag={moodTag} accessToken={accessToken} />} />
       <Route path="/join" element={<JoinPage mood={mood} />} />
-      <Route path="/post" element={<PostPage />} />
-      <Route path="/search" element={<SearchPage mood={mood} moodTag={moodTag} accessToken={accessToken} />} />
+      <Route path="/post" element={<PostPage mood={mood} moodTag={moodTag} weather={weather} accessToken={accessToken} now={now} />} />
+      <Route
+        path="/search"
+        element={<SearchPage mood={mood} moodTag={moodTag} weather={weather} accessToken={accessToken} now={now} place={place} 추천음악={추천음악} 추천음악2={추천음악2} />}
+      />
     </Routes>
   );
 }
