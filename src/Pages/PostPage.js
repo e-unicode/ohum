@@ -33,7 +33,7 @@ function PostPage(props) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + props.accessToken,
+        "Authorization": "Bearer " + props.accessToken,
       },
     };
 
@@ -56,13 +56,13 @@ function PostPage(props) {
         setTopTracks(data.tracks);
       });
 
-    await fetch("https://api.spotify.com/v1/search?q=" + artistID + "&type=playlist", searchParameters)
+    await fetch("https://api.spotify.com/v1/search?q=" + searchInput + "&type=playlist", searchParameters)
       .then((response) => response.json())
       .then((data) => {
         setArtistPlaylists(data.playlists.items);
       });
 
-    document.querySelector(".search-enter").click();
+    // document.querySelector(".search-enter").click();
   }
 
   return (
@@ -91,7 +91,7 @@ function PostPage(props) {
                 onChange={(e) => {
                   setSearchInput(e.target.value);
                 }}
-                placeholder="노래 제목, 가수 이름, 관련 키워드를 입력하세요."
+                placeholder="Discover the Perfect Music Track for Every Moment."
                 name="search"
               />
               <button

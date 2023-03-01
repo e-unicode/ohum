@@ -23,9 +23,10 @@ function App() {
   const [moodTag, setMoodTag] = useState(false);
   const [now, setNow] = useState("");
   const [nowTag, setNowTag] = useState(false);
-  const [추천음악, set추천음악] = useState("");
+  const [ai아티스트, setAi아티스트] = useState("");
   const [추천음악2, set추천음악2] = useState("");
 
+  //spotify 토큰, 날씨, ai키워드 가져오기
   useEffect(() => {
     //API access token
     var authParameters = {
@@ -82,11 +83,11 @@ function App() {
               setMoodTag(true);
             });
 
-          //ai로 추천음악 키워드 불러오기
+          //ai로 추천 아티스트 불러오기
           openai
             .createCompletion({
               model: "text-davinci-003",
-              prompt: `The current time is ${now}. Please recommend a song that goes well with the present. Please recommend K-pop songs. The answer type is song title: singer.`,
+              prompt: `${now}, please recommend the best singer for this time.`,
               temperature: 0.7,
               max_tokens: 256,
               top_p: 1,
@@ -94,7 +95,7 @@ function App() {
               presence_penalty: 0,
             })
             .then((result) => {
-              set추천음악(result.data.choices[0].text);
+              setAi아티스트(result.data.choices[0].text);
               console.log(result.data.choices[0].text);
             });
 
@@ -121,6 +122,7 @@ function App() {
     });
   }, []);
 
+  //현재시간 가져오기
   useEffect(() => {
     (function printNow() {
       const today = new Date();
@@ -157,7 +159,19 @@ function App() {
       <Route path="/post" element={<PostPage mood={mood} moodTag={moodTag} weather={weather} accessToken={accessToken} now={now} />} />
       <Route
         path="/search"
-        element={<SearchPage mood={mood} moodTag={moodTag} weather={weather} accessToken={accessToken} now={now} place={place} 추천음악={추천음악} 추천음악2={추천음악2} />}
+        element={
+          <SearchPage
+            mood={mood}
+            moodTag={moodTag}
+            weather={weather}
+            accessToken={accessToken}
+            now={now}
+            place={place}
+            ai아티스트={ai아티스트}
+            추천음악2={추천음악2}
+            openai_api_key={openai_api_key}
+          />
+        }
       />
     </Routes>
   );

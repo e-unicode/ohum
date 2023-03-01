@@ -8,6 +8,10 @@ html {
   width: 50%;
 }
 
+.w-100 {
+  width: 100%;
+}
+
 body,
 div,
 p,
@@ -21,6 +25,13 @@ div {
   box-sizing: border-box;
 }
 
+.flex {
+  display: flex;
+}
+
+.in-bl {
+  display: inline-block;
+}
 
 /* 로딩페이지 */
 .loader {
@@ -633,7 +644,6 @@ div {
   width: 100%;
   /* height: 30%; */
   overflow: scroll;
-  display: flex;
 }
 
 .result-box {

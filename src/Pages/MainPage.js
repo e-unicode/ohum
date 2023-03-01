@@ -6,8 +6,6 @@ import Footer from "../Components/Footer";
 import { Link } from "react-router-dom";
 
 function MainPage(props) {
-  const [now, setNow] = useState("");
-  const [nowTag, setNowTag] = useState(false);
   const [playlistCardTag, setPlaylistCardTag] = useState(false);
   const [trackCardTag, setTrackCardTag] = useState(false);
   const [artistCardTag, setArtistCardTag] = useState(false);
@@ -18,35 +16,6 @@ function MainPage(props) {
   const [artists, setArtists] = useState([]);
   const [artistTag, setArtistTag] = useState(false);
   const [randomNum, setRandomNum] = useState(0);
-
-  useEffect(() => {
-    (function printNow() {
-      const today = new Date();
-
-      const dayNames = ["(일)", "(월)", "(화)", "(수)", "(목)", "(금)", "(토)"];
-
-      const day = dayNames[today.getDay()];
-
-      const year = today.getFullYear();
-      const month = today.getMonth() + 1;
-      const date = today.getDate();
-      let hour = today.getHours();
-      let minute = today.getMinutes();
-      let second = today.getSeconds();
-      const ampm = hour >= 12 ? "오후" : "오전";
-
-      hour %= 12;
-      hour = hour || 12;
-
-      minute = minute < 10 ? "0" + minute : minute;
-      second = second < 10 ? "0" + second : second;
-
-      const now = `${month}. ${date}.${day} ${ampm} ${hour}:${minute}`;
-      setTimeout(printNow, 1000);
-      setNow(now);
-      setNowTag(true);
-    })();
-  }, [now]);
 
   useEffect(() => {
     //결과중 몇번째를 가져올지 정하는 랜덤 숫자
