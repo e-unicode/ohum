@@ -26,14 +26,6 @@ function Banner() {
       <Link to="/" style={{ textDecoration: "none" }}>
         <button>
           <span>
-            <FontAwesomeIcon icon={faCloud} />
-          </span>
-          <p>맑음</p>
-        </button>
-      </Link>
-      <Link to="/" style={{ textDecoration: "none" }}>
-        <button>
-          <span>
             <FontAwesomeIcon icon={faRightFromBracket} />
           </span>
           <p>로그아웃</p>

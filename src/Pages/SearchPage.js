@@ -1,7 +1,7 @@
 import "../App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
-import { UNSAFE_enhanceManualRouteObjects, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Banner from "../Components/Banner";
 import Loading from "../Components/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,10 +9,16 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Configuration, OpenAIApi } from "openai";
 
 function SearchPage(props) {
+  const [searchInput, setSearchInput] = useState("");
+
+  //검색시 가장 첫 줄
+  const [searchArtist, setSearchArtist] = useState([]);
+  const [artistName, setArtistName] = useState("");
   const [albums, setAlbums] = useState([]);
   const [topTracks, setTopTracks] = useState([]);
+  const [tracks, setTracks] = useState([]);
+
   const [artistPlaylists, setArtistPlaylists] = useState([]);
-  const [searchInput, setSearchInput] = useState("");
   const [searchInputTag, setSearchInputTag] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [playlistCardTag, setPlaylistCardTag] = useState(false);
@@ -20,7 +26,6 @@ function SearchPage(props) {
   const [artistCardTag, setArtistCardTag] = useState(false);
   const [playlists, setPlaylists] = useState([]);
   const [playlistTag, setPlaylistTag] = useState(false);
-  const [tracks, setTracks] = useState([]);
   const [trackTag, setTrackTag] = useState(false);
   const [artists, setArtists] = useState([]);
   const [artistTag, setArtistTag] = useState(false);
@@ -39,9 +44,6 @@ function SearchPage(props) {
   const [randomNum, setRandomNum] = useState(0);
   const [추천플리, set추천플리] = useState([]);
   const [추천플리Tag, set추천플리Tag] = useState(false);
-  ////////////////////////////////////////////////// 검색시 가장 첫 줄 //////////////////////////////////////////////////
-  const [searchArtist, setSearchArtist] = useState([]);
-  const [searchArtistTag, setSearchArtistTag] = useState(false);
 
   async function searchSpotify() {
     let searchParameters = {
@@ -57,8 +59,8 @@ function SearchPage(props) {
       .then((response) => response.json())
       .then((data) => {
         // setSearchParams({ q: searchInput });
-        setSearchArtist(data.artists.items)
-        setSearchArtistTag(true)
+        setSearchArtist(data.artists.items);
+        setArtistName(data.artists.items[0].name);
         return data.artists.items[0].id;
       });
 
@@ -71,28 +73,18 @@ function SearchPage(props) {
 
     //해당 아티스트의 앨범 가져오기
     await fetch("https://api.spotify.com/v1/artists/" + artistID + "/albums?include_groups=album&market=KR&limit=50", searchParameters)
-    .then((response) => response.json())
-    .then((data) => {
-      setAlbums(data.items);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        setAlbums(data.items);
+      });
 
     //검색한 내용의 플레이리스트 가져오기: 아티스트의 플레이리스트를 가져오면 결과가 없는 경우가 많음(공식 플리여도 제공되지 않는 경우가 많음)
-    await fetch("https://api.spotify.com/v1/search?q=" + searchInput + "&type=playlist", searchParameters)
+    await fetch("https://api.spotify.com/v1/search?q=" + searchInput + "&type=playlist,track", searchParameters)
       .then((response) => response.json())
       .then((data) => {
         setArtistPlaylists(data.playlists.items);
-      });
-
-
-    ////////////////////////////////////////////////// 검색시 두번째 줄 //////////////////////////////////////////////////
-
-    //검색어와 관련된 앨범, 트랙 찾기
-    await fetch("https://api.spotify.com/v1/search?q=" + searchInput + "&type=album,track,artist", searchParameters)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.albums.items);
-        console.log(data.artists.items);
-        console.log(data.tracks.items);
+        setTracks(data.tracks.items);
+        console.log(data);
       });
 
     // document.querySelector(".search-enter").click();
@@ -205,7 +197,7 @@ function SearchPage(props) {
   // }
 
   return (
-    <>
+    <div className="post">
       <div className="post-top">
         <div className="post-top-logo">
           {/* <img src="oh-um-logo.jpg" /> */}
@@ -254,184 +246,206 @@ function SearchPage(props) {
         </div>
         <div style={{ clear: "both" }}></div>
       </div>
-      <div className="post-side">
-        <Banner />
+      <div className="post-main flex">
+        <div className="post-side">
+          <Banner />
+        </div>
+        <div className="post-content">
+          {searchInputTag ? (
+            <>
+              <h2>{artistName}의 TopTracks</h2>
+              <div className="search-result">
+                {topTracks.map((topTrack, i) => {
+                  return (
+                    <div className="result-box in-bl" onClick={() => window.open(`${topTrack.external_urls.spotify}`, "_blank")}>
+                      <div className="result-box-card">
+                        <div className="result-box-card-cover">
+                          <img src={topTrack.album.images[0].url} />
+                        </div>
+                        <div className="result-box-card-title">
+                          <p style={{ fontWeight: "700" }}>{topTrack.name}</p>
+                          <p style={{ fontSize: "13px" }}>{topTrack.artists[0].name}</p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <h2>Tracks</h2>
+              <div className="search-result">
+                {tracks.map((track, i) => {
+                  return (
+                    <div className="result-box in-bl" onClick={() => window.open(`${track.external_urls.spotify}`, "_blank")}>
+                      <div className="result-box-card">
+                        <div className="result-box-card-cover">
+                          <img src={track.album.images[0].url} />
+                        </div>
+                        <div className="result-box-card-title">
+                          <p style={{ fontWeight: "700" }}>{track.name}</p>
+                          <p style={{ fontSize: "13px" }}>{track.artists[0].name}</p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <h2>Albums</h2>
+              <div className="search-result">
+                {albums.map((album, i) => {
+                  return (
+                    <div
+                      // style={{ width: "48%" }}
+                      className="result-box in-bl"
+                      onClick={() => window.open(`${album.external_urls.spotify}`, "_blank")}
+                    >
+                      <div className="result-box-card">
+                        <div className="result-box-card-cover">
+                          <img src={album.images[0].url} />
+                        </div>
+                        <div className="result-box-card-title">
+                          <p style={{ fontWeight: "700" }}>{album.name}</p>
+                          <p style={{ fontSize: "13px" }}>{album.artists[0].name}</p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <h2>Playlists</h2>
+              <div className="search-result">
+                {artistPlaylists.map((artistPlaylist, i) => {
+                  return (
+                    <div
+                      // style={{ width: "48%" }}
+                      className="result-box in-bl"
+                      onClick={() => window.open(`${artistPlaylist.external_urls.spotify}`, "_blank")}
+                    >
+                      <div className="result-box-card">
+                        <div className="result-box-card-cover">
+                          <img src={artistPlaylist.images[0].url} />
+                        </div>
+                        <div className="result-box-card-title">
+                          <p style={{ fontWeight: "700" }}>{artistPlaylist.name}</p>
+                          <p style={{ fontSize: "13px" }}>{artistPlaylist.owner.display_name}</p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          ) : (
+            <>
+              {/* 추천음악 키워드 아티스트+탑트랙 */}
+              <h2>{props.추천아티스트}</h2>
+              <div className="search-result">
+                {추천음악playlists.map((a, i) => {
+                  return 추천음악playlistTag ? (
+                    <div
+                      style={{ width: "20%" }}
+                      className="result-box col-3"
+                      onClick={() => window.open(`${추천음악playlists[i].external_urls.spotify}`, "_blank")}
+                    >
+                      <div className="result-box-card">
+                        <div className="result-box-card-cover">
+                          <img src={추천음악playlists[i].images[0].url} />
+                        </div>
+                        <div className="result-box-card-title">
+                          <p style={{ fontWeight: "700" }}>{추천음악playlists[i].name}</p>
+                          <p style={{ fontSize: "13px" }}>{추천음악playlists[i].owner.display_name}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <Loading />
+                  );
+                })}
+              </div>
+
+              {/* 추천음악 키워드2 트랙 */}
+              <h2>오늘의 감정을 공유할 이 노래 어때요?</h2>
+              <div className="search-result">
+                {추천음악2tracks.map((track, i) => {
+                  return 추천음악2trackTag ? (
+                    <div
+                      style={{ width: "15%" }}
+                      className="result-box col-3"
+                      onClick={() => window.open(`${추천음악2tracks[i].external_urls.spotify}`, "_blank")}
+                    >
+                      <div className="result-box-card">
+                        <div className="result-box-card-cover">
+                          <img src={추천음악2tracks[i].album.images[0].url} />
+                        </div>
+                        <div className="result-box-card-title">
+                          <p style={{ fontWeight: "700" }}>{추천음악2tracks[i].name}</p>
+                          <p style={{ fontSize: "13px" }}>{추천음악2tracks[i].artists[0].name}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <Loading />
+                  );
+                })}
+              </div>
+
+              {/* 무드와 어울리는 플레이리스트 */}
+              <h2>지금 분위기는 {props.mood}</h2>
+              <div className="search-result">
+                {playlists.map((playlist, i) => {
+                  return playlistTag ? (
+                    <div
+                      style={{ width: "15%" }}
+                      className="result-box col-3"
+                      onClick={() => window.open(`${playlists[i].external_urls.spotify}`, "_blank")}
+                    >
+                      <div className="result-box-card">
+                        <div className="result-box-card-cover">
+                          <img src={playlists[i].images[0].url} />
+                        </div>
+                        <div className="result-box-card-title">
+                          <p style={{ fontWeight: "700" }}>{playlists[i].name}</p>
+                          <p style={{ fontSize: "13px" }}>{playlists[i].owner.display_name}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <Loading />
+                  );
+                })}
+              </div>
+
+              {/* 추천플레이리스트 */}
+              <h2>지금 무슨 음악 듣나요?</h2>
+              <div className="search-result">
+                {추천플리.map((플리, i) => {
+                  return 추천플리Tag ? (
+                    <div
+                      style={{ width: "15%" }}
+                      className="result-box col-3"
+                      onClick={() => window.open(`${추천플리[i].external_urls.spotify}`, "_blank")}
+                    >
+                      <div className="result-box-card">
+                        <div className="result-box-card-cover">
+                          <img src={추천플리[i].images[0].url} />
+                        </div>
+                        <div className="result-box-card-title">
+                          <p style={{ fontWeight: "700" }}>{추천플리[i].name}</p>
+                          <p style={{ fontSize: "13px" }}>{추천플리[i].owner.display_name}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <Loading />
+                  );
+                })}
+              </div>
+            </>
+          )}
+        </div>
       </div>
-      <div className="post-content">
-        {searchInputTag ? (
-          <div className="post-content-main">
-
-
-            <h2>TopTracks</h2>
-            <div className="search-result flex">
-              {topTracks.map((topTrack, i) => {
-                return (
-                  <div style={{width:'15%'}} className="result-box col-1" onClick={() => window.open(`${topTrack.external_urls.spotify}`, "_blank")}>
-                    <div className="result-box-card">
-                      <div className="result-box-card-cover">
-                        <img src={topTrack.album.images[0].url} />
-                      </div>
-                      <div className="result-box-card-title">
-                        <p style={{ fontWeight: "700" }}>{topTrack.name}</p>
-                        <p style={{ fontSize: "13px" }}>{topTrack.artists[0].name}</p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="flex">
-
-            <h2 className="col-6">Albums</h2>
-            <h2 className="col-6">Playlists</h2>
-            </div>
-            <div className="flex">
-            <div className="search-result">
-              {albums.map((album, i) => {
-                return (
-                  <div style={{width:'48%'}} className="result-box in-bl" onClick={() => window.open(`${album.external_urls.spotify}`, "_blank")}>
-                    <div className="result-box-card">
-                      <div className="result-box-card-cover">
-                        <img src={album.images[0].url} />
-                      </div>
-                      <div className="result-box-card-title">
-                        <p style={{ fontWeight: "700" }}>{album.name}</p>
-                        <p style={{ fontSize: "13px" }}>{album.artists[0].name}</p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            <div className="search-result">
-              {artistPlaylists.map((artistPlaylist, i) => {
-                return (
-                  <div style={{width:'48%'}} className="result-box in-bl" onClick={() => window.open(`${artistPlaylist.external_urls.spotify}`, "_blank")}>
-                    <div className="result-box-card">
-                      <div className="result-box-card-cover">
-                        <img src={artistPlaylist.images[0].url} />
-                      </div>
-                      <div className="result-box-card-title">
-                        <p style={{ fontWeight: "700" }}>{artistPlaylist.name}</p>
-                        <p style={{ fontSize: "13px" }}>{artistPlaylist.owner.display_name}</p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            </div>
-          </div>
-        ) : (
-          <div className="post-content-main">
-            {/* 추천음악 키워드 아티스트+탑트랙 */}
-            <h2>{props.추천아티스트}</h2>
-            <div className="search-result">
-              {추천음악playlists.map((a, i) => {
-                return 추천음악playlistTag ? (
-                  <div
-                    style={{ width: "20%" }}
-                    className="result-box col-3"
-                    onClick={() => window.open(`${추천음악playlists[i].external_urls.spotify}`, "_blank")}
-                  >
-                    <div className="result-box-card">
-                      <div className="result-box-card-cover">
-                        <img src={추천음악playlists[i].images[0].url} />
-                      </div>
-                      <div className="result-box-card-title">
-                        <p style={{ fontWeight: "700" }}>{추천음악playlists[i].name}</p>
-                        <p style={{ fontSize: "13px" }}>{추천음악playlists[i].owner.display_name}</p>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <Loading />
-                );
-              })}
-            </div>
-
-            {/* 추천음악 키워드2 트랙 */}
-            <h2>오늘의 감정을 공유할 이 노래 어때요?</h2>
-            <div className="search-result">
-              {추천음악2tracks.map((track, i) => {
-                return 추천음악2trackTag ? (
-                  <div
-                    style={{ width: "15%" }}
-                    className="result-box col-3"
-                    onClick={() => window.open(`${추천음악2tracks[i].external_urls.spotify}`, "_blank")}
-                  >
-                    <div className="result-box-card">
-                      <div className="result-box-card-cover">
-                        <img src={추천음악2tracks[i].album.images[0].url} />
-                      </div>
-                      <div className="result-box-card-title">
-                        <p style={{ fontWeight: "700" }}>{추천음악2tracks[i].name}</p>
-                        <p style={{ fontSize: "13px" }}>{추천음악2tracks[i].artists[0].name}</p>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <Loading />
-                );
-              })}
-            </div>
-
-            {/* 무드와 어울리는 플레이리스트 */}
-            <h2>지금 분위기는 {props.mood}</h2>
-            <div className="search-result">
-              {playlists.map((playlist, i) => {
-                return playlistTag ? (
-                  <div
-                    style={{ width: "15%" }}
-                    className="result-box col-3"
-                    onClick={() => window.open(`${playlists[i].external_urls.spotify}`, "_blank")}
-                  >
-                    <div className="result-box-card">
-                      <div className="result-box-card-cover">
-                        <img src={playlists[i].images[0].url} />
-                      </div>
-                      <div className="result-box-card-title">
-                        <p style={{ fontWeight: "700" }}>{playlists[i].name}</p>
-                        <p style={{ fontSize: "13px" }}>{playlists[i].owner.display_name}</p>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <Loading />
-                );
-              })}
-            </div>
-
-            {/* 추천플레이리스트 */}
-            <h2>지금 무슨 음악 듣나요?</h2>
-            <div className="search-result">
-              {추천플리.map((플리, i) => {
-                return 추천플리Tag ? (
-                  <div
-                    style={{ width: "15%" }}
-                    className="result-box col-3"
-                    onClick={() => window.open(`${추천플리[i].external_urls.spotify}`, "_blank")}
-                  >
-                    <div className="result-box-card">
-                      <div className="result-box-card-cover">
-                        <img src={추천플리[i].images[0].url} />
-                      </div>
-                      <div className="result-box-card-title">
-                        <p style={{ fontWeight: "700" }}>{추천플리[i].name}</p>
-                        <p style={{ fontSize: "13px" }}>{추천플리[i].owner.display_name}</p>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <Loading />
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </div>
-    </>
+    </div>
   );
 }
 

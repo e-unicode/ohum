@@ -30,7 +30,6 @@ function MainPage(props) {
   }, [props.mood]);
 
   async function recommendSpotify() {
-    console.log("Search for " + props.mood);
 
     var searchParameters = {
       method: "GET",

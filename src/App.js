@@ -49,7 +49,6 @@ function App() {
       fetch(weatherUrl)
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
           const 온도 = Math.round(Number(result.main.temp) - 273.15);
           const 습도 = result.main.humidity;
           const 날씨 = result.weather[0].main;
@@ -58,7 +57,6 @@ function App() {
           setHumidity(습도);
           setWeather(날씨);
           setPlace(위치);
-          console.log(온도 + "ºC", 습도 + "%", 날씨);
 
           const configuration = new Configuration({
             apiKey: openai_api_key,
@@ -96,7 +94,6 @@ function App() {
             })
             .then((result) => {
               setAi아티스트(result.data.choices[0].text);
-              console.log(result.data.choices[0].text);
             });
 
           //ai로 추천음악 키워드2 불러오기
@@ -112,7 +109,6 @@ function App() {
             })
             .then((result) => {
               set추천음악2(result.data.choices[0].text);
-              console.log(result.data.choices[0].text);
             });
         });
     }
