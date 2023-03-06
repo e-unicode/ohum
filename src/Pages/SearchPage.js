@@ -4,9 +4,17 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import Banner from "../Components/Banner";
 import Loading from "../Components/Loading";
+import NavScrollExample from "../Components/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Configuration, OpenAIApi } from "openai";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import Offcanvas from "react-bootstrap/Offcanvas";
 
 function SearchPage(props) {
   const [searchInput, setSearchInput] = useState("");
@@ -19,7 +27,7 @@ function SearchPage(props) {
   const [tracks, setTracks] = useState([]);
 
   //index check
-  const [index, setIndex] = useState(["TopTracks", "Tracks", "Albums", "Playlists"]);
+  const [index, setIndex] = useState(["Top10", "Tracks", "Albums", "Playlists"]);
   const [count, setCount] = useState([1, 1, 1, 1]);
   const [showTag, setShowTag] = useState([true, true, true, true]);
 
@@ -208,285 +216,314 @@ function SearchPage(props) {
   return (
     <div className="post">
       <div className="post-top">
-        <div className="post-top-logo">
-          {/* <img src="oh-um-logo.jpg" /> */}
-          <div>
-            <p>음악 취향 공유 플랫폼</p>
-            <h4>오늘 음악 맑음</h4>
-          </div>
-        </div>
-        <form action="/post" method="POST">
-          <div className="search-form">
-            <div className="form">
-              <input
-                className="search-input"
-                type="input"
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                    searchSpotify();
-                    setSearchInputTag(true);
-                  }
-                }}
-                onChange={(e) => {
-                  setSearchInput(e.target.value);
-                }}
-                placeholder="Discover the Perfect Music Track for Every Moment."
-                name="search"
-              />
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  searchSpotify();
-                  setSearchInputTag(true);
-                }}
-                className="search-enter"
-              >
-                <span>
-                  <FontAwesomeIcon icon={faMagnifyingGlass} />
-                </span>
-              </button>
+        <Navbar key="xxxl" expand="xxxl">
+          <Container fluid>
+            <div className="post-top-mood">
+              <div>
+                <p>{props.now}</p>
+                <h4>{props.weather}</h4>
+              </div>
             </div>
-          </div>
-        </form>
-        <div className="post-top-mood">
-          <p>{props.now}</p>
-          <p>{props.weather}</p>
-        </div>
-        <div style={{ clear: "both" }}></div>
+            <div className="post-top-logo">
+              <div>
+                <p>음악 취향 공유 플랫폼</p>
+                <h4>오늘 음악 맑음</h4>
+              </div>
+            </div>
+            <div className="post-top-nav">
+              <div>
+                <Navbar.Toggle aria-controls="offcanvasNavbar-expand-xxxl" />
+
+                <Navbar.Offcanvas id="offcanvasNavbar-expand-xxxl" aria-labelledby="offcanvasNavbarLabel-expand-xxxl" placement="end">
+                  <Offcanvas.Header closeButton>
+                    <Offcanvas.Title id="offcanvasNavbarLabel-expand-xxxl">
+                      오늘 음악 맑음<span style={{ display: "block", fontSize: "13.3px" }}>음악 취향 공유 플랫폼</span>
+                    </Offcanvas.Title>
+                  </Offcanvas.Header>
+                  <Offcanvas.Body>
+                    <form action="/post" method="POST" className="w-100">
+                      <div className="search-form">
+                        <div className="form">
+                          <input
+                            className="search-input"
+                            type="input"
+                            onKeyPress={(e) => {
+                              if (e.key === "Enter") {
+                                e.preventDefault();
+                                searchSpotify();
+                                setSearchInputTag(true);
+                              }
+                            }}
+                            onChange={(e) => {
+                              setSearchInput(e.target.value);
+                            }}
+                            placeholder="취향을 발견해보세요."
+                            name="search"
+                          />
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              searchSpotify();
+                              setSearchInputTag(true);
+                            }}
+                            className="search-enter"
+                          >
+                            <span>
+                              <FontAwesomeIcon icon={faMagnifyingGlass} />
+                            </span>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                    <Nav className="justify-content-end flex-grow-1 pe-3">
+                      <Nav.Link href="/post">#오늘음악</Nav.Link>
+                      <Nav.Link href="/search">#음악추천</Nav.Link>
+                      <Nav.Link href="#">#내음악</Nav.Link>
+                      <Nav.Link href="/login">로그아웃</Nav.Link>
+                      {/* <NavDropdown title="마이페이지" id="offcanvasNavbarDropdown-expand-xxxl">
+<NavDropdown.Item href="#action3">마이페이지</NavDropdown.Item>
+<NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
+<NavDropdown.Divider />
+<NavDropdown.Item href="#action5">Something else here</NavDropdown.Item>
+</NavDropdown> */}
+                    </Nav>
+                  </Offcanvas.Body>
+                </Navbar.Offcanvas>
+              </div>
+            </div>
+          </Container>
+        </Navbar>
       </div>
       <div className="post-main flex">
-        <div className="post-side">
-          <Banner />
-        </div>
         <div className="post-content">
-          {searchInputTag ? (
-            <>
-              <div className="index flex w-100">
-                {index.map(function (indexName, i) {
-                  return (
-                    <p
-                      onClick={(e) => {
-                        let copy = [...showTag];
-                        copy[i] = !copy[i];
-                        setShowTag(copy);
-                        e.stopPropagation();
-                        let copy2 = [...count];
-                        copy2[i] = copy2[i] + 1;
-                        setCount(copy2);
-                      }}
-                      className={count[i] % 2 !== 0 ? "check index-content in-bl" : "index-content in-bl"}
-                    >
-                      {indexName}
-                    </p>
-                  );
-                })}
-              </div>
-              {showTag[0] ? (
-                <>
-                  <h2>{artistName}의 TopTracks</h2>
-                  <div className="search-result">
-                    {topTracks.map((topTrack, i) => {
-                      return (
-                        <div id={[i]} className="result-box in-bl" onClick={() => window.open(`${topTrack.external_urls.spotify}`, "_blank")}>
-                          <div className="result-box-card">
-                            <div className="result-box-card-cover">
-                              <img src={topTrack.album.images[0].url} />
-                            </div>
-                            <div className="result-box-card-title">
-                              <p style={{ fontWeight: "700" }}>{topTrack.name}</p>
-                              <p style={{ fontSize: "13px" }}>{topTrack.artists[0].name}</p>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </>
-              ) : null}
-
-              {showTag[1] ? (
-                <>
-                  <h2>Tracks</h2>
-                  <div className="search-result">
-                    {tracks.map((track, i) => {
-                      return (
-                        <div className="result-box in-bl" onClick={() => window.open(`${track.external_urls.spotify}`, "_blank")}>
-                          <div className="result-box-card">
-                            <div className="result-box-card-cover">
-                              <img src={track.album.images[0].url} />
-                            </div>
-                            <div className="result-box-card-title">
-                              <p style={{ fontWeight: "700" }}>{track.name}</p>
-                              <p style={{ fontSize: "13px" }}>{track.artists[0].name}</p>
+          <Container>
+            {searchInputTag ? (
+              <>
+                <div className="index flex w-100">
+                  {index.map(function (indexName, i) {
+                    return (
+                      <p
+                        onClick={(e) => {
+                          let copy = [...showTag];
+                          copy[i] = !copy[i];
+                          setShowTag(copy);
+                          e.stopPropagation();
+                          let copy2 = [...count];
+                          copy2[i] = copy2[i] + 1;
+                          setCount(copy2);
+                        }}
+                        className={count[i] % 2 !== 0 ? "check index-content in-bl" : "index-content in-bl"}
+                      >
+                        {indexName}
+                      </p>
+                    );
+                  })}
+                </div>
+                {showTag[0] ? (
+                  <>
+                    <h2>{artistName}의 TopTracks</h2>
+                    <div className="search-result">
+                      {topTracks.map((topTrack, i) => {
+                        return (
+                          <div id={[i]} className="result-box in-bl" onClick={() => window.open(`${topTrack.external_urls.spotify}`, "_blank")}>
+                            <div className="result-box-card">
+                              <div className="result-box-card-cover">
+                                <img src={topTrack.album.images[0].url} />
+                              </div>
+                              <div className="result-box-card-title">
+                                <h6>{topTrack.name}</h6>
+                                <p>{topTrack.artists[0].name}</p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </>
-              ) : null}
-              {showTag[2] ? (
-                <>
-                  <h2>Albums</h2>
-                  <div className="search-result">
-                    {albums.map((album, i) => {
-                      return (
-                        <div
-                          // style={{ width: "48%" }}
-                          className="result-box in-bl"
-                          onClick={() => window.open(`${album.external_urls.spotify}`, "_blank")}
-                        >
-                          <div className="result-box-card">
-                            <div className="result-box-card-cover">
-                              <img src={album.images[0].url} />
-                            </div>
-                            <div className="result-box-card-title">
-                              <p style={{ fontWeight: "700" }}>{album.name}</p>
-                              <p style={{ fontSize: "13px" }}>{album.artists[0].name}</p>
+                        );
+                      })}
+                    </div>
+                  </>
+                ) : null}
+                {showTag[1] ? (
+                  <>
+                    <h2>Tracks</h2>
+                    <div className="search-result">
+                      {tracks.map((track, i) => {
+                        return (
+                          <div className="result-box in-bl" onClick={() => window.open(`${track.external_urls.spotify}`, "_blank")}>
+                            <div className="result-box-card">
+                              <div className="result-box-card-cover">
+                                <img src={track.album.images[0].url} />
+                              </div>
+                              <div className="result-box-card-title">
+                                <h6>{track.name}</h6>
+                                <p>{track.artists[0].name}</p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </>
-              ) : null}
-              {showTag[3] ? (
-                <>
-                  <h2>Playlists</h2>
-                  <div className="search-result">
-                    {artistPlaylists.map((artistPlaylist, i) => {
-                      return (
-                        <div
-                          // style={{ width: "48%" }}
-                          className="result-box in-bl"
-                          onClick={() => window.open(`${artistPlaylist.external_urls.spotify}`, "_blank")}
-                        >
-                          <div className="result-box-card">
-                            <div className="result-box-card-cover">
-                              <img src={artistPlaylist.images[0].url} />
-                            </div>
-                            <div className="result-box-card-title">
-                              <p style={{ fontWeight: "700" }}>{artistPlaylist.name}</p>
-                              <p style={{ fontSize: "13px" }}>{artistPlaylist.owner.display_name}</p>
+                        );
+                      })}
+                    </div>
+                  </>
+                ) : null}
+                {showTag[2] ? (
+                  <>
+                    <h2>Albums</h2>
+                    <div className="search-result">
+                      {albums.map((album, i) => {
+                        return (
+                          <div
+                            // style={{ width: "48%" }}
+                            className="result-box in-bl"
+                            onClick={() => window.open(`${album.external_urls.spotify}`, "_blank")}
+                          >
+                            <div className="result-box-card">
+                              <div className="result-box-card-cover">
+                                <img src={album.images[0].url} />
+                              </div>
+                              <div className="result-box-card-title">
+                                <h6>{album.name}</h6>
+                                <p>{album.artists[0].name}</p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </>
-              ) : null}
-            </>
-          ) : (
-            <>
-              {/* 추천음악 키워드 아티스트+탑트랙 */}
-              <h2>지금 이 음악 어때요?</h2>
-              <div className="search-result">
-                {추천음악playlists.map((a, i) => {
-                  return 추천음악playlistTag ? (
-                    <div
-                      style={{ width: "20%" }}
-                      className="result-box col-3"
-                      onClick={() => window.open(`${추천음악playlists[i].external_urls.spotify}`, "_blank")}
-                    >
-                      <div className="result-box-card">
-                        <div className="result-box-card-cover">
-                          <img src={추천음악playlists[i].images[0].url} />
-                        </div>
-                        <div className="result-box-card-title">
-                          <p style={{ fontWeight: "700" }}>{추천음악playlists[i].name}</p>
-                          <p style={{ fontSize: "13px" }}>{추천음악playlists[i].owner.display_name}</p>
+                        );
+                      })}
+                    </div>
+                  </>
+                ) : null}
+                {showTag[3] ? (
+                  <>
+                    <h2>Playlists</h2>
+                    <div className="search-result">
+                      {artistPlaylists.map((artistPlaylist, i) => {
+                        return (
+                          <div
+                            // style={{ width: "48%" }}
+                            className="result-box in-bl"
+                            onClick={() => window.open(`${artistPlaylist.external_urls.spotify}`, "_blank")}
+                          >
+                            <div className="result-box-card">
+                              <div className="result-box-card-cover">
+                                <img src={artistPlaylist.images[0].url} />
+                              </div>
+                              <div className="result-box-card-title">
+                                <p style={{ fontWeight: "700" }}>{artistPlaylist.name}</p>
+                                <p style={{ fontSize: "13px" }}>{artistPlaylist.owner.display_name}</p>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </>
+                ) : null}
+              </>
+            ) : (
+              <>
+                {/* 추천음악 키워드 아티스트+탑트랙 */}
+                <h2>지금 이 음악 어때요?</h2>
+                <div className="search-result">
+                  {추천음악playlists.map((a, i) => {
+                    return 추천음악playlistTag ? (
+                      <div
+                        style={{ width: "20%" }}
+                        className="result-box col-3"
+                        onClick={() => window.open(`${추천음악playlists[i].external_urls.spotify}`, "_blank")}
+                      >
+                        <div className="result-box-card">
+                          <div className="result-box-card-cover">
+                            <img src={추천음악playlists[i].images[0].url} />
+                          </div>
+                          <div className="result-box-card-title">
+                            <h6>{추천음악playlists[i].name}</h6>
+                            <p>{추천음악playlists[i].owner.display_name}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ) : (
-                    <Loading />
-                  );
-                })}
-              </div>
+                    ) : (
+                      <Loading />
+                    );
+                  })}
+                </div>
 
-              {/* 추천음악 키워드2 트랙 */}
-              <h2>오늘의 감정을 공유할 이 노래 어때요?</h2>
-              <div className="search-result">
-                {추천음악2tracks.map((track, i) => {
-                  return 추천음악2trackTag ? (
-                    <div
-                      style={{ width: "15%" }}
-                      className="result-box col-3"
-                      onClick={() => window.open(`${추천음악2tracks[i].external_urls.spotify}`, "_blank")}
-                    >
-                      <div className="result-box-card">
-                        <div className="result-box-card-cover">
-                          <img src={추천음악2tracks[i].album.images[0].url} />
-                        </div>
-                        <div className="result-box-card-title">
-                          <p style={{ fontWeight: "700" }}>{추천음악2tracks[i].name}</p>
-                          <p style={{ fontSize: "13px" }}>{추천음악2tracks[i].artists[0].name}</p>
+                {/* 추천음악 키워드2 트랙 */}
+                <h2>오늘의 감정을 공유할 이 노래 어때요?</h2>
+                <div className="search-result">
+                  {추천음악2tracks.map((track, i) => {
+                    return 추천음악2trackTag ? (
+                      <div
+                        style={{ width: "15%" }}
+                        className="result-box col-3"
+                        onClick={() => window.open(`${추천음악2tracks[i].external_urls.spotify}`, "_blank")}
+                      >
+                        <div className="result-box-card">
+                          <div className="result-box-card-cover">
+                            <img src={추천음악2tracks[i].album.images[0].url} />
+                          </div>
+                          <div className="result-box-card-title">
+                            <h6>{추천음악2tracks[i].name}</h6>
+                            <p>{추천음악2tracks[i].artists[0].name}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ) : (
-                    <Loading />
-                  );
-                })}
-              </div>
+                    ) : (
+                      <Loading />
+                    );
+                  })}
+                </div>
 
-              {/* 무드와 어울리는 플레이리스트 */}
-              <h2>지금 분위기는 {props.mood}</h2>
-              <div className="search-result">
-                {playlists.map((playlist, i) => {
-                  return playlistTag ? (
-                    <div
-                      style={{ width: "15%" }}
-                      className="result-box col-3"
-                      onClick={() => window.open(`${playlists[i].external_urls.spotify}`, "_blank")}
-                    >
-                      <div className="result-box-card">
-                        <div className="result-box-card-cover">
-                          <img src={playlists[i].images[0].url} />
-                        </div>
-                        <div className="result-box-card-title">
-                          <p style={{ fontWeight: "700" }}>{playlists[i].name}</p>
-                          <p style={{ fontSize: "13px" }}>{playlists[i].owner.display_name}</p>
+                {/* 무드와 어울리는 플레이리스트 */}
+                <h2>지금 분위기는 {props.mood}</h2>
+                <div className="search-result">
+                  {playlists.map((playlist, i) => {
+                    return playlistTag ? (
+                      <div
+                        style={{ width: "15%" }}
+                        className="result-box col-3"
+                        onClick={() => window.open(`${playlists[i].external_urls.spotify}`, "_blank")}
+                      >
+                        <div className="result-box-card">
+                          <div className="result-box-card-cover">
+                            <img src={playlists[i].images[0].url} />
+                          </div>
+                          <div className="result-box-card-title">
+                            <h6>{playlists[i].name}</h6>
+                            <p>{playlists[i].owner.display_name}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ) : (
-                    <Loading />
-                  );
-                })}
-              </div>
+                    ) : (
+                      <Loading />
+                    );
+                  })}
+                </div>
 
-              {/* 추천플레이리스트 */}
-              <h2>지금 무슨 음악 듣나요?</h2>
-              <div className="search-result">
-                {추천플리.map((플리, i) => {
-                  return 추천플리Tag ? (
-                    <div
-                      style={{ width: "15%" }}
-                      className="result-box col-3"
-                      onClick={() => window.open(`${추천플리[i].external_urls.spotify}`, "_blank")}
-                    >
-                      <div className="result-box-card">
-                        <div className="result-box-card-cover">
-                          <img src={추천플리[i].images[0].url} />
-                        </div>
-                        <div className="result-box-card-title">
-                          <p style={{ fontWeight: "700" }}>{추천플리[i].name}</p>
-                          <p style={{ fontSize: "13px" }}>{추천플리[i].owner.display_name}</p>
+                {/* 추천플레이리스트 */}
+                <h2>지금 무슨 음악 듣나요?</h2>
+                <div className="search-result">
+                  {추천플리.map((플리, i) => {
+                    return 추천플리Tag ? (
+                      <div
+                        style={{ width: "15%" }}
+                        className="result-box col-3"
+                        onClick={() => window.open(`${추천플리[i].external_urls.spotify}`, "_blank")}
+                      >
+                        <div className="result-box-card">
+                          <div className="result-box-card-cover">
+                            <img src={추천플리[i].images[0].url} />
+                          </div>
+                          <div className="result-box-card-title">
+                            <h6>{추천플리[i].name}</h6>
+                            <p>{추천플리[i].owner.display_name}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ) : (
-                    <Loading />
-                  );
-                })}
-              </div>
-            </>
-          )}
+                    ) : (
+                      <Loading />
+                    );
+                  })}
+                </div>
+              </>
+            )}
+          </Container>
         </div>
       </div>
     </div>

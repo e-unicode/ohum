@@ -53,6 +53,7 @@ function MainPage(props) {
       });
   }
 
+
   return (
     <div className="main">
       {props.moodTag ? (
@@ -68,12 +69,13 @@ function MainPage(props) {
                     구름 아래서 내리는 비를 맞고 싶은 사람이 필요로 할 거예요.
                   </h5>
                   <div>
+                    <form action="/login" method="POST">
                     <div className="form">
-                      <input className="input" placeholder="이메일" required="" type="email" />
+                      <input className="input" placeholder="이메일" name="id" type="email" />
                       <span className="input-border"></span>
                     </div>
                     <div className="form">
-                      <input className="input" placeholder="비밀번호" required="" type="password" />
+                      <input className="input" placeholder="비밀번호" name="pw" type="password" />
                       <span className="input-border"></span>
                     </div>
                     <div>
@@ -84,6 +86,9 @@ function MainPage(props) {
                         <button className="enter enter-ml">가입하기</button>
                       </Link>
                     </div>
+                    </form>
+
+                    
                   </div>
                 </div>
               </div>

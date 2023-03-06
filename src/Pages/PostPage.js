@@ -7,6 +7,13 @@ import { useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import PostBox from "../Components/PostBox";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import Offcanvas from "react-bootstrap/Offcanvas";
 
 function PostPage(props) {
   //검색시 가장 첫 줄
@@ -79,52 +86,76 @@ function PostPage(props) {
   return (
     <div className="post">
       <div className="post-top">
-        <div className="post-top-logo logo-font">
-          {/* <img src="oh-um-logo.jpg" /> */}
-          <div>
-            <p>음악 취향 공유 플랫폼</p>
-            <h4>오늘 음악 맑음</h4>
-          </div>
-        </div>
-        <form action="/post" method="POST">
-          <div className="search-form">
-            <div className="form">
-              <input
-                className="search-input"
-                type="input"
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                    searchSpotify();
-                    setSearchInputTag(true);
-                  }
-                }}
-                onChange={(e) => {
-                  setSearchInput(e.target.value);
-                }}
-                placeholder="Discover the Perfect Music Track for Every Moment."
-                name="search"
-              />
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  searchSpotify();
-                  setSearchInputTag(true);
-                }}
-                className="search-enter"
-              >
-                <span>
-                  <FontAwesomeIcon icon={faMagnifyingGlass} />
-                </span>
-              </button>
+        <Navbar key="md" expand="xxxl">
+          <Container fluid>
+            <div className="post-top-mood">
+              <div>
+                <p>{props.now}</p>
+                <h4>{props.weather}</h4>
+              </div>
             </div>
-          </div>
-        </form>
-        <div className="post-top-mood">
-          <p>{props.now}</p>
-          <p>{props.weather}</p>
-        </div>
-        <div style={{ clear: "both" }}></div>
+            <div className="post-top-logo">
+              <div>
+                <p>음악 취향 공유 플랫폼</p>
+                <h4>오늘 음악 맑음</h4>
+              </div>
+            </div>
+            <div className="post-top-nav">
+              <Navbar.Toggle aria-controls="offcanvasNavbar-expand-md" />
+
+              <Navbar.Offcanvas id="offcanvasNavbar-expand-md" aria-labelledby="offcanvasNavbarLabel-expand-md" placement="end">
+                <Offcanvas.Header closeButton>
+                  <Offcanvas.Title id="offcanvasNavbarLabel-expand-md">
+                    오늘 음악 맑음<span style={{ display: "block", fontSize: "13.3px" }}>음악 취향 공유 플랫폼</span>
+                  </Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                  <form action="/post" method="POST" className="w-100">
+                    <div className="search-form">
+                      <div className="form">
+                        <input
+                          className="search-input"
+                          type="input"
+                          onKeyPress={(e) => {
+                            if (e.key === "Enter") {
+                              e.preventDefault();
+                              searchSpotify();
+                              setSearchInputTag(true);
+                            }
+                          }}
+                          onChange={(e) => {
+                            setSearchInput(e.target.value);
+                          }}
+                          placeholder="Discover the Perfect Music Track for Every Moment."
+                          name="search"
+                        />
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            searchSpotify();
+                            setSearchInputTag(true);
+                          }}
+                          className="search-enter"
+                        >
+                          <span>
+                            <FontAwesomeIcon icon={faMagnifyingGlass} />
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                  <Nav className="justify-content-end flex-grow-1 pe-3">
+                    <Nav.Link href="#action1">#오늘음악</Nav.Link>
+                    <Nav.Link href="#action2">#음악추천</Nav.Link>
+                    <Nav.Link href="#action2">#내음악</Nav.Link>
+                    <Nav.Link href="#action2">로그아웃</Nav.Link>
+
+                  </Nav>
+                </Offcanvas.Body>
+              </Navbar.Offcanvas>
+            </div>
+          </Container>
+        </Navbar>
       </div>
       <div className="post-main flex">
         <div className="post-side">

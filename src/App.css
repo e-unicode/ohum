@@ -16,6 +16,10 @@ html {
   height: 100%;
 }
 
+.hidden {
+  display: none;
+}
+
 body,
 div,
 p,
@@ -373,47 +377,62 @@ div {
 
 .post-top {
   width: 100%;
-  height: 10%;
+  /* height: 10%; */
+}
+
+.post-top-nav {
+  width: 25%;
+  padding: 15px;
+  color: #262626;
+}
+
+.post-top-nav div {
+  width: 60px;
+  margin-left: auto;
+}
+
+.post-top-nav div button {
+  width: 100%;
 }
 
 .post-top-logo {
   width: 25%;
-  float: left;
   padding: 15px;
   color: #262626;
   text-align: center;
 }
 
-.post-top-logo img {
-  width: 15%;
-  float: left;
-}
-
 .post-top-logo div {
-  width: 50%;
-  float: left;
-  text-align: left;
-  padding: 0 0 0 5px;
+  width: 70%;
+  margin: auto;
 }
 
 .post-top-logo h4 {
+  letter-spacing: 0.11rem;
+  width: 100%;
   margin: 0;
   font-weight: 500;
-  letter-spacing: -.02em;
+  /* text-align: center; */
 }
 
 .post-top-logo p {
+  letter-spacing: 0.35rem;
+  width: 100%;
   margin: 0;
+  /* text-align: center; */
   font-size: 9px;
-  letter-spacing: .5em;
 }
 
 .post-top-mood {
   width: 25%;
-  float: left;
   color: #262626;
-  text-align: right;
+  /* text-align: center; */
   padding: 15px;
+}
+
+.post-top-mood div {
+  width: 70%;
+  margin-right: auto;
 }
 
 .post-top-mood p {
@@ -421,6 +440,15 @@ div {
   font-size: 9px;
   letter-spacing: .5em;
   font-weight: 500;
+  text-align: left;
+}
+
+.post-top-mood h4 {
+  letter-spacing: 0.2rem;
+  /* width: 100%; */
+  margin: 0;
+  font-weight: 500;
+  text-align: left;
 }
 
 .post-main {
@@ -434,7 +462,7 @@ div {
 }
 
 .post-content {
-  width: 85%;
+  width: 100%;
   height: 100%;
   overflow: scroll;
 }
@@ -442,15 +470,15 @@ div {
 .post-content h2 {
   color: #262626;
   height: 40px;
-  /* margin-bottom: 10px; */
+  margin-top: 20px;
   font-weight: 700;
 }
 
 /* 서치바 */
 .search-form {
-  width: 50%;
+  width: 100%;
   height: 100%;
-  float: left;
+  /* float: left; */
   margin-top: 15px;
 }
 
@@ -512,7 +540,7 @@ button {
   font-weight: bold;
   color: #F2F2F2;
   border-radius: 2rem;
-  width: 160px;
+  width: 80%;
   height: 50px;
   border: none;
   background-color: #262626;
@@ -732,8 +760,6 @@ button .span-mother2 span:nth-child(6) {
 .search-result {
   width: 100%;
   position: relative;
-  overflow: scroll;
-  /* padding-right: 10px; */
 }
 
 .result-box {
@@ -754,7 +780,7 @@ button .span-mother2 span:nth-child(6) {
 .result-box-card {
   width: 100%;
   /* border-radius: 5px; */
-  padding: 0 0 10px 0;
+  /* padding: 0 0 10px 0; */
   border: #262626 solid 0.5px;
 
 }
@@ -777,19 +803,27 @@ button .span-mother2 span:nth-child(6) {
 
 .result-box-card-title {
   width: 100%;
-  margin: 6px 0 0 10px;
+  padding: 6px 10px 6px 10px;
 }
 
-.result-box-card-title p {
-  width: 100%;
-  font-size: 17px;
-  font-weight: 300;
-  color: #262626;
+.result-box-card-title h6,
+p {
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   word-break: break-all;
+}
+
+.result-box-card-title h6 {
+  font-weight: 700;
+}
+
+.result-box-card-title p {
+  font-size: 13px;
+  font-weight: 300;
+  color: #262626;
+  margin: 0;
 }
 
 .index {
@@ -822,7 +856,9 @@ button .span-mother2 span:nth-child(6) {
 }
 
 
-@media screen and (max-width : 992px) {
+@media screen and (max-width : 1200px) {
+
+  /* 메인페이지 */
   .main-keyword h1 {
     font-size: 27px;
   }
@@ -850,9 +886,47 @@ button .span-mother2 span:nth-child(6) {
   .footer-content p {
     font-size: 10px;
   }
+
+  .main-keyword-box p {
+    font-size: 13px;
+    letter-spacing: .3em;
+  }
+
+  /* 서치페이지 */
+  .post-top-logo h4 {
+    letter-spacing: 0.05rem;
+    font-size: 17px;
+  }
+
+  .post-top-logo p {
+    letter-spacing: 0.1rem;
+  }
+
+  .post-top-mood h4 {
+    letter-spacing: 0.05rem;
+    font-size: 15px;
+  }
+
+  .post-top-mood p {
+    letter-spacing: 0.1rem;
+  }
+  
+  .post-top-nav div {
+    width: 50px;
+  }
+
+  .index-content {
+    width: 100px;
+    height: 35px;
+    padding: 3px;
+    font-size: 15px;
+  }
 }
 
+/* 모바일형태로 바꾸기 */
 @media screen and (max-width : 768px) {
+
+  /* 메인페이지 */
   .main-content {
     display: block;
   }
@@ -862,13 +936,13 @@ button .span-mother2 span:nth-child(6) {
     height: 60%;
   }
 
-  .main-keyword {
-    width: 70%;
-  }
-
   .main-content-right {
     width: 100%;
-    height: 30%;
+    height: 40%;
+  }
+
+  .main-keyword {
+    width: 70%;
   }
 
   .main-card {
@@ -876,17 +950,6 @@ button .span-mother2 span:nth-child(6) {
     height: 100%;
   }
 
-  .footer-content {
-    width: 70%;
-  }
-
-  .footer-content p {
-    font-size: 9px;
-  }
-
-}
-
-@media screen and (max-width : 576px) {
   .main-card div p {
     font-size: 9px;
   }
@@ -896,29 +959,89 @@ button .span-mother2 span:nth-child(6) {
   }
 
   .main-card div:hover p {
-    font-size: 15px;
+    font-size: 9px;
   }
 
-  .join-box {
-    background: none;
-  }
-}
-
-@media screen and (max-width : 375px) {
   .footer {
-    overflow-y: scroll;
+    display: none;
   }
 
-  .footer-content {
-    display: inline-block;
-  }
-
-  .footer-content p {
-    margin-bottom: 2px;
-  }
-
+  /* 회원가입페이지 */
   .join-box {
     width: 300px;
     background: none;
   }
+
+  /* 서치페이지 */
+  .post-top {
+    height: 10%;
+  }
+
+  .post-top-mood {
+    display: none;
+  }
+
+  .post-top-logo {
+    width: 100%;
+  }
+
+  .post-top-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+  }
+
+  #offcanvasNavbar-expand-xxxl {
+    width: 60%;
+  }
+
+  .offcanvas {
+    background-color: #f2f2f278;
+  }
+
+  .search-form ::placeholder {
+    font-size: 9px;
+  }
+
+  .post-top-logo div {
+    width: 100%;
+  }
+
+  .post-top-nav div {
+    width: 50px;
+  }
+
+  .offcanvas {
+    background-color: #f2f2f278;
+  }
+
+  .post-main {
+    height: 90%;
+  }
+
+  .post-side {
+    display: none;
+  }
+
+  .post-content {
+    width: 100%;
+  }
+
+  .result-box {
+    width: 50%;
+  }
+
+  .index-content {
+    width: 70px;
+    height: 30px;
+    padding: 5px;
+    font-size: 0.7rem;
+    margin: 0 20px 0 0;
+  }
+
+  .post-content h2 {
+    font-size: 23px;
+    height: 30px;
+  }
+
 }
