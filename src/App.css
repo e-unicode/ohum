@@ -132,12 +132,7 @@ div {
   text-align: justify;
 }
 
-.main-keyword-box {
-  width: 100%;
-  /* margin: auto; */
-}
-
-.main-keyword-box p {
+.main-keyword p {
   letter-spacing: .54em;
 }
 
@@ -855,6 +850,66 @@ p {
   transform: translateY(0);
 }
 
+/* 음악추천페이지 */
+.AI-Track {
+  position: relative;
+}
+
+.main-track {
+  width: 100%;
+  height: 700px;
+  background-size: contain;
+  background-repeat: repeat-x;
+  background-position: center;
+  filter: brightness(50%);
+  position: relative;
+}
+
+.main-track-icon {
+  width: 20px;
+  background-color: #f2f2f2b4;
+  border-radius: 50px;
+  padding: 10px;
+  height: 20px;
+  color: #F2F2F2;
+  color: #262626;
+}
+
+.icon-left {
+  position: absolute;
+  left: 1%;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.icon-right {
+  position: absolute;
+  right: 1%;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.main-track-title {
+  color: #F2F2F2;
+  letter-spacing: -0.4rem;
+  cursor: pointer;
+}
+
+.main-track-title h1 {
+  font-size: 100px;
+  margin: 0;
+  text-shadow: 2px 2px 12px #262626;
+}
+
+.main-track-title h3 {
+  font-size: 50px;
+  font-weight: bold;
+  margin: 0;
+  text-shadow: 2px 2px 12px #262626;
+}
+
 
 @media screen and (max-width : 1200px) {
 
@@ -887,7 +942,7 @@ p {
     font-size: 10px;
   }
 
-  .main-keyword-box p {
+  .main-keyword p {
     font-size: 13px;
     letter-spacing: .3em;
   }
@@ -910,7 +965,7 @@ p {
   .post-top-mood p {
     letter-spacing: 0.1rem;
   }
-  
+
   .post-top-nav div {
     width: 50px;
   }

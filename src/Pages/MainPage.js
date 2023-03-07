@@ -61,7 +61,7 @@ function MainPage(props) {
           <div className="main-content">
             <div className="main-content-left">
               <div className="main-keyword">
-                <div className="main-keyword-box">
+                <div>
                   <h1>오늘 음악 맑음</h1>
                   <p>음악 취향 공유 플랫폼</p>
                   <h5>
@@ -69,7 +69,7 @@ function MainPage(props) {
                     구름 아래서 내리는 비를 맞고 싶은 사람이 필요로 할 거예요.
                   </h5>
                   <div>
-                    <form action="/login" method="POST">
+                    <form action="/" method="POST">
                     <div className="form">
                       <input className="input" placeholder="이메일" name="id" type="email" />
                       <span className="input-border"></span>
