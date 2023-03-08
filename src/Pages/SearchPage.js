@@ -36,7 +36,7 @@ function SearchPage(props) {
   const [AITrack, setAITrack] = useState("");
   const [AITrackList, setAITrackList] = useState([]);
   const [AITrackListTag, setAITrackListTag] = useState(false);
-  const [arrowCount, setArrowCount] = useState(0);
+  const [currentTrack, setCurrentTrack] = useState(0);
 
   const [searchInputTag, setSearchInputTag] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -67,6 +67,7 @@ function SearchPage(props) {
   useEffect(() => {
     setCount([1, 1, 1, 1]);
     setShowTag([true, true, true, true]);
+    setCurrentTrack(0);
   }, []);
 
   async function searchSpotify() {
@@ -435,18 +436,57 @@ function SearchPage(props) {
           ) : (
             <>
               {AITrackListTag ? (
-                <div className="AI-Track">
-                  <div className="main-track" style={{ backgroundImage: `url(${AITrackList[randomNum].album.images[0].url})` }}></div>
-                  <FontAwesomeIcon className="main-track-icon icon-left" icon={faArrowLeft} />
-                  <FontAwesomeIcon className="main-track-icon icon-right" icon={faArrowRight} />
-                  <div className="main-keyword">
-                    <div className="main-track-title" onClick={() => window.open(`${AITrackList[randomNum].external_urls.spotify}`, "_blank")}>
-                      <h1>{AITrackList[randomNum].name}</h1>
-                      <h3>{AITrackList[randomNum].artists[0].name}</h3>
-                    </div>
+                <div style={{ overflow: "hidden" }}>
+                  <div className="AI-Track-container">
+                    {AITrackList.map((AITrack, i) => {
+                      return (
+                        <div className="AI-Track-box">
+                          {/* <div className="main-track" style={{ backgroundImage: `url(${AITrack.album.images[0].url})` }}> */}
+                          <div className="main-track">
+                            <img src={AITrack.album.images[0].url} />
+                          </div>
+                          <FontAwesomeIcon
+                            className="main-track-icon icon-left"
+                            icon={faArrowLeft}
+                            onClick={(e) => {
+                              if (currentTrack == 0) {
+                                e.preventDefault();
+                              } else {
+                                document.querySelector(".AI-Track-container").style.transform = "translateX(-" + (currentTrack - 1) + "00vw)";
+                                setCurrentTrack((currentTrack) => {
+                                  return currentTrack - 1;
+                                });
+                              }
+                            }}
+                          />
+                          <FontAwesomeIcon
+                            className="main-track-icon icon-right"
+                            icon={faArrowRight}
+                            onClick={(e) => {
+                              if (currentTrack == 19) {
+                                e.preventDefault();
+                              } else {
+                                document.querySelector(".AI-Track-container").style.transform = "translateX(-" + (currentTrack + 1) + "00vw)";
+                                setCurrentTrack((currentTrack) => {
+                                  return currentTrack + 1;
+                                });
+                              }
+                            }}
+                          />
+                          <div className="main-keyword">
+                            <div className="main-track-title" onClick={() => window.open(`${AITrack.external_urls.spotify}`, "_blank")}>
+                              <h1>{AITrack.name}</h1>
+                              <h3>{AITrack.artists[0].name}</h3>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
-              ) : null}
+              ) : (
+                <Loading />
+              )}
             </>
           )}
         </div>
