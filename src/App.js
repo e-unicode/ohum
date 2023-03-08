@@ -166,6 +166,7 @@ function App() {
             ai아티스트={ai아티스트}
             추천음악2={추천음악2}
             openai_api_key={openai_api_key}
+            temperature={temperature}
           />
         }
       />

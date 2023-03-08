@@ -903,7 +903,7 @@ p {
 .main-track-title {
   width: 80%;
   color: #F2F2F2;
-  letter-spacing: -0.4rem;
+  letter-spacing: -0.2rem;
   cursor: pointer;
 
 }
@@ -927,9 +927,27 @@ p {
   text-shadow: 2px 2px 12px #262626;
 }
 
-.display {
-  display: none;
+.AI-Playlist-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
+
+.AI-Playlist-box {
+  width: 300px;
+  padding: 40px;
+  text-align: center;
+}
+
+.AI-Playlist-box img {
+  width: 100%;
+  cursor: pointer;
+}
+
+.AI-Playlist-box img:hover {
+  filter: brightness(50%);
+  transition: all 0.5s;
+}
+
 
 @media screen and (max-width : 1200px) {
 

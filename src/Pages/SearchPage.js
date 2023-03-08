@@ -38,6 +38,10 @@ function SearchPage(props) {
   const [AITrackListTag, setAITrackListTag] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(0);
 
+  //오늘 Hot 플리
+  const [hotPlaylist, setHotPlaylist] = useState([]);
+  const [hotPlaylistTag, setHotPlaylistTag] = useState(false);
+
   const [searchInputTag, setSearchInputTag] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [playlistCardTag, setPlaylistCardTag] = useState(false);
@@ -121,11 +125,12 @@ function SearchPage(props) {
     });
     const openai = new OpenAIApi(configuration);
 
-    //ai로 추천 트랙 불러오기
+    //ai로 메인 추천 트랙 불러오기
     openai
       .createCompletion({
         model: "text-davinci-003",
-        prompt: `오늘과 잘 어울리는 노래 한곡을 추천해주세요. 검색어에 사용할 수 있도록 가수와 제목으로만 답변해주세요.`,
+        // prompt: `오늘과 잘 어울리는 노래 한곡을 추천해주세요. 검색어에 사용할 수 있도록 가수와 제목으로만 답변해주세요.`,
+        prompt: `Please recommend a song that goes well with today. Please answer in the form of singer and title so that you can use it for search terms.`,
         temperature: 0.7,
         max_tokens: 256,
         top_p: 1,
@@ -175,7 +180,6 @@ function SearchPage(props) {
       .then((response) => response.json())
       .then((data) => {
         setAITrackList(data.tracks.items);
-        console.log(data);
       })
       .then(() => {
         setAITrackListTag(true);
@@ -220,15 +224,16 @@ function SearchPage(props) {
     //     set추천음악2ArtistTag(true);
     //   });
 
-    // //추천 플레이리스트
-    // await fetch(`https://api.spotify.com/v1/browse/featured-playlists?country=${props.place}`, searchParameters)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     set추천플리(data.playlists.items);
-    //   })
-    //   .then(() => {
-    //     set추천플리Tag(true);
-    //   });
+    //오늘 핫 플레이리스트
+    await fetch(`https://api.spotify.com/v1/browse/featured-playlists?country=${props.place}`, searchParameters)
+      .then((response) => response.json())
+      .then((data) => {
+        setHotPlaylist(data.playlists.items);
+        console.log(data.playlists.items);
+      })
+      .then(() => {
+        setHotPlaylistTag(true);
+      });
   }
 
   return (
@@ -315,7 +320,7 @@ function SearchPage(props) {
       <div className="post-main flex">
         <div className="post-content">
           {searchInputTag ? (
-            <Container>
+            <div className="container">
               <div className="index flex w-100">
                 {index.map(function (indexName, i) {
                   return (
@@ -432,7 +437,7 @@ function SearchPage(props) {
                   </div>
                 </>
               ) : null}
-            </Container>
+            </div>
           ) : (
             <>
               {AITrackListTag ? (
@@ -487,6 +492,35 @@ function SearchPage(props) {
               ) : (
                 <Loading />
               )}
+
+              <div className="container flex AI-Playlist-container">
+              <div className="AI-Playlist-box col">
+                  <div>
+                    <h4>오늘 HOT 플레이리스트</h4>
+                    <div>
+                      {hotPlaylistTag ? (
+                        <div>
+                          <img src={hotPlaylist[0].images[0].url} onClick={() => window.open(`${hotPlaylist[0].external_urls.spotify}`, "_blank")} />
+                        </div>
+                      ) : (
+                        <Loading />
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="AI-Playlist-box col">
+                  <div>
+                    <h4>음악 온도 {props.temperature}℃</h4>
+                  </div>
+                </div>
+                <div className="AI-Playlist-box col">
+                  <div>
+                    <h4>오늘 음악 {props.mood}</h4>
+                    <div>플리</div>
+                  </div>
+                </div>
+                
+              </div>
             </>
           )}
         </div>
