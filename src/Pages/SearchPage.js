@@ -18,6 +18,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 
 function SearchPage(props) {
   const [searchInput, setSearchInput] = useState("");
+  const [searchInputTag, setSearchInputTag] = useState(false);
 
   //검색
   const [searchArtist, setSearchArtist] = useState([]);
@@ -42,31 +43,14 @@ function SearchPage(props) {
   const [hotPlaylist, setHotPlaylist] = useState([]);
   const [hotPlaylistTag, setHotPlaylistTag] = useState(false);
 
-  const [searchInputTag, setSearchInputTag] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [playlistCardTag, setPlaylistCardTag] = useState(false);
-  const [trackCardTag, setTrackCardTag] = useState(false);
-  const [artistCardTag, setArtistCardTag] = useState(false);
-  // const [playlists, setPlaylists] = useState([]);
-  const [playlistTag, setPlaylistTag] = useState(false);
-  const [trackTag, setTrackTag] = useState(false);
-  const [artists, setArtists] = useState([]);
-  const [artistTag, setArtistTag] = useState(false);
-  const [추천음악playlists, set추천음악Playlists] = useState([]);
-  const [추천음악playlistTag, set추천음악PlaylistTag] = useState(false);
-  const [추천음악tracks, set추천음악Tracks] = useState([]);
-  const [추천음악trackTag, set추천음악TrackTag] = useState(false);
-  const [추천아티스트, set추천아티스트] = useState([]);
-  const [추천아티스트Tag, set추천아티스트Tag] = useState(false);
-  const [추천음악2playlists, set추천음악2Playlists] = useState([]);
-  const [추천음악2playlistTag, set추천음악2PlaylistTag] = useState(false);
-  const [추천음악2tracks, set추천음악2Tracks] = useState([]);
-  const [추천음악2trackTag, set추천음악2TrackTag] = useState(false);
-  const [추천음악2artists, set추천음악2Artists] = useState([]);
-  const [추천음악2artistTag, set추천음악2ArtistTag] = useState(false);
-  const [randomNum, setRandomNum] = useState(0);
-  const [추천플리, set추천플리] = useState([]);
-  const [추천플리Tag, set추천플리Tag] = useState(false);
+  //음악 온도 플리
+  const [tempMusic, setTempMusic] = useState("");
+  const [tempMusicList, setTempMusicList] = useState([]);
+  const [tempMusicListTag, setTempMusicListTag] = useState(false);
+
+  //음악 mood 플리
+  const [moodMusicList, setMoodMusicList] = useState([]);
+  const [moodMusicListTag, setMoodMusicListTag] = useState(false);
 
   useEffect(() => {
     setCount([1, 1, 1, 1]);
@@ -82,7 +66,8 @@ function SearchPage(props) {
         Authorization: "Bearer " + props.accessToken,
       },
     };
-    ////// 검색시 가장 첫 줄
+
+    // 검색시 가장 첫 줄
     //검색한 내용과 가장 관련있는 아티스트 가져오기
     let artistID = await fetch(`https://api.spotify.com/v1/search?q=${searchInput}&type=artist`, searchParameters)
       .then((response) => response.json())
@@ -114,11 +99,9 @@ function SearchPage(props) {
         setSearchPlaylists(data.playlists.items);
         setSearchTracks(data.tracks.items);
       });
-
-    // document.querySelector(".search-enter").click();
   }
 
-  //ai키워드 가져오기
+  //ai 추천 가져오기
   useEffect(() => {
     const configuration = new Configuration({
       apiKey: props.openai_api_key,
@@ -129,8 +112,8 @@ function SearchPage(props) {
     openai
       .createCompletion({
         model: "text-davinci-003",
-        // prompt: `오늘과 잘 어울리는 노래 한곡을 추천해주세요. 검색어에 사용할 수 있도록 가수와 제목으로만 답변해주세요.`,
-        prompt: `Please recommend a song that goes well with today. Please answer in the form of singer and title so that you can use it for search terms.`,
+        prompt: `오늘과 잘 어울리는 가수를 추천해주세요. 검색어에 사용할 수 있도록 간결하게 답변해주세요.`,
+        // prompt: `Please recommend a song that goes well with today. Please answer in the form of singer and title so that you can use it for search terms.`,
         temperature: 0.7,
         max_tokens: 256,
         top_p: 1,
@@ -139,32 +122,30 @@ function SearchPage(props) {
       })
       .then((result) => {
         setAITrack(result.data.choices[0].text);
-        console.log(result.data.choices[0].text);
       });
 
-    //ai로 추천음악 키워드2 불러오기
-    // openai
-    //   .createCompletion({
-    //     model: "text-davinci-003",
-    //     prompt: `The current time is. Please recommend a movie that goes well with now. The answer is the title of the movie. Just answer the title.`,
-    //     temperature: 0.7,
-    //     max_tokens: 256,
-    //     top_p: 1,
-    //     frequency_penalty: 0,
-    //     presence_penalty: 0,
-    //   })
-    //   .then((result) => {
-    //     set추천음악2(result.data.choices[0].text);
-    //     console.log(result.data.choices[0].text);
-    //   });
+    // ai로 음악온도플리 불러오기
+    openai
+      .createCompletion({
+        model: "text-davinci-003",
+        prompt: `Please recommend a song with a music temperature of ${props.temperature} degrees.`,
+        temperature: 0.7,
+        max_tokens: 256,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+      })
+      .then((result) => {
+        setTempMusic(result.data.choices[0].text);
+      });
   }, []);
 
-  //mood가 바뀔때마다 노래 다시 추천
+  //접속시 노래 추천
   useEffect(() => {
     if (props.mood) {
       recommendSpotify();
     }
-  }, [props.mood]);
+  }, []);
 
   async function recommendSpotify() {
     var searchParameters = {
@@ -180,59 +161,41 @@ function SearchPage(props) {
       .then((response) => response.json())
       .then((data) => {
         setAITrackList(data.tracks.items);
+        console.log(data.tracks.items);
       })
       .then(() => {
         setAITrackListTag(true);
       });
-
-    // //mood와 관련된 앨범, 트랙 , 플레이리스트 찾기
-    // await fetch("https://api.spotify.com/v1/search?q=" + props.mood + "&type=playlist,track,artist", searchParameters)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     // setPlaylists(data.playlists.items);
-    //     // setTracks(data.tracks.items);
-    //     setArtists(data.artists.items);
-    //   })
-    //   .then(() => {
-    //     setPlaylistTag(true);
-    //     setTrackTag(true);
-    //     setArtistTag(true);
-    //   });
-
-    // //추천 아티스트로 아티스트와 탑트랙 보여주기
-    // await fetch("https://api.spotify.com/v1/search?q=" + props.ai아티스트 + "&type=artist", searchParameters)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     set추천아티스트(data.artists);
-    //     console.log("아티스트", data.artists);
-    //   })
-    //   .then(() => {
-    //     set추천아티스트Tag(true);
-    //   });
-
-    // //추천음악 키워드2와 관련된 앨범, 트랙 찾기
-    // await fetch("https://api.spotify.com/v1/search?q=" + props.추천음악2 + "&type=playlist,track,artist", searchParameters)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     set추천음악2Playlists(data.playlists.items);
-    //     set추천음악2Tracks(data.tracks.items);
-    //     set추천음악2Artists(data.artists.items);
-    //   })
-    //   .then(() => {
-    //     set추천음악2PlaylistTag(true);
-    //     set추천음악2TrackTag(true);
-    //     set추천음악2ArtistTag(true);
-    //   });
 
     //오늘 핫 플레이리스트
     await fetch(`https://api.spotify.com/v1/browse/featured-playlists?country=${props.place}`, searchParameters)
       .then((response) => response.json())
       .then((data) => {
         setHotPlaylist(data.playlists.items);
-        console.log(data.playlists.items);
       })
       .then(() => {
         setHotPlaylistTag(true);
+      });
+
+    //음악온도 플레이리스트
+    await fetch("https://api.spotify.com/v1/search?q=" + tempMusic + "&type=playlist", searchParameters)
+      .then((response) => response.json())
+      .then((data) => {
+        setTempMusicList(data.playlists.items);
+      })
+      .then(() => {
+        setTempMusicListTag(true);
+      });
+
+    //오늘 음악 mood 플레이리스트
+    await fetch("https://api.spotify.com/v1/search?q=" + props.mood + "&type=playlist", searchParameters)
+      .then((response) => response.json())
+      .then((data) => {
+        setMoodMusicList(data.playlists.items);
+        console.log(data.playlists.items);
+      })
+      .then(() => {
+        setMoodMusicListTag(true);
       });
   }
 
@@ -443,10 +406,24 @@ function SearchPage(props) {
               {AITrackListTag ? (
                 <div style={{ overflow: "hidden" }}>
                   <div className="AI-Track-container">
-                    {AITrackList.map((AITrack, i) => {
+                    {AITrackListTag ? (
+                      <div className="AI-Track-box">
+                        <div className="main-track" style={{ backgroundImage: `url(${AITrackList[props.randomNum].album.images[0].url})` }}></div>
+                        <div className="main-keyword">
+                            <div className="main-track-title" onClick={() => window.open(`${AITrackList[props.randomNum].external_urls.spotify}`, "_blank")}>
+                              <h1>{AITrackList[props.randomNum].name}</h1>
+                              <h3>{AITrackList[props.randomNum].artists[0].name}</h3>
+                            </div>
+                          </div>
+                      </div>
+                      
+                    ) : (
+                      <Loading />
+                    )}
+                    {/* {AITrackList.map((AITrack, i) => {
                       return (
                         <div className="AI-Track-box">
-                          {/* <div className="main-track" style={{ backgroundImage: `url(${AITrack.album.images[0].url})` }}> */}
+                      
                           <div className="main-track">
                             <img src={AITrack.album.images[0].url} />
                           </div>
@@ -486,7 +463,7 @@ function SearchPage(props) {
                           </div>
                         </div>
                       );
-                    })}
+                    })} */}
                   </div>
                 </div>
               ) : (
@@ -494,13 +471,16 @@ function SearchPage(props) {
               )}
 
               <div className="container flex AI-Playlist-container">
-              <div className="AI-Playlist-box col">
+                <div className="AI-Playlist-box col">
                   <div>
                     <h4>오늘 HOT 플레이리스트</h4>
                     <div>
                       {hotPlaylistTag ? (
                         <div>
-                          <img src={hotPlaylist[0].images[0].url} onClick={() => window.open(`${hotPlaylist[0].external_urls.spotify}`, "_blank")} />
+                          <img
+                            src={hotPlaylist[props.randomNum2].images[0].url}
+                            onClick={() => window.open(`${hotPlaylist[props.randomNum2].external_urls.spotify}`, "_blank")}
+                          />
                         </div>
                       ) : (
                         <Loading />
@@ -511,15 +491,37 @@ function SearchPage(props) {
                 <div className="AI-Playlist-box col">
                   <div>
                     <h4>음악 온도 {props.temperature}℃</h4>
+                    <div>
+                      {tempMusicListTag ? (
+                        <div>
+                          <img
+                            src={tempMusicList[0].images[0].url}
+                            onClick={() => window.open(`${tempMusicList[0].external_urls.spotify}`, "_blank")}
+                          />
+                        </div>
+                      ) : (
+                        <Loading />
+                      )}
+                    </div>
                   </div>
                 </div>
                 <div className="AI-Playlist-box col">
                   <div>
                     <h4>오늘 음악 {props.mood}</h4>
-                    <div>플리</div>
+                    <div>
+                      {moodMusicListTag ? (
+                        <div>
+                          <img
+                            src={moodMusicList[0].images[0].url}
+                            onClick={() => window.open(`${moodMusicList[0].external_urls.spotify}`, "_blank")}
+                          />
+                        </div>
+                      ) : (
+                        <Loading />
+                      )}
+                    </div>
                   </div>
                 </div>
-                
               </div>
             </>
           )}

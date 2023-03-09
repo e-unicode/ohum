@@ -25,6 +25,9 @@ function App() {
   const [nowTag, setNowTag] = useState(false);
   const [ai아티스트, setAi아티스트] = useState("");
   const [추천음악2, set추천음악2] = useState("");
+  const [randomNum, setRandomNum] = useState(0);
+  const [randomNum2, setRandomNum2] = useState(0);
+
 
   //spotify 토큰, 날씨, ai키워드 가져오기
   useEffect(() => {
@@ -146,7 +149,21 @@ function App() {
       setNow(now);
       setNowTag(true);
     })();
-  }, [now]);
+
+    (function printRandomNumber() {
+      //결과중 몇번째를 가져올지 정하는 랜덤 숫자
+      setTimeout(printRandomNumber, 30000);
+      const randomNum = Math.floor(Math.random() * 20);
+      setRandomNum(randomNum);
+    })();
+
+    (function printRandomNumber2() {
+      //결과중 몇번째를 가져올지 정하는 랜덤 숫자
+      setTimeout(printRandomNumber2, 30000);
+      const randomNum2 = Math.floor(Math.random() * 9);
+      setRandomNum2(randomNum2);
+    })();
+  }, []);
 
   return (
     <Routes>
@@ -167,6 +184,8 @@ function App() {
             추천음악2={추천음악2}
             openai_api_key={openai_api_key}
             temperature={temperature}
+            randomNum={randomNum}
+            randomNum2={randomNum2}
           />
         }
       />
