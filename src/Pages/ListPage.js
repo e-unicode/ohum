@@ -1,7 +1,7 @@
 import "../App.css";
 import PostBox from "../Components/PostBox";
 
-function PostPage() {
+function ListPage() {
   return (
     <div className="post-main flex">
       <div className="post-content-main">
@@ -13,4 +13,4 @@ function PostPage() {
   );
 }
 
-export default PostPage;
+export default ListPage;

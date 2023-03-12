@@ -24,10 +24,10 @@ function JoinPage(props) {
               <span className="input-border"></span>
             </div>
             <div>
-              <Link to="/post">
+              <Link to="/">
                 <button className="enter">가입</button>
               </Link>
-              <Link to="/">
+              <Link to="/enter">
                 <button className="enter enter-ml">나중에 가입하기</button>
               </Link>
             </div>

@@ -653,7 +653,7 @@ button .span-mother2 span:nth-child(6) {
 .post-content-post-box {
   width: 500px;
   position: absolute;
-  right: 20%;
+  right: 0;
   left: 0;
   margin: auto;
 }

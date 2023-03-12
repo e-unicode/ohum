@@ -7,6 +7,7 @@ import MainPage from "./Pages/MainPage";
 import JoinPage from "./Pages/JoinPage";
 import PostPage from "./Pages/PostPage";
 import SearchPage from "./Pages/SearchPage";
+import EnterPage from "./Pages/EnterPage";
 
 const client_id = process.env.REACT_APP_CLIENT_ID;
 const client_secret = process.env.REACT_APP_CLIENT_SECRET;
@@ -23,11 +24,11 @@ function App() {
   const [moodTag, setMoodTag] = useState(false);
   const [now, setNow] = useState("");
   const [nowTag, setNowTag] = useState(false);
-  const [ai아티스트, setAi아티스트] = useState("");
-  const [추천음악2, set추천음악2] = useState("");
   const [randomNum, setRandomNum] = useState(0);
   const [randomNum2, setRandomNum2] = useState(0);
 
+  const [AITrack, setAITrack] = useState("");
+  const [tempMusic, setTempMusic] = useState("");
 
   //spotify 토큰, 날씨, ai키워드 가져오기
   useEffect(() => {
@@ -84,11 +85,12 @@ function App() {
               setMoodTag(true);
             });
 
-          //ai로 추천 아티스트 불러오기
+          //ai로 메인 추천 트랙 불러오기
           openai
             .createCompletion({
               model: "text-davinci-003",
-              prompt: `${now}, please recommend the best singer for this time.`,
+              prompt: `오늘과 잘 어울리는 가수를 추천해주세요. 검색어에 사용할 수 있도록 간결하게 답변해주세요.`,
+              // prompt: `Please recommend a song that goes well with today. Please answer in the form of singer and title so that you can use it for search terms.`,
               temperature: 0.7,
               max_tokens: 256,
               top_p: 1,
@@ -96,14 +98,14 @@ function App() {
               presence_penalty: 0,
             })
             .then((result) => {
-              setAi아티스트(result.data.choices[0].text);
+              setAITrack(result.data.choices[0].text);
             });
 
-          //ai로 추천음악 키워드2 불러오기
+          // ai로 음악온도플리 불러오기
           openai
             .createCompletion({
               model: "text-davinci-003",
-              prompt: `The current time is ${now}. Please recommend a movie that goes well with now. The answer is the title of the movie. Just answer the title.`,
+              prompt: `Please recommend a song with a music temperature of ${temperature} degrees.`,
               temperature: 0.7,
               max_tokens: 256,
               top_p: 1,
@@ -111,7 +113,7 @@ function App() {
               presence_penalty: 0,
             })
             .then((result) => {
-              set추천음악2(result.data.choices[0].text);
+              setTempMusic(result.data.choices[0].text);
             });
         });
     }
@@ -121,7 +123,7 @@ function App() {
     });
   }, []);
 
-  //현재시간 가져오기
+  //현재시간 & 랜덤숫자 가져오기
   useEffect(() => {
     (function printNow() {
       const today = new Date();
@@ -167,28 +169,27 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<MainPage mood={mood} moodTag={moodTag} accessToken={accessToken} />} />
-      <Route path="/join" element={<JoinPage mood={mood} />} />
-      <Route path="/post" element={<PostPage mood={mood} moodTag={moodTag} weather={weather} accessToken={accessToken} now={now} />} />
       <Route
-        path="/search"
+        path="/*"
         element={
-          <SearchPage
+          <MainPage
+            openai_api_key={openai_api_key}
+            accessToken={accessToken}
+            temperature={temperature}
+            weather={weather}
+            place={place}
             mood={mood}
             moodTag={moodTag}
-            weather={weather}
-            accessToken={accessToken}
             now={now}
-            place={place}
-            ai아티스트={ai아티스트}
-            추천음악2={추천음악2}
-            openai_api_key={openai_api_key}
-            temperature={temperature}
             randomNum={randomNum}
             randomNum2={randomNum2}
+            AITrack={AITrack}
+            tempMusic={tempMusic}
           />
         }
       />
+      <Route path="/enter" element={<EnterPage mood={mood} moodTag={moodTag} accessToken={accessToken} randomNum={randomNum} />} />
+      <Route path="/join" element={<JoinPage mood={mood} />} />
     </Routes>
   );
 }
