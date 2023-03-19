@@ -1,15 +1,18 @@
-import "../App.css";
+import "./Footer.css";
 
 function Footer(props) {
   return (
     <div className="footer">
-      <div className="footer-content">
-        <p>지금 음악 {props.mood}</p>
-        <p>가입하기</p>
-        <p>로그인</p>
-        <p>한국어</p>
-        <p>English(US)</p>
-        <p>e-unicode @ 2023</p>
+      <div className="container-fluid">
+        <div className="footer-content">
+          <p>
+            지금 날씨 <span>{props.weather}</span>
+          </p>
+          <p>{props.now}</p>
+          <p>
+            오늘 음악 <span>{props.mood}</span>
+          </p>
+        </div>
       </div>
     </div>
   );

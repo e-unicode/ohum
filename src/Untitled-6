@@ -1,0 +1,69 @@
+import "../App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
+import SearchModal from "../Components/SearchModal.js";
+
+function SearchPage(props) {
+  // ... existing code here ...
+
+  // State to store selected track info
+  const [selectedTrack, setSelectedTrack] = useState({
+    albumCover: "",
+    title: "",
+    artist: "",
+  });
+
+  return (
+    <div className="container">
+      {/* ... existing code here ... */}
+      {showTag[1] ? (
+        <>
+          <h2>Tracks</h2>
+          <div className="search-result">
+            {props.searchTracks.map((track, i) => {
+              return (
+                <div
+                  id={track.id}
+                  className="result-box in-bl"
+                  onClick={() => {
+                    // Update state with selected track info
+                    setSelectedTrack({
+                      albumCover: track.album.images[0].url,
+                      title: track.name,
+                      artist: track.artists[0].name,
+                    });
+                    setModalShow(true);
+                  }}
+                >
+                  <div className="result-box-card">
+                    <div className="result-box-card-cover">
+                      <img src={track.album.images[0].url} />
+                    </div>
+                    <div className="result-box-card-title">
+                      <h6>{track.name}</h6>
+                      <p>{track.artists[0].name}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      ) : null}
+
+      {/* ... existing code here ... */}
+
+      <SearchModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        // Pass selected track info to modal component as props
+        albumCover={selectedTrack.albumCover}
+        title={selectedTrack.title}
+        artist={selectedTrack.artist}
+      />
+    </div>
+  );
+}
+
+export default SearchPage;

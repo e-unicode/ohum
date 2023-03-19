@@ -1,0 +1,40 @@
+body,
+div,
+p,
+a {
+    margin: 0px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+div {
+    box-sizing: border-box;
+}
+
+.footer {
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    color: #262626;
+    z-index: 100;
+    text-transform: uppercase;
+}
+
+.footer-content {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    font-size: 7px;
+    letter-spacing: 0.4em;
+}
+
+.footer-content p {
+    width: 20%;
+    display: inline-block;
+    margin: auto;
+    padding: 10px;
+}
+
+.footer-content span {
+    color: #3F7EA6;
+    font-weight: bold;
+}

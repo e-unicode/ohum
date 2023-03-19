@@ -1,16 +1,9 @@
 import "../App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
-import { Routes, Route, Outlet } from "react-router-dom";
-
-import { useSearchParams } from "react-router-dom";
-import Banner from "../Components/Banner";
-import Loading from "../Components/Loading";
-import NavScrollExample from "../Components/Navbar";
+import { Routes, Route } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { Configuration, OpenAIApi } from "openai";
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -31,11 +24,6 @@ function MainPage(props) {
   const [searchTracks, setSearchTracks] = useState([]);
   const [searchAlbums, setSearchAlbums] = useState([]);
   const [searchPlaylists, setSearchPlaylists] = useState([]);
-
-  //index check
-  const [index, setIndex] = useState(["Top10", "Tracks", "Albums", "Playlists"]);
-  const [count, setCount] = useState([1, 1, 1, 1]);
-  const [showTag, setShowTag] = useState([true, true, true, true]);
 
   //AI추천
   const [AITrackList, setAITrackList] = useState([]);
@@ -237,9 +225,6 @@ function MainPage(props) {
             <>
               {searchInputTag ? (
                 <SearchPage
-                  index={index}
-                  showTag={showTag}
-                  count={count}
                   searchArtistName={searchArtistName}
                   searchTopTracks={searchTopTracks}
                   searchTracks={searchTracks}
@@ -271,9 +256,6 @@ function MainPage(props) {
             <>
               {searchInputTag ? (
                 <SearchPage
-                  index={index}
-                  showTag={showTag}
-                  count={count}
                   searchArtistName={searchArtistName}
                   searchTopTracks={searchTopTracks}
                   searchTracks={searchTracks}
@@ -281,7 +263,7 @@ function MainPage(props) {
                   searchPlaylists={searchPlaylists}
                 />
               ) : (
-                <ListPage />
+                <ListPage weather={props.weather} />
               )}
             </>
           }
@@ -292,9 +274,6 @@ function MainPage(props) {
             <>
               {searchInputTag ? (
                 <SearchPage
-                  index={index}
-                  showTag={showTag}
-                  count={count}
                   searchArtistName={searchArtistName}
                   searchTopTracks={searchTopTracks}
                   searchTracks={searchTracks}

@@ -1,7 +1,10 @@
 /* 기본세팅 */
 html {
   line-height: 1.15;
-  /*기본 행간 높이*/
+  background: #F2F2F2;
+}
+body {
+  background: #F2F2F2;
 }
 
 .w-50 {
@@ -14,10 +17,6 @@ html {
 
 .h-100 {
   height: 100%;
-}
-
-.hidden {
-  display: none;
 }
 
 body,
@@ -41,53 +40,20 @@ div {
   display: inline-block;
 }
 
-/* 로딩페이지 */
-.loader {
-  display: flex;
-  align-items: center;
+
+
+
+
+.content {
+  width: 100vw;
+  height: 90%;
+  background: #F2F2F2;
+  color: #262626;
+  text-transform: uppercase;
+  /* overflow: scroll; */
 }
 
-.bar {
-  display: inline-block;
-  width: 3px;
-  height: 20px;
-  background-color: #3F7EA6;
-  border-radius: 10px;
-  animation: scale-up4 1s linear infinite;
-}
 
-.bar:nth-child(2) {
-  height: 35px;
-  margin: 0 5px;
-  animation-delay: .25s;
-}
-
-.bar:nth-child(3) {
-  animation-delay: .5s;
-}
-
-@keyframes scale-up4 {
-  20% {
-    background-color: #8399a7;
-    transform: scaleY(1.5);
-  }
-
-  40% {
-    transform: scaleY(1);
-  }
-}
-
-/* 키워드로딩중 */
-.keyword-load {
-  width: 25px;
-  height: 30px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  margin: auto;
-}
 
 /* 메인페이지 */
 .main {
@@ -211,26 +177,16 @@ div {
 }
 
 /* 메인페이지 오른쪽 카드 */
-.main-content-right {
-  width: 60%;
-  height: 100%;
-  float: left;
-  color: #F2F2F2;
-  position: relative;
+.main-card {
+  width: 100%;
+  height: 70%;
+  background: #F2F2F2;
+  /* display: flex; */
+  gap: 5px;
 }
 
-.main-card {
-  width: 80%;
-  height: 60%;
-  background: #F2F2F2;
-  display: flex;
-  gap: 5px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  margin: auto;
+.main-card-cover {
+  transition: all 1s;
 }
 
 .main-card div {
@@ -249,6 +205,7 @@ div {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  transition: all 1s;
 }
 
 .main-card div:hover {
@@ -264,7 +221,7 @@ div {
   min-width: 14em;
   padding: .5em;
   text-align: center;
-  transform: rotate(-90deg);
+  /* transform: rotate(-90deg); */
   transition: all .5s;
   text-transform: uppercase;
   color: #F2F2F2;
@@ -288,42 +245,12 @@ div {
   word-break: break-all;
 }
 
-/* Footer */
-.footer {
-  width: 100%;
-  height: 100%;
-  float: left;
-  color: #3F7EA6;
-  position: relative;
-}
 
-.footer-content {
-  width: 60%;
-  height: 50%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  display: flex;
-  text-align: center;
-}
 
-.footer-content p {
-  font-size: 12px;
-  margin: auto;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  word-break: break-all;
-}
+
 
 /* 회원가입 모달 페이지 */
-.join {
-  width: 100vw;
-  height: 100vh;
-}
+
 
 .join-content {
   width: 100%;
@@ -331,15 +258,12 @@ div {
   position: relative;
 }
 
-.join-bottom {
-  width: 100%;
-  height: 10%;
-}
+
 
 .join-box {
-  width: 400px;
-  height: 500px;
-  background: #F2F2F2;
+  width: 30%;
+  height: 70%;
+  /* background: #F2F2F2; */
   position: absolute;
   top: 0;
   bottom: 0;
@@ -352,15 +276,23 @@ div {
   align-items: center;
 }
 
+.join-box-content {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
 .join-box-content h1 {
   color: #3F7EA6;
-  font-size: 30px;
+  /* font-size: 30px; */
   font-weight: 900;
 }
 
 .join-box-content p {
   color: #3F7EA6;
-  font-size: 10px;
+  /* font-size: 10px; */
 }
 
 /* 포스트,서치 페이지 */
@@ -368,92 +300,18 @@ div {
   width: 100vw;
   height: 100vh;
   background: #F2F2F2;
+  background-color: #F2F2F2;
+
 }
 
-.post-top {
-  width: 100%;
-  /* height: 10%; */
-}
 
-.post-top-nav {
-  width: 25%;
-  padding: 15px;
-  color: #262626;
-}
-
-.post-top-nav div {
-  width: 60px;
-  margin-left: auto;
-}
-
-.post-top-nav div button {
-  width: 100%;
-}
-
-.post-top-logo {
-  width: 25%;
-  padding: 15px;
-  color: #262626;
-  text-align: center;
-}
-
-.post-top-logo div {
-  width: 70%;
-  margin: auto;
-}
-
-.post-top-logo h4 {
-  letter-spacing: 0.11rem;
-  width: 100%;
-  margin: 0;
-  font-weight: 500;
-  /* text-align: center; */
-}
-
-.post-top-logo p {
-  letter-spacing: 0.35rem;
-  width: 100%;
-  margin: 0;
-  /* text-align: center; */
-  font-size: 9px;
-}
-
-.post-top-mood {
-  width: 25%;
-  color: #262626;
-  /* text-align: center; */
-  padding: 15px;
-}
-
-.post-top-mood div {
-  width: 70%;
-  margin-right: auto;
-}
-
-.post-top-mood p {
-  margin: 0;
-  font-size: 9px;
-  letter-spacing: .5em;
-  font-weight: 500;
-  text-align: left;
-}
-
-.post-top-mood h4 {
-  letter-spacing: 0.2rem;
-  /* width: 100%; */
-  margin: 0;
-  font-weight: 500;
-  text-align: left;
-}
 
 .post-main {
   width: 100%;
-  height: 90%;
-}
+  height: 400%;
+  overflow: scroll;
+  background: #F2F2F2;
 
-.post-side {
-  width: 15%;
-  height: 100%;
 }
 
 .post-content {
@@ -469,58 +327,6 @@ div {
   font-weight: 700;
 }
 
-/* 서치바 */
-.search-form {
-  width: 100%;
-  height: 100%;
-  /* float: left; */
-  margin-top: 15px;
-}
-
-.search-form .form {
-  width: 100%;
-}
-
-/* styling of Input */
-.search-input {
-  color: #F2F2F2;
-  color: #262626;
-  font-size: .9rem;
-  background-color: transparent;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 6px;
-  padding-block: .5em;
-  border: none;
-  border-bottom: 0.5px solid #F2F2F2;
-  border-bottom: 0.5px solid #262626;
-}
-
-.search-input:focus {
-  outline: none;
-}
-
-.search-form ::placeholder {
-  color: #F2F2F2;
-  color: #26262668;
-  font-size: 12px;
-}
-
-.search-enter {
-  width: 5%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  right: 0;
-  border: none;
-  cursor: pointer;
-  background-color: transparent;
-  font-size: 12px;
-  color: #F2F2F2;
-  color: #262626;
-  letter-spacing: 2px;
-  text-align: right;
-}
 
 /* 배너 컴포넌트 */
 .buttons {
@@ -619,35 +425,7 @@ button .span-mother2 span:nth-child(6) {
   transition: .7s;
 }
 
-/* 
-.buttons button {
-  width: 80%;
-  display: flex;
-  align-items: center;
-  font-size: 1.5em;
-  background-color: #F2F2F2;
-  color: #F2F2F2;
-  color: #262626;
-  border: none;
-  padding: 2%;
-  border-radius: 20px;
-}
 
-.buttons button:hover {
-  border: solid 0.5px #262626;
-}
-
-.buttons span {
-  text-align: center;
-  width: 20%;
-}
-
-.buttons p {
-  width: 80%;
-  margin: 0 0 0 10px;
-  font-weight: 500;
-  text-align: left;
-} */
 
 /* 포스트박스 */
 .post-content-post-box {
@@ -760,7 +538,6 @@ button .span-mother2 span:nth-child(6) {
 .result-box {
   width: 20%;
   padding: 0 10px 10px 0;
-  cursor: pointer;
   transition: transform 0.2s ease;
 }
 
@@ -777,23 +554,40 @@ button .span-mother2 span:nth-child(6) {
   /* border-radius: 5px; */
   /* padding: 0 0 10px 0; */
   border: #262626 solid 0.5px;
-
+  cursor: pointer;
 }
 
 .result-box-card-cover {
   width: 100%;
-  height: 100%;
+  height: 0;
+  padding-top: 100%;
+  /* width의 100% */
+  position: relative;
   background-position: center;
   background-size: cover;
   border-radius: 2px;
 }
 
 .result-box-card-cover img {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  /* 부모 요소인 div의 크기만큼 */
+  object-fit: cover;
+  /* 비율 유지 + 중앙 맞추기 */
   background-position: center;
   background-size: cover;
-  /* border-radius: 2px; */
+}
+
+.result-box-card:hover .result-box-card-cover {
+  height: 150px;
+}
+
+.result-box-card:hover .result-box-card-hover {
+  visibility: visible;
+  opacity: 1;
 }
 
 .result-box-card-title {
@@ -852,19 +646,22 @@ p {
 
 /* 음악추천페이지 */
 .AI-Track-container {
-  width: 2000vw;
+  margin-top: 20%;
+  margin-bottom: 20%;
+  width: 100%;
   transition: all 0.5s;
   /* transform: translateX(-100vw); */
 }
-  .AI-Track-box {
+
+.AI-Track-box {
   position: relative;
   width: 100vw;
   float: left;
 }
 
-.main-track  {
+.main-track {
   width: 100%;
-  height: 700px;
+  height: 500px;
   background-size: contain;
   background-repeat: repeat-x;
   background-position: center;
@@ -987,28 +784,7 @@ p {
     letter-spacing: .3em;
   }
 
-  /* 서치페이지 */
-  .post-top-logo h4 {
-    letter-spacing: 0.05rem;
-    font-size: 17px;
-  }
-
-  .post-top-logo p {
-    letter-spacing: 0.1rem;
-  }
-
-  .post-top-mood h4 {
-    letter-spacing: 0.05rem;
-    font-size: 15px;
-  }
-
-  .post-top-mood p {
-    letter-spacing: 0.1rem;
-  }
-
-  .post-top-nav div {
-    width: 50px;
-  }
+  
 
   .index-content {
     width: 100px;
@@ -1137,6 +913,7 @@ p {
   .post-content h2 {
     font-size: 23px;
     height: 30px;
+    font-weight: bold;
   }
 
 }

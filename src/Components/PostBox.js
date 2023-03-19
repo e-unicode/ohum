@@ -1,13 +1,14 @@
 import "../App.css";
 
-function PostBox() {
+function PostBox(props) {
+
   return (
     <div className="post-box">
       <div className="post-box-user">
         <img src="oh-um-logo.jpg" />
         <div className="post-box-user-name">
-          <h6>e-unicode</h6>
-          <p>지금 닐씨: 맑음</p>
+          <h6>user name</h6>
+          <p>지금 날씨: {props.weather}</p>
         </div>
         <div className="post-box-like">
           <p>like</p>

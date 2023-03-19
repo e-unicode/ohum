@@ -5,7 +5,7 @@ import Footer from "../Components/Footer";
 
 function JoinPage(props) {
   return (
-    <div className="join">
+    <div className="content">
       <div className="join-content">
         <div className="join-box">
           <div className="join-box-content">
@@ -34,11 +34,12 @@ function JoinPage(props) {
           </div>
         </div>
       </div>
-      <div className="join-bottom">
-        <Footer mood={props.mood} />
-      </div>
+
     </div>
   );
 }
 
 export default JoinPage;
+
+
+
