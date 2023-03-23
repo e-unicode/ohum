@@ -9,7 +9,7 @@ import SearchPage from "./Pages/SearchPage";
 import EnterPage from "./Pages/EnterPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import AIPage from "./Pages/AIPage";
+import MainContent from "./Pages/MainContent";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 
@@ -32,7 +32,9 @@ function App() {
   const [randomNum2, setRandomNum2] = useState(0);
 
   const [AITrack, setAITrack] = useState("");
+  const [AITrackTag, setAITrackTag] = useState(false);
   const [tempMusic, setTempMusic] = useState("");
+  const [tempMusicTag, setTempMusicTag] = useState(false);
 
   const [searchInput, setSearchInput] = useState("");
   const [searchInputTag, setSearchInputTag] = useState(false);
@@ -45,24 +47,76 @@ function App() {
   const [searchAlbums, setSearchAlbums] = useState([]);
   const [searchPlaylists, setSearchPlaylists] = useState([]);
 
-  //AI추천
-  const [AITrackList, setAITrackList] = useState([]);
-  const [AITrackListTag, setAITrackListTag] = useState(false);
-  const [currentTrack, setCurrentTrack] = useState(0);
+  //ai키워드 가져오기
+  useEffect(() => {
+    const configuration = new Configuration({
+      apiKey: openai_api_key,
+    });
+    const openai = new OpenAIApi(configuration);
 
-  //오늘 Hot 플리
-  const [hotPlaylist, setHotPlaylist] = useState([]);
-  const [hotPlaylistTag, setHotPlaylistTag] = useState(false);
+    //ai로 날씨와 어울리는 mood 키워드 가져오기
+    openai
+      .createCompletion({
+        model: "text-davinci-003",
+        prompt: `Please present your answer as a keyword.
+      Current weather conditions: ${weather}
+      Temperature: ${temperature} degrees.
+      Emotional conditions: Answer.`,
+        // prompt: `The current weather condition is ${weather} and the temperature is ${temperature} degrees. Please suggest the atmosphere or mood that matches the given weather conditions and temperatures as one keyword. Please be careful not to present keywords that are not appropriate.`,
+        temperature: 0.7,
+        max_tokens: 256,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+      })
+      .then((result) => {
+        setMood(result.data.choices[0].text);
+        console.log(result.data.choices[0].text);
+      })
+      .then(() => {
+        setMoodTag(true);
+      });
 
-  //음악 온도 플리
-  const [tempMusicList, setTempMusicList] = useState([]);
-  const [tempMusicListTag, setTempMusicListTag] = useState(false);
+    //ai로 메인 추천 트랙 불러오기
+    openai
+      .createCompletion({
+        model: "text-davinci-003",
+        prompt: `오늘과 잘 어울리는 가수를 추천해주세요. 검색어에 사용할 수 있도록 간결하게 답변해주세요.`,
+        // prompt: `Please recommend a song that goes well with today. Please answer in the form of singer and title so that you can use it for search terms.`,
+        temperature: 0.7,
+        max_tokens: 256,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+      })
+      .then((result) => {
+        setAITrack(result.data.choices[0].text);
+        console.log(result.data.choices[0].text);
+      })
+      .then(() => {
+        setAITrackTag(true);
+      });
 
-  //음악 mood 플리
-  const [moodMusicList, setMoodMusicList] = useState([]);
-  const [moodMusicListTag, setMoodMusicListTag] = useState(false);
+    // ai로 음악온도플리 불러오기
+    openai
+      .createCompletion({
+        model: "text-davinci-003",
+        prompt: `Please recommend a song with a music temperature of ${temperature} degrees.`,
+        temperature: 0.7,
+        max_tokens: 256,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+      })
+      .then((result) => {
+        setTempMusic(result.data.choices[0].text);
+      })
+      .then(() => {
+        setTempMusicTag(true);
+      });
+  }, []);
 
-  //spotify 토큰, 날씨, ai키워드 가져오기
+  //spotify 토큰, 날씨 가져오기
   useEffect(() => {
     //API access token
     var authParameters = {
@@ -93,65 +147,6 @@ function App() {
           setHumidity(습도);
           setWeather(날씨);
           setPlace(위치);
-
-          const configuration = new Configuration({
-            apiKey: openai_api_key,
-          });
-          const openai = new OpenAIApi(configuration);
-
-          //ai로 날씨와 어울리는 mood 키워드 가져오기
-          openai
-            .createCompletion({
-              model: "text-davinci-003",
-              prompt: `Please present your answer as a keyword.
-              Current weather conditions: ${weather}
-              Temperature: ${temperature} degrees.
-              Emotional conditions: Answer.`,
-              // prompt: `The current weather condition is ${weather} and the temperature is ${temperature} degrees. Please suggest the atmosphere or mood that matches the given weather conditions and temperatures as one keyword. Please be careful not to present keywords that are not appropriate.`,
-              temperature: 0.7,
-              max_tokens: 256,
-              top_p: 1,
-              frequency_penalty: 0,
-              presence_penalty: 0,
-            })
-            .then((result) => {
-              setMood(result.data.choices[0].text);
-              console.log(result.data.choices[0].text);
-            })
-            .then(() => {
-              setMoodTag(true);
-            });
-
-          //ai로 메인 추천 트랙 불러오기
-          openai
-            .createCompletion({
-              model: "text-davinci-003",
-              prompt: `오늘과 잘 어울리는 가수를 추천해주세요. 검색어에 사용할 수 있도록 간결하게 답변해주세요.`,
-              // prompt: `Please recommend a song that goes well with today. Please answer in the form of singer and title so that you can use it for search terms.`,
-              temperature: 0.7,
-              max_tokens: 256,
-              top_p: 1,
-              frequency_penalty: 0,
-              presence_penalty: 0,
-            })
-            .then((result) => {
-              setAITrack(result.data.choices[0].text);
-            });
-
-          // ai로 음악온도플리 불러오기
-          openai
-            .createCompletion({
-              model: "text-davinci-003",
-              prompt: `Please recommend a song with a music temperature of ${temperature} degrees.`,
-              temperature: 0.7,
-              max_tokens: 256,
-              top_p: 1,
-              frequency_penalty: 0,
-              presence_penalty: 0,
-            })
-            .then((result) => {
-              setTempMusic(result.data.choices[0].text);
-            });
         });
     }
     //위치&날씨 가져오기
@@ -209,11 +204,11 @@ function App() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + accessToken,
+        "Authorization": "Bearer " + accessToken,
       },
     };
 
-    // 검색시 가장 첫 줄
+    //검색시 가장 첫 줄
     //검색한 내용과 가장 관련있는 아티스트 가져오기
     let artistID = await fetch(`https://api.spotify.com/v1/search?q=${searchInput}&type=artist`, searchParameters)
       .then((response) => response.json())
@@ -238,96 +233,14 @@ function App() {
         setSearchAlbums(data.items);
       });
 
-    //검색한 내용의 플레이리스트 가져오기: 아티스트의 플레이리스트를 가져오면 결과가 없는 경우가 많음(공식 플리여도 제공되지 않는 경우가 많음)
+    //검색한 내용의 트랙, 플레이리스트 가져오기
     await fetch("https://api.spotify.com/v1/search?q=" + searchInput + "&type=playlist,track", searchParameters)
       .then((response) => response.json())
       .then((data) => {
-        setSearchPlaylists(data.playlists.items);
-        console.log(data.playlists.items);
         setSearchTracks(data.tracks.items);
+        setSearchPlaylists(data.playlists.items);
       });
   }
-
-  async function recommendSpotify() {
-    var searchParameters = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + accessToken,
-      },
-    };
-
-    //추천 아티스트로 아티스트와 탑트랙 보여주기
-    await fetch("https://api.spotify.com/v1/search?q=" + AITrack + "&type=track", searchParameters)
-      .then((response) => response.json())
-      .then((data) => {
-        setAITrackList(data.tracks.items);
-      })
-      .then(() => {
-        setAITrackListTag(true);
-      });
-
-    //오늘 핫 플레이리스트
-    await fetch(`https://api.spotify.com/v1/browse/featured-playlists?country=${place}`, searchParameters)
-      .then((response) => response.json())
-      .then((data) => {
-        setHotPlaylist(data.playlists.items);
-      })
-      .then(() => {
-        setHotPlaylistTag(true);
-      });
-
-    //음악온도 플레이리스트
-    await fetch("https://api.spotify.com/v1/search?q=" + tempMusic + "&type=playlist", searchParameters)
-      .then((response) => response.json())
-      .then((data) => {
-        setTempMusicList(data.playlists.items);
-      })
-      .then(() => {
-        setTempMusicListTag(true);
-      });
-  }
-
-  // async function recommendSpotify() {
-  //   var searchParameters = {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: "Bearer " + accessToken,
-  //     },
-  //   };
-
-  //   const [aitrackResponse, hotPlaylistResponse, tempMusicListResponse, moodMusicListResponse] = await Promise.all([
-  //     fetch("https://api.spotify.com/v1/search?q=" + AITrack + "&type=track", searchParameters),
-  //     fetch(`https://api.spotify.com/v1/browse/featured-playlists?country=${place}`, searchParameters),
-  //     fetch("https://api.spotify.com/v1/search?q=" + tempMusic + "&type=playlist", searchParameters),
-  //     fetch("https://api.spotify.com/v1/search?q=" + mood + "&type=playlist", searchParameters),
-  //   ]);
-
-  //   const aitrackData = await aitrackResponse.json();
-  //   setAITrackList(aitrackData.tracks.items);
-  //   setAITrackListTag(true);
-
-  //   const hotPlaylistData = await hotPlaylistResponse.json();
-  //   setHotPlaylist(hotPlaylistData.playlists.items);
-  //   setHotPlaylistTag(true);
-
-  //   const tempMusicListData = await tempMusicListResponse.json();
-  //   setTempMusicList(tempMusicListData.playlists.items);
-  //   setTempMusicListTag(true);
-
-  //   const moodMusicListData = await moodMusicListResponse.json();
-  //   setMoodMusicList(moodMusicListData.playlists.items);
-  //   setMoodMusicListTag(true);
-  // }
-
-  //접속시 노래 추천
-
-  useEffect(() => {
-    if (mood) {
-      recommendSpotify();
-    }
-  }, [mood]);
 
   return (
     <Routes>
@@ -356,21 +269,18 @@ function App() {
                   searchPlaylists={searchPlaylists}
                 />
               ) : (
-                <AIPage
+                <MainContent
                   mood={mood}
                   moodTag={moodTag}
                   accessToken={accessToken}
                   randomNum={randomNum}
-                  AITrackListTag={AITrackListTag}
-                  AITrackList={AITrackList}
-                  hotPlaylistTag={hotPlaylistTag}
-                  hotPlaylist={hotPlaylist}
+                  AITrackTag={AITrackTag}
+                  tempMusicTag={tempMusicTag}
                   randomNum2={randomNum2}
                   temperature={temperature}
-                  tempMusicListTag={tempMusicListTag}
-                  tempMusicList={tempMusicList}
-                  moodMusicListTag={moodMusicListTag}
-                  moodMusicList={moodMusicList}
+                  AITrack={AITrack}
+                  tempMusic={tempMusic}
+                  place={place}
                 />
               )}
             </>

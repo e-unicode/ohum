@@ -1,0 +1,136 @@
+.join {
+    width: 100vw;
+    height: 92vh;
+    /* background: #F2F2F2; */
+}
+
+.join-box {
+    width: 30%;
+    height: 70%;
+    /* background: #F2F2F2; */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 30px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.join-box-content {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+
+.join-box-content h1 {
+    color: #3F7EA6;
+    /* font-size: 30px; */
+    font-weight: 900;
+    margin-bottom: 10px;
+    /* letter-spacing: 0.2em; */
+}
+
+.join-box-content p {
+    color: #3F7EA6;
+    margin-bottom: 50px;
+    /* font-size: 10px; */
+}
+
+.join-box-content h6 {
+    text-align: justify;
+    color: #3F7EA6;
+    margin-bottom: 50px;
+}
+
+.form {
+    display: inline-block;
+    margin-bottom: 10px;
+    width: 100%;
+    --border-height: 0.5px;
+    --border-before-color: #3F7EA6;
+    --border-after-color: #F2F2F2;
+    --input-hovered-color: #F2F2F2;
+    position: relative;
+}
+
+.input {
+    color: #3F7EA6;
+    font-size: 12px;
+    background-color: transparent;
+    width: 100%;
+    padding-block: 10px;
+    border: none;
+    border-bottom: 0.5px solid #3F7EA6;
+}
+
+.input-border {
+    position: absolute;
+    background: #F2F2F2;
+    width: 0%;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    transition: 0.3s;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.input:focus~.input-border {
+    width: 100%;
+}
+
+::placeholder {
+    color: #3F7EA6;
+    font-size: 12px;
+}
+
+/* 버튼 */
+.enter {
+    padding-block: 15px;
+    width: 49%;
+    border-radius: 5px;
+    border: 0.5px solid #3F7EA6;
+    cursor: pointer;
+    background-color: transparent;
+    transition: 0.5s;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: #3F7EA6;
+    letter-spacing: 2px;
+    display: inline-block;
+    margin-top: 50px;
+}
+
+.enter-ml {
+    margin-left: 2%;
+}
+
+.enter:hover {
+    background-color: #3F7EA6;
+    color: #F2F2F2;
+}
+
+
+
+@media screen and (max-width : 1200px) {
+    .join-box {
+        width: 40%;
+    }
+
+}
+
+/* 모바일형태로 바꾸기 */
+@media screen and (max-width : 767px) {
+    .join-box {
+        width: 70%;
+    }
+}

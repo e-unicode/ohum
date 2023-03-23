@@ -1,19 +1,23 @@
 body,
 div,
 p,
-a, h4 {
+a,
+h4 {
     margin: 0px;
     font-family: 'Noto Sans KR', sans-serif;
 }
+
 body {
     background: #F2F2F2;
 }
+
 div {
     box-sizing: border-box;
 }
 
 .header {
     width: 100vw;
+    height: 8vh;
     position: sticky;
     top: 0;
     background: #F2F2F2;
@@ -21,12 +25,13 @@ div {
     color: #262626;
     text-transform: uppercase;
     z-index: 100;
+    padding: 0 20px 0 20px;
+    margin: auto;
 }
 
 .header-logo {
     width: 33.33%;
     height: 100%;
-
 }
 
 .header-logo-content {
@@ -35,9 +40,20 @@ div {
     /* padding: 10px; */
 }
 
+.header-logo-content h4 {
+    font-weight: 300;
+}
+
 .header-nav {
     width: 66.7%;
     height: 100%;
+
+}
+
+.nav-logo {
+    text-transform: uppercase;
+    font-size: 7px;
+    letter-spacing: 0.07em;
 }
 
 .header-nav-content {
@@ -47,10 +63,16 @@ div {
 }
 
 .header-nav-btn {
+    font-size: 15px;
     text-align: left;
     text-decoration: none;
     color: #262626;
-    margin-left: 50px;
+    margin-left: 20px;
+    font-weight: 300;
+}
+
+.header-nav-btn:hover {
+    color: #3F7EA6;
 }
 
 /* 서치바 */
@@ -58,6 +80,7 @@ div {
     /* width: 400px; */
     height: 100%;
     margin: auto;
+    padding-top: 13px;
 }
 
 .search-form .form {
@@ -83,7 +106,7 @@ div {
     outline: none;
 }
 
-.search-form ::placeholder {    
+.search-form ::placeholder {
     color: #262626;
 
     font-size: 12px;
@@ -103,4 +126,78 @@ div {
     color: #262626;
     letter-spacing: 2px;
     text-align: right;
+}
+
+
+@media screen and (max-width : 1200px) {
+    .header-nav-content {
+        padding-bottom: 5px;
+    }
+
+    .header-nav-btn {
+        font-size: 12px;
+        margin-left: 13px;
+    }
+
+    .header-logo-content {
+        font-size: 5px;
+        letter-spacing: 0.33em;
+    }
+
+    .header-logo-content h4 {
+        letter-spacing: 0.01em;
+    }
+
+}
+
+/* 모바일형태로 바꾸기 */
+@media screen and (max-width : 767px) {
+    .header {
+        padding-top: 10px;
+    }
+
+    .justify-content-end form {
+        width: 100%;
+    }
+
+    .header-nav-content {
+        width: 100%;
+    }
+
+    .header-nav-btn {
+        display: block;
+        margin: 0 0 10px 5px;
+        font-size: 15px;
+    }
+
+    .header-logo {
+        width: 50%;
+        height: 100%;
+    }
+
+    .header-logo-content {
+        letter-spacing: 0.06em;
+    }
+
+    .header-logo-content h4 {
+        font-size: 19px;
+        font-weight: 500;
+    }
+
+    .header-nav {
+        width: 50%;
+        height: 100%;
+        position: relative;
+    }
+
+    .navbar-toggler {
+        width: 50px;
+        height: 40px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+    }
+
 }

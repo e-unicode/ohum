@@ -5,7 +5,7 @@ import SearchModal from "../Components/SearchModal.js";
 
 function SearchPage(props) {
   //인덱스 보여주기
-  const [index, setIndex] = useState(["Top10", "Tracks", "Albums", "Playlists"]);
+  const [index, setIndex] = useState(["TopTrack", "Tracks", "Albums", "Playlists"]);
   const [count, setCount] = useState([1, 1, 1, 1]);
   const [showTag, setShowTag] = useState([true, true, true, true]);
 

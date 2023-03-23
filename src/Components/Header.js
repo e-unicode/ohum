@@ -1,6 +1,4 @@
-import Container from "react-bootstrap/Container";
-import React, { useState, useEffect } from "react";
-
+import React from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
@@ -9,7 +7,6 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import "./Header.css";
 
 function Header(props) {
-
   return (
     <div className="header">
       <Navbar key="md" expand="md">
@@ -26,7 +23,10 @@ function Header(props) {
             <Navbar.Offcanvas id="offcanvasNavbar-expand-md" aria-labelledby="offcanvasNavbarLabel-expand-md" placement="end">
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title id="offcanvasNavbarLabel-expand-md">
-                  <span style={{ display: "block", fontSize: "13.3px" }}>음악 취향 공유 플랫폼</span>오늘 음악 맑음
+                  <span className="nav-logo" style={{ display: "block" }}>
+                    Today music is clear
+                  </span>
+                  오늘 음악 맑음
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>

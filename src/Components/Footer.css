@@ -38,3 +38,27 @@ div {
     color: #3F7EA6;
     font-weight: bold;
 }
+
+@media screen and (max-width : 1200px) {
+    .footer-content {
+        letter-spacing: 0.2em;
+    }
+}
+
+/* 모바일형태로 바꾸기 */
+@media screen and (max-width : 767px) {
+    .footer {
+        padding-bottom: 10px;
+    }
+
+    .footer-content {
+        letter-spacing: 0.4em;
+    }
+
+    .footer-content p {
+        width: 100%;
+        display: block;
+        padding: 2px;
+    }
+
+}
