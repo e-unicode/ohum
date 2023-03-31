@@ -72,24 +72,15 @@ div {
 
 .introduce {
     width: 50%;
-    height: 40%;
+    height: 20%;
     position: absolute;
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
     margin: auto;
-    align-items: center;
-    text-align: center;
-    vertical-align: middle;
 }
 
-.introduce h3 {
-    margin: 0;
-    font-weight: bold;
-    position: relative;
-    bottom: 0;
-}
 
 .main-title p {
     letter-spacing: .54em;

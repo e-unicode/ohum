@@ -43,15 +43,60 @@ div {
 
 .post-main {
     width: 100%;
-    padding: 30px 0 30px 0;
+    position: relative;
 }
 
 .post-box {
-    width: 33.3%;
-    font-size: 0;
-    letter-spacing: 0;
-    word-spacing: 0;
+    width: 50%;
+    padding: 0 0 10px 0;
+    transition: transform 0.2s ease;
+}
+
+.post-box img {
     float: left;
+    width: 30%;
+}
+.post-box-title {
+    float: left;
+    width: 70%;
+    height: 100%;
+    position: relative;
+}
+
+.post-box-title div {
+    width: 100%;
+    height: 50%;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+}
+
+
+
+
+.result-box-card-cover {
+    width: 20%;
+    height: 0;
+    padding-top: 100%;
+    /* width의 100% */
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    border-radius: 2px;
+}
+
+.result-box-card-cover img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* 부모 요소인 div의 크기만큼 */
+    object-fit: cover;
+    /* 비율 유지 + 중앙 맞추기 */
+    background-position: center;
+    background-size: cover;
 }
 
 .post-box-user {
@@ -88,14 +133,16 @@ div {
     left: 0;
     margin: auto;
     padding-left: 10px;
+    font-weight: bold;
 }
 
 .post-box-user-name h6 {
     color: #262626;
-    font-size: 14px;
+    font-size: 15px;
     position: absolute;
     top: 0;
     margin: auto;
+    font-weight: 300;
 }
 
 .post-box-user-name p {
@@ -104,36 +151,31 @@ div {
     position: absolute;
     bottom: 0;
     margin: auto;
-}
+    font-weight: 300;
 
-.post-box-card {
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(#00000000, #000000c2), url(./../../public/oh-um-logo.jpg);
-    background-position: center;
-    background-size: cover;
-    position: relative;
-    border-radius: 2px;
 }
 
 .post-box-card-title {
     width: 100%;
-    font-size: 50px;
+    font-size: 25px;
     position: absolute;
-    font-weight: 500;
+    font-weight: bold;
     bottom: 0;
     right: 0;
     left: 0;
-    /* margin: 0 30px 40px 40px; */
     color: #F2F2F2;
     margin: 0;
-    letter-spacing: 0;
-    word-spacing: 0;
+    text-shadow: 0.5px 0 4px #262626;
+    padding: 0 0 5px 5px;
 }
 
 .post-box-card-title p {
-    margin: 0;
+    /* word-break: keep-all;
+    white-space: normal; */
+    font-size: 25px;
+    letter-spacing: 0.001em;
 }
+
 
 
 
@@ -364,3 +406,64 @@ div {
     bottom: 0;
     margin: auto;
 } */
+
+
+
+.post-box-card-title {
+
+    font-size: 20px;
+
+}
+
+
+@media screen and (max-width : 1200px) {
+    .post-box-card-title {
+        font-size: 15px;
+        text-shadow: 0 0 5px #262626;
+    }
+
+    .post-box-user {
+        height: 40px;
+
+    }
+
+    .post-box-user-name {
+        height: 30px;
+    }
+
+    .post-box-user-name h6 {
+        font-size: 13px;
+    }
+
+    .post-box-user-name p {
+        font-size: 7px;
+    }
+
+}
+
+/* 모바일형태로 바꾸기 */
+@media screen and (max-width : 768px) {
+    .post-box-card-title {
+        font-size: 11px;
+        text-shadow: 0 0 5px #262626;
+    }
+
+    .post-box-user {
+        height: 35px;
+
+    }
+
+    .post-box-user-name {
+        height: 27px;
+    }
+
+    .post-box-user-name h6 {
+        font-size: 11px;
+    }
+
+    .post-box-user-name p {
+        font-size: 7px;
+        letter-spacing: 0.001em;
+
+    }
+}

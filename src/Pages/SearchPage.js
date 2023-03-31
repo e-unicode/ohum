@@ -1,6 +1,6 @@
-import "../App.css";
+import "./SearchPage.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import SearchModal from "../Components/SearchModal.js";
 
 function SearchPage(props) {

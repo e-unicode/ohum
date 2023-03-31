@@ -364,15 +364,6 @@ div {
   background-size: cover;
 }
 
-.result-box-card:hover .result-box-card-cover {
-  height: 150px;
-}
-
-.result-box-card:hover .result-box-card-hover {
-  visibility: visible;
-  opacity: 1;
-}
-
 .result-box-card-title {
   width: 100%;
   padding: 6px 10px 6px 10px;

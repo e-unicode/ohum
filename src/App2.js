@@ -26,6 +26,86 @@ function App() {
   const [playlistTag, setPlaylistTag] = useState(false);
   const [randomNum, setRandomNum] = useState(0);
 
+  // //ai키워드 가져오기
+
+  // useEffect(() => {
+  //   const configuration = new Configuration({
+  //     apiKey: openai_api_key,
+  //   });
+  //   const openai = new OpenAIApi(configuration);
+
+  //   //ai로 날씨와 어울리는 mood 키워드 가져오기
+
+  //   if (weatherTag) {
+  //     openai
+  //       .createCompletion({
+  //         model: "text-davinci-003",
+  //         prompt: `Please present your answer as a keyword.
+  //               Current weather conditions: ${weather}
+  //               Temperature: ${temperature} degrees.
+  //               Emotional conditions: Answer.`,
+  //         // prompt: `The current weather condition is ${weather} and the temperature is ${temperature} degrees. Please suggest the atmosphere or mood that matches the given weather conditions and temperatures as one keyword. Please be careful not to present keywords that are not appropriate.`,
+  //         temperature: 1,
+  //         max_tokens: 256,
+  //         top_p: 1,
+  //         frequency_penalty: 0,
+  //         presence_penalty: 0,
+  //         max_rps: 0.5,
+  //       })
+  //       .then((result) => {
+  //         setMood(result.data.choices[0].text);
+  //         console.log(result.data.choices[0].text);
+  //       })
+  //       .then(() => {
+  //         setMoodTag(true);
+  //         console.log("무드", moodTag);
+  //       });
+  //   }
+
+  //   //ai로 메인 추천 트랙 불러오기
+  //   openai
+  //     .createCompletion({
+  //       model: "text-davinci-003",
+  //       prompt: `오늘과 잘 어울리는 가수를 추천해주세요. 검색어에 사용할 수 있도록 간결하게 답변해주세요.`,
+  //       // prompt: `Please recommend a song that goes well with today. Please answer in the form of singer and title so that you can use it for search terms.`,
+  //       temperature: 1,
+  //       max_tokens: 256,
+  //       top_p: 1,
+  //       frequency_penalty: 0,
+  //       presence_penalty: 0,
+  //       max_rps: 0.5,
+  //     })
+  //     .then((result) => {
+  //       setAITrack(result.data.choices[0].text);
+  //       console.log(result.data.choices[0].text);
+  //     })
+  //     .then(() => {
+  //       setAITrackTag(true);
+  //       console.log("트랙", AITrackTag);
+  //     });
+  // }, [weatherTag]);
+
+  //현재 날씨에 따른 mood가져오기
+  // function getMoodByWeather(weather) {
+  //   let moods;
+  //   switch (weather) {
+  //     case "Clear":
+  //       moods = MoodData.Clear;
+  //       break;
+  //     case "Clouds":
+  //       moods = MoodData.Clouds;
+  //       break;
+  //     case "Rain":
+  //       moods = MoodData.Rain;
+  //       break;
+  //     case "Snow":
+  //       moods = MoodData.Snow;
+  //       break;
+  //     default:
+  //       moods = MoodData.else;
+  //   }
+  //   return moods[Math.floor(Math.random() * moods.length)];
+  // }
   useEffect(() => {
     //API access token
     var authParameters = {
@@ -153,9 +233,7 @@ function App() {
                 <Loading />
               )}
               {trackTag ? (
-                <div
-                  style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${tracks[0].album.images[0].url})` }}
-                >
+                <div style={{ backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0,0,0,0.7) ), url(${tracks[0].album.images[0].url})` }}>
                   {/* <span>{tracks[randomNum].name}</span> */}
                   <p>TRACK</p>
                 </div>

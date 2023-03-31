@@ -1,17 +1,19 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+
 import { Configuration, OpenAIApi } from "openai";
 import { Routes, Route, Outlet } from "react-router-dom";
 import JoinPage from "./Pages/JoinPage";
 import PostPage from "./Pages/PostPage";
 import SearchPage from "./Pages/SearchPage";
 import EnterPage from "./Pages/EnterPage";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 import MainContent from "./Pages/MainContent";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
+
+import MoodData from "./MoodData";
 
 const client_id = process.env.REACT_APP_CLIENT_ID;
 const client_secret = process.env.REACT_APP_CLIENT_SECRET;
@@ -19,22 +21,53 @@ const weather_api_key = process.env.REACT_APP_WEATHER_API_KEY;
 const openai_api_key = process.env.REACT_APP_OPENAI_API_KEY;
 
 function App() {
+  //spotify 토큰 가져오기
   const [accessToken, setAccessToken] = useState("");
-  const [temperature, setTemperature] = useState("");
-  const [humidity, setHumidity] = useState("");
-  const [weather, setWeather] = useState("");
-  const [place, setPlace] = useState("");
-  const [mood, setMood] = useState("");
-  const [moodTag, setMoodTag] = useState(false);
+  //현재시간 & 랜덤숫자 가져오기
   const [now, setNow] = useState("");
   const [nowTag, setNowTag] = useState(false);
   const [randomNum, setRandomNum] = useState(0);
   const [randomNum2, setRandomNum2] = useState(0);
+  //위치&날씨 가져오기
+  const [temperature, setTemperature] = useState("");
+  const [humidity, setHumidity] = useState("");
+  const [weather, setWeather] = useState("");
+  const [place, setPlace] = useState("");
+  const [weatherTag, setWeatherTag] = useState(false);
+  const [currentMood, setCurrentMood] = useState("");
+  //recommendMusic
+  const [moodPlaylists, setMoodPlaylists] = useState([]);
+  const [moodPlaylistsTag, setMoodPlaylistsTag] = useState(false);
+  const [moodTracks, setMoodTracks] = useState([]);
+  const [moodTracksTag, setMoodTracksTag] = useState(false);
+  const [moodArtists, setMoodArtists] = useState([]);
+  const [moodArtistsTag, setMoodArtistsTag] = useState(false);
+
+
+  const [moodTag, setMoodTag] = useState(false);
+
+
 
   const [AITrack, setAITrack] = useState("");
   const [AITrackTag, setAITrackTag] = useState(false);
   const [tempMusic, setTempMusic] = useState("");
   const [tempMusicTag, setTempMusicTag] = useState(false);
+
+
+
+
+  //AI추천
+  const [AITrackList, setAITrackList] = useState([]);
+  const [AITrackListTag, setAITrackListTag] = useState(false);
+  const [currentTrack, setCurrentTrack] = useState(0);
+
+  //오늘 Hot 플리
+  const [hotPlaylist, setHotPlaylist] = useState([]);
+  const [hotPlaylistTag, setHotPlaylistTag] = useState(false);
+
+  //음악 온도 플리
+  const [tempMusicList, setTempMusicList] = useState([]);
+  const [tempMusicListTag, setTempMusicListTag] = useState(false);
 
   const [searchInput, setSearchInput] = useState("");
   const [searchInputTag, setSearchInputTag] = useState(false);
@@ -47,76 +80,7 @@ function App() {
   const [searchAlbums, setSearchAlbums] = useState([]);
   const [searchPlaylists, setSearchPlaylists] = useState([]);
 
-  //ai키워드 가져오기
-  useEffect(() => {
-    const configuration = new Configuration({
-      apiKey: openai_api_key,
-    });
-    const openai = new OpenAIApi(configuration);
-
-    //ai로 날씨와 어울리는 mood 키워드 가져오기
-    openai
-      .createCompletion({
-        model: "text-davinci-003",
-        prompt: `Please present your answer as a keyword.
-      Current weather conditions: ${weather}
-      Temperature: ${temperature} degrees.
-      Emotional conditions: Answer.`,
-        // prompt: `The current weather condition is ${weather} and the temperature is ${temperature} degrees. Please suggest the atmosphere or mood that matches the given weather conditions and temperatures as one keyword. Please be careful not to present keywords that are not appropriate.`,
-        temperature: 0.7,
-        max_tokens: 256,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-      })
-      .then((result) => {
-        setMood(result.data.choices[0].text);
-        console.log(result.data.choices[0].text);
-      })
-      .then(() => {
-        setMoodTag(true);
-      });
-
-    //ai로 메인 추천 트랙 불러오기
-    openai
-      .createCompletion({
-        model: "text-davinci-003",
-        prompt: `오늘과 잘 어울리는 가수를 추천해주세요. 검색어에 사용할 수 있도록 간결하게 답변해주세요.`,
-        // prompt: `Please recommend a song that goes well with today. Please answer in the form of singer and title so that you can use it for search terms.`,
-        temperature: 0.7,
-        max_tokens: 256,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-      })
-      .then((result) => {
-        setAITrack(result.data.choices[0].text);
-        console.log(result.data.choices[0].text);
-      })
-      .then(() => {
-        setAITrackTag(true);
-      });
-
-    // ai로 음악온도플리 불러오기
-    openai
-      .createCompletion({
-        model: "text-davinci-003",
-        prompt: `Please recommend a song with a music temperature of ${temperature} degrees.`,
-        temperature: 0.7,
-        max_tokens: 256,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-      })
-      .then((result) => {
-        setTempMusic(result.data.choices[0].text);
-      })
-      .then(() => {
-        setTempMusicTag(true);
-      });
-  }, []);
-
-  //spotify 토큰, 날씨 가져오기
+  //spotify 토큰 가져오기
   useEffect(() => {
     //API access token
     var authParameters = {
@@ -130,29 +94,6 @@ function App() {
     fetch("https://accounts.spotify.com/api/token", authParameters)
       .then((result) => result.json())
       .then((data) => setAccessToken(data.access_token));
-
-    //위치&날씨 가져온 후 ai로 mood가져오기
-    function getWeatherAndMood(position) {
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
-      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${weather_api_key}`;
-      fetch(weatherUrl)
-        .then((response) => response.json())
-        .then((result) => {
-          const 온도 = Math.round(Number(result.main.temp) - 273.15);
-          const 습도 = result.main.humidity;
-          const 날씨 = result.weather[0].main;
-          const 위치 = result.sys.country;
-          setTemperature(온도);
-          setHumidity(습도);
-          setWeather(날씨);
-          setPlace(위치);
-        });
-    }
-    //위치&날씨 가져오기
-    navigator.geolocation.getCurrentPosition(getWeatherAndMood, () => {
-      console.log("Can't find you.");
-    });
   }, []);
 
   //현재시간 & 랜덤숫자 가져오기
@@ -199,12 +140,101 @@ function App() {
     })();
   }, []);
 
+  //위치&날씨 가져오기
+  useEffect(() => {
+    function getWeatherAndMood(position) {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${weather_api_key}`;
+      fetch(weatherUrl)
+        .then((response) => response.json())
+        .then((result) => {
+          const 온도 = Math.round(Number(result.main.temp) - 273.15);
+          const 습도 = result.main.humidity;
+          const 날씨 = result.weather[0].main;
+          const 위치 = result.sys.country;
+          setTemperature(온도);
+          setHumidity(습도);
+          setWeather(날씨);
+          setPlace(위치);
+        })
+        .then(() => {
+          function getMoodByWeather(weather) {
+            let moods;
+            switch (weather) {
+              case "Clear":
+                moods = MoodData.Clear;
+                break;
+              case "Clouds":
+                moods = MoodData.Clouds;
+                break;
+              case "Rain":
+                moods = MoodData.Rain;
+                break;
+              case "Snow":
+                moods = MoodData.Snow;
+                break;
+              default:
+                moods = MoodData.else;
+            }
+            return moods[Math.floor(Math.random() * moods.length)];
+          }
+          setCurrentMood(getMoodByWeather(weather));
+        })
+        .then(() => {
+          setWeatherTag(true);
+        });
+    }
+    navigator.geolocation.getCurrentPosition(getWeatherAndMood, () => {
+      console.log("Can't find you.");
+    });
+  }, []);
+
+  async function recommendMusic() {
+    var searchParameters = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + accessToken,
+      },
+    };
+    await fetch("https://api.spotify.com/v1/search?q=" + currentMood + "&type=playlist,track,artist", searchParameters)
+      .then((response) => response.json())
+      .then((data) => {
+        setMoodPlaylists(data.playlists.items);
+        setMoodTracks(data.tracks.items);
+        setMoodArtists(data.artists.items);
+      })
+      .then(() => {
+        setMoodPlaylistsTag(true);
+        setMoodTracksTag(true);
+        setMoodArtistsTag(true);
+      });
+
+    //오늘 핫 플레이리스트
+    await fetch(`https://api.spotify.com/v1/browse/featured-playlists?country=KR`, searchParameters)
+      .then((response) => response.json())
+      .then((data) => {
+        setHotPlaylist(data.playlists.items);
+      })
+      .then(() => {
+        setHotPlaylistTag(true);
+      });
+  }
+
+  useEffect(() => {
+    if (weatherTag) {
+      // setCurrentMood(getMoodByWeather(weather));
+      recommendMusic();
+    }
+  }, [weatherTag]);
+
   async function searchSpotify() {
     let searchParameters = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + accessToken,
+        Authorization: "Bearer " + accessToken,
       },
     };
 
@@ -252,7 +282,7 @@ function App() {
 
             <Outlet></Outlet>
 
-            <Footer mood={mood} now={now} weather={weather} />
+            <Footer now={now} weather={weather} weatherTag={weatherTag} currentMood={currentMood} />
           </>
         }
       >
@@ -270,17 +300,14 @@ function App() {
                 />
               ) : (
                 <MainContent
-                  mood={mood}
-                  moodTag={moodTag}
-                  accessToken={accessToken}
+                  weatherTag={weatherTag}
+                  moodPlaylists={moodPlaylists}
+                  moodPlaylistsTag={moodPlaylistsTag}
+                  moodTracks={moodTracks}
+                  moodTracksTag={moodTracksTag}
+                  moodArtists={moodArtists}
+                  moodArtistsTag={moodArtistsTag}
                   randomNum={randomNum}
-                  AITrackTag={AITrackTag}
-                  tempMusicTag={tempMusicTag}
-                  randomNum2={randomNum2}
-                  temperature={temperature}
-                  AITrack={AITrack}
-                  tempMusic={tempMusic}
-                  place={place}
                 />
               )}
             </>
@@ -299,7 +326,7 @@ function App() {
                   searchPlaylists={searchPlaylists}
                 />
               ) : (
-                <PostPage />
+                <PostPage weather={weather} place={place} />
               )}
             </>
           }
@@ -317,7 +344,7 @@ function App() {
                   searchPlaylists={searchPlaylists}
                 />
               ) : (
-                <EnterPage mood={mood} moodTag={moodTag} accessToken={accessToken} randomNum={randomNum} />
+                <EnterPage />
               )}
             </>
           }
@@ -335,7 +362,7 @@ function App() {
                   searchPlaylists={searchPlaylists}
                 />
               ) : (
-                <JoinPage mood={mood} />
+                <JoinPage />
               )}
             </>
           }
