@@ -2,42 +2,17 @@ import "./MainContent.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Loading from "../Components/Loading";
 import { useState, useEffect } from "react";
-import MoodData from "../MoodData";
 
 function MainContent(props) {
   const [playlistsCardTag, setPlaylistsCardTag] = useState(false);
   const [tracksCardTag, setTracksCardTag] = useState(false);
   const [artistsCardTag, setArtistsCardTag] = useState(false);
 
+  const [moodTrackCardTag, setMoodTrackCardTag] = useState(false);
   return (
     <div className="content">
       {props.weatherTag ? (
         <div>
-          {/* <div className="content-track">
-            {AITrackListTag ? (
-              <>
-                <div className="main-track" style={{ backgroundImage: `url(${AITrackList[props.randomNum].album.images[0].url})` }}></div>
-                <div className="main-title">
-                  <div className="main-track-title" onClick={() => window.open(`${AITrackList[props.randomNum].external_urls.spotify}`, "_blank")}>
-                    <h1>{AITrackList[props.randomNum].name}</h1>
-                    <h3>{AITrackList[props.randomNum].artists[0].name}</h3>
-                  </div>
-                </div>
-              </>
-            ) : (
-              <div className="loading-background">
-                <Loading />
-              </div>
-            )}
-          </div> */}
-
-          <div className="content-introduce">
-            <div className="introduce">
-              <h3>Pick one!</h3>
-              {/* <p>I recommend singers, music, and playlists that fit today's weather and mood.</p> */}
-            </div>
-          </div>
-
           <div className="content-mood">
             {props.moodPlaylistsTag ? (
               <div
@@ -49,7 +24,9 @@ function MainContent(props) {
                 }}
                 onClick={() => window.open(`${props.moodPlaylists[props.randomNum].external_urls.spotify}`, "_blank")}
                 style={{
-                  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${props.moodPlaylists[props.randomNum].images[0].url})`,
+                  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${
+                    props.moodPlaylists[props.randomNum].images[0].url
+                  })`,
                 }}
               >
                 {playlistsCardTag ? (
@@ -74,7 +51,9 @@ function MainContent(props) {
                 }}
                 onClick={() => window.open(`${props.moodTracks[props.randomNum].external_urls.spotify}`, "_blank")}
                 style={{
-                  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${props.moodTracks[props.randomNum].album.images[0].url})`,
+                  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${
+                    props.moodTracks[props.randomNum].album.images[0].url
+                  })`,
                 }}
               >
                 {tracksCardTag ? (
@@ -100,7 +79,9 @@ function MainContent(props) {
                 }}
                 onClick={() => window.open(`${props.moodArtists[props.randomNum].external_urls.spotify}`, "_blank")}
                 style={{
-                  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${props.moodArtists[props.randomNum].images[0].url})`,
+                  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${
+                    props.moodArtists[props.randomNum].images[0].url
+                  })`,
                 }}
               >
                 {artistsCardTag ? (
@@ -116,20 +97,126 @@ function MainContent(props) {
               <Loading />
             )}
           </div>
-
-          {/* <div className="container AI-Playlist-container">
-            <div className="AI-Playlist-box">
-              {hotPlaylistTag ? (
-                <div>
-                  <h4>오늘 HOT 플레이리스트</h4>
-                  <img
-                    src={hotPlaylist[props.randomNum2].images[0].url}
-                    onClick={() => window.open(`${hotPlaylist[props.randomNum2].external_urls.spotify}`, "_blank")}
-                  />
-                </div>
-              ) : null}
+          <div className="content-introduce">
+            <div className="introduce">
+              <h3>Pick one that fit today's weather and mood.</h3>
             </div>
-          </div> */}
+          </div>
+
+          <div className="content-track">
+            {props.hotPlaylistsTag ? (
+              <>
+                <div className="main-track" style={{ backgroundImage: `url(${props.hotPlaylists[props.randomNum2].images[0].url})` }}></div>
+                <div className="main-title">
+                  <div
+                    className="main-track-title"
+                    onClick={() => window.open(`${props.hotPlaylists[props.randomNum2].external_urls.spotify}`, "_blank")}
+                  >
+                    <h1>{props.hotPlaylists[props.randomNum2].name}</h1>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="loading-background">
+                <Loading />
+              </div>
+            )}
+          </div>
+          <div className="content-introduce">
+            <div className="introduce">
+              <h4>
+                다양한 장르와 분위기의 핫한 플레이리스트를 추천해드립니다. 음악은 우리 삶에서 빼놓을 수 없는 필수품이죠. 함께 즐거운 음악 여행을
+                떠나봅시다!
+              </h4>
+            </div>
+          </div>
+
+          <div className="content-container">
+            {props.moodTracksTag ? (
+              <div className="container">
+                <h2>
+                  {props.currentMood}한 분위기의 음악<span>옆으로 밀어서 더보기</span>
+                </h2>
+                <div className="content-result">
+                  {props.moodTracks.map((moodTrack) => {
+                    return (
+                      <div
+                        id={moodTrack.id}
+                        className="content-box col-3"
+                        onClick={() => window.open(`${moodTrack.external_urls.spotify}`, "_blank")}
+                      >
+                        <div className="content-box-card">
+                          <div className="content-box-card-cover">
+                            <img src={moodTrack.album.images[0].url} />
+                            <div className="content-box-card-title">
+                              <h6>{moodTrack.name}</h6>
+                              <p>{moodTrack.artists[0].name}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : null}
+            {props.moodPlaylistsTag ? (
+              <div className="container">
+                <h2>
+                  {props.currentMood} Playlist!<span>옆으로 밀어서 더보기</span>
+                </h2>
+                <div className="content-result">
+                  {props.moodPlaylists.map((moodPlaylist) => {
+                    return (
+                      <div
+                        id={moodPlaylist.id}
+                        className="content-box col-3"
+                        onClick={() => window.open(`${moodPlaylist.external_urls.spotify}`, "_blank")}
+                      >
+                        <div className="content-box-card">
+                          <div className="content-box-card-cover">
+                            <img src={moodPlaylist.images[0].url} />
+                            <div className="content-box-card-title">
+                              <h6>{moodPlaylist.name}</h6>
+                              <p>{moodPlaylist.owner.display_name}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : null}
+            {props.moodArtistsTag ? (
+              <div className="container">
+                <h2>
+                  {props.currentMood}한 Artist❣ <span>옆으로 밀어서 더보기</span>
+                </h2>
+                <div className="content-result">
+                  {props.moodArtists.map((moodArtist) => {
+                    return (
+                      <div
+                        id={moodArtist.id}
+                        className="content-box col-3"
+                        onClick={() => window.open(`${moodArtist.external_urls.spotify}`, "_blank")}
+                      >
+                        <div className="content-box-card">
+                          <div className="content-box-card-cover">
+                            <img src={moodArtist.images[0].url} />
+                            <div className="content-box-card-title">
+                              <h6>{moodArtist.name}</h6>
+                              <p>더보기</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : null}
+          </div>
         </div>
       ) : (
         <div className="loading-background">

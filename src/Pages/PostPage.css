@@ -56,6 +56,7 @@ div {
     float: left;
     width: 30%;
 }
+
 .post-box-title {
     float: left;
     width: 70%;
@@ -279,13 +280,6 @@ div {
     text-align: center;
     font-weight: bold;
 }
-
-
-
-
-
-
-
 
 .content-mood {
     width: 100vw;

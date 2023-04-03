@@ -62,8 +62,8 @@ function App() {
   const [currentTrack, setCurrentTrack] = useState(0);
 
   //오늘 Hot 플리
-  const [hotPlaylist, setHotPlaylist] = useState([]);
-  const [hotPlaylistTag, setHotPlaylistTag] = useState(false);
+  const [hotPlaylists, setHotPlaylists] = useState([]);
+  const [hotPlaylistsTag, setHotPlaylistsTag] = useState(false);
 
   //음악 온도 플리
   const [tempMusicList, setTempMusicList] = useState([]);
@@ -212,13 +212,13 @@ function App() {
       });
 
     //오늘 핫 플레이리스트
-    await fetch(`https://api.spotify.com/v1/browse/featured-playlists?country=KR`, searchParameters)
+    await fetch(`https://api.spotify.com/v1/browse/featured-playlists?country=${place}`, searchParameters)
       .then((response) => response.json())
       .then((data) => {
-        setHotPlaylist(data.playlists.items);
+        setHotPlaylists(data.playlists.items);
       })
       .then(() => {
-        setHotPlaylistTag(true);
+        setHotPlaylistsTag(true);
       });
   }
 
@@ -308,6 +308,10 @@ function App() {
                   moodArtists={moodArtists}
                   moodArtistsTag={moodArtistsTag}
                   randomNum={randomNum}
+                  randomNum2={randomNum2}
+                  hotPlaylistsTag={hotPlaylistsTag}
+                  hotPlaylists={hotPlaylists}
+                  currentMood={currentMood}
                 />
               )}
             </>
