@@ -46,38 +46,39 @@ div {
     position: relative;
 }
 
-.post-box {
-    width: 50%;
-    padding: 0 0 10px 0;
-    transition: transform 0.2s ease;
+.post-main h2 {
+    font-weight: 700;
 }
 
-.post-box img {
-    float: left;
-    width: 30%;
-}
-
-.post-box-title {
-    float: left;
-    width: 70%;
-    height: 100%;
+.search-result {
+    width: 100%;
     position: relative;
 }
 
-.post-box-title div {
-    width: 100%;
-    height: 50%;
-    position: absolute;
-    bottom: 0;
-    top: 0;
-    margin: auto;
+.result-box {
+    width: 20%;
+    padding: 0 10px 10px 0;
+    transition: transform 0.2s ease;
 }
 
+.result-box:hover {
+    transform: translateY(0.33em);
+}
 
+.result-box:active {
+    transform: translateY(0);
+}
 
+.result-box-card {
+    width: 100%;
+    /* border-radius: 5px; */
+    /* padding: 0 0 10px 0; */
+    border: #262626 solid 0.5px;
+    cursor: pointer;
+}
 
 .result-box-card-cover {
-    width: 20%;
+    width: 100%;
     height: 0;
     padding-top: 100%;
     /* width의 100% */
@@ -100,364 +101,27 @@ div {
     background-size: cover;
 }
 
-.post-box-user {
+.result-box-card-title {
     width: 100%;
-    height: 50px;
-    background-color: #f2f2f299;
-    display: flex;
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
+    padding: 6px 10px 6px 10px;
 }
 
-.post-box-user img {
-    width: 40px;
-    height: 40px;
-    color: #F2F2F2;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    margin: auto;
-    border-radius: 50%;
-}
-
-
-.post-box-user-name {
-    width: 100%;
-    height: 35px;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    margin: auto;
-    padding-left: 10px;
-    font-weight: bold;
-}
-
-.post-box-user-name h6 {
-    color: #262626;
-    font-size: 15px;
-    position: absolute;
-    top: 0;
-    margin: auto;
-    font-weight: 300;
-}
-
-.post-box-user-name p {
-    color: #262626;
-    font-size: 10px;
-    position: absolute;
-    bottom: 0;
-    margin: auto;
-    font-weight: 300;
-
-}
-
-.post-box-card-title {
-    width: 100%;
-    font-size: 25px;
-    position: absolute;
-    font-weight: bold;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    color: #F2F2F2;
+.result-box-card-title h6,
+p {
     margin: 0;
-    text-shadow: 0.5px 0 4px #262626;
-    padding: 0 0 5px 5px;
-}
-
-.post-box-card-title p {
-    /* word-break: keep-all;
-    white-space: normal; */
-    font-size: 25px;
-    letter-spacing: 0.001em;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.content-track {
-    width: 100vw;
-    height: 70vh;
-    transition: all 0.5s;
-    position: relative;
-}
-
-.main-track {
-    height: 70vh;
-}
-
-.main-title {
-    width: 80%;
-    height: 70%;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    text-align: justify;
-}
-
-.introduce {
-    width: 50%;
-    height: 40%;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    margin: auto;
-    align-items: center;
-    text-align: center;
-    vertical-align: middle;
-}
-
-.introduce h3 {
-    margin: 0;
-    font-weight: bold;
-    position: relative;
-    bottom: 0;
-}
-
-.main-title p {
-    letter-spacing: .54em;
-}
-
-.main-title h1 {
-    font-weight: 900;
-}
-
-.main-track-title {
-    width: 80%;
-    color: #F2F2F2;
-    letter-spacing: -0.2rem;
-    cursor: pointer;
-    transition: all 1s;
-}
-
-.main-track-title h1 {
-    width: 700px;
-    height: 120px;
-    font-size: 90px;
-    margin: 0;
-    text-shadow: 2px 2px 12px #262626;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     word-break: break-all;
 }
 
-.main-track-title h3 {
-    font-size: 40px;
-    font-weight: bold;
-    margin: 0;
-    text-shadow: 2px 2px 12px #262626;
+.result-box-card-title h6 {
+    font-weight: 700;
 }
 
-.content-introduce {
-    height: 22vh;
-    position: relative;
-}
-
-.content-introduce h1 {
-    text-align: center;
-    font-weight: bold;
-}
-
-.content-mood {
-    width: 100vw;
-    height: 60vh;
-    background: #F2F2F2;
-    display: flex;
-    gap: 5px;
-    position: relative;
-    top: 0;
-    transition: all 0.5s;
-}
-
-.content-mood div {
-    height: 100%;
-    flex: 2;
-    overflow: hidden;
-    cursor: pointer;
-    border-radius: 2px;
-    transition: all .5s;
-    background: #3F7EA6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    transition: all 0.5s;
-}
-
-.content-mood div:hover {
-    flex: 5;
-    background-position: center;
-    background-size: contain;
-    background-repeat: repeat;
-}
-
-.content-mood div p {
-    font-size: 17px;
-    font-weight: 900;
-    min-width: 14em;
-    padding: .5em;
-    text-align: center;
-    transform: rotate(-90deg);
-    transition: all .5s;
-    text-transform: uppercase;
-    color: #F2F2F2;
-    letter-spacing: .1em;
-    margin: 0;
-}
-
-.content-mood span {
-    font-size: 17px;
-    display: block;
-}
-
-.content-mood div:hover p {
-    min-width: 14em;
-    transform: rotate(0);
-    font-size: 30px;
-    font-weight: 900;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    word-break: break-all;
-}
-
-
-
-
-
-.AI-Playlist-container {
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.AI-Playlist-box {
-    width: 300px;
-    padding: 40px;
-    text-align: center;
-}
-
-.AI-Playlist-box img {
-    width: 100%;
-    cursor: pointer;
-}
-
-.AI-Playlist-box img:hover {
-    filter: brightness(50%);
-    transition: all 0.5s;
-}
-
-
-/* .main-track-icon {
-    width: 20px;
-    background-color: #f2f2f2b4;
-    border-radius: 50px;
-    padding: 10px;
-    height: 20px;
-    color: #F2F2F2;
+.result-box-card-title p {
+    font-size: 13px;
+    font-weight: 300;
     color: #262626;
-    cursor: pointer;
-}
-
-.icon-left {
-    position: absolute;
-    left: 1%;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-}
-
-.icon-right {
-    position: absolute;
-    right: 1%;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-} */
-
-
-
-.post-box-card-title {
-
-    font-size: 20px;
-
-}
-
-
-@media screen and (max-width : 1200px) {
-    .post-box-card-title {
-        font-size: 15px;
-        text-shadow: 0 0 5px #262626;
-    }
-
-    .post-box-user {
-        height: 40px;
-
-    }
-
-    .post-box-user-name {
-        height: 30px;
-    }
-
-    .post-box-user-name h6 {
-        font-size: 13px;
-    }
-
-    .post-box-user-name p {
-        font-size: 7px;
-    }
-
-}
-
-/* 모바일형태로 바꾸기 */
-@media screen and (max-width : 768px) {
-    .post-box-card-title {
-        font-size: 11px;
-        text-shadow: 0 0 5px #262626;
-    }
-
-    .post-box-user {
-        height: 35px;
-
-    }
-
-    .post-box-user-name {
-        height: 27px;
-    }
-
-    .post-box-user-name h6 {
-        font-size: 11px;
-    }
-
-    .post-box-user-name p {
-        font-size: 7px;
-        letter-spacing: 0.001em;
-
-    }
+    margin: 0;
 }

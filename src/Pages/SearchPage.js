@@ -13,10 +13,15 @@ function SearchPage(props) {
   const [modalShow, setModalShow] = useState(false);
 
   const [selectedTracks, setSelectedTracks] = useState(JSON.parse(localStorage.getItem("selectedTracks")) || []); // 로컬스토리지에서 저장된 데이터를 가져옵니다.
+  const [selectedTracksIds, setSelectedTracksIds] = useState(JSON.parse(localStorage.getItem("selectedTracksIds")) || []);
 
   const handleSaveTrack = (track) => {
-    setSelectedTracks([...selectedTracks, track]); // 기존 데이터가 있는 경우 복사해서 다시 넣어줍니다.
-    localStorage.setItem("selectedTracks", JSON.stringify([...selectedTracks, track])); // stringify 후 로컬스토리지에 저장합니다.
+    //기존 데이터가 있는 경우 복사해서 다시 넣기
+    setSelectedTracks([...selectedTracks, track]); 
+    setSelectedTracksIds([...selectedTracksIds, track.id]);
+    //stringify 후 로컬스토리지에 저장
+    localStorage.setItem("selectedTracks", JSON.stringify([...selectedTracks, track])); 
+    localStorage.setItem("selectedTracksIds", JSON.stringify([...selectedTracksIds, track.id]));
   };
 
   return (

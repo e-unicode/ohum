@@ -4,11 +4,10 @@ function SearchModal(props) {
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Modal heading</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">선택한 노래</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div>
-        <h2>Selected Tracks</h2>
         {props.selectedTracks.length > 0 ? (
           props.selectedTracks.map((track, i) => (
             <div key={i} className="result-box in-bl">
