@@ -132,25 +132,19 @@ function MainContent(props) {
           </div>
 
           <div className="content-container">
-            {props.moodTracksTag ? (
+            {props.moodRecommendedTracksTag ? (
               <div className="container">
-                <h2>
-                  {props.currentMood}한 분위기의 음악<span>옆으로 밀어서 더보기</span>
-                </h2>
+                <h2>#{props.currentMood} #music #for #you</h2>
                 <div className="content-result">
-                  {props.moodTracks.map((moodTrack) => {
+                  {props.moodRecommendedTracks.tracks.map((track) => {
                     return (
-                      <div
-                        id={moodTrack.id}
-                        className="content-box col-3"
-                        onClick={() => window.open(`${moodTrack.external_urls.spotify}`, "_blank")}
-                      >
+                      <div id={track.id} className="content-box in-bl" onClick={() => window.open(`${track.external_urls.spotify}`, "_blank")}>
                         <div className="content-box-card">
                           <div className="content-box-card-cover">
-                            <img src={moodTrack.album.images[0].url} />
+                            <img src={track.album.images[0].url} />
                             <div className="content-box-card-title">
-                              <h6>{moodTrack.name}</h6>
-                              <p>{moodTrack.artists[0].name}</p>
+                              <h6>{track.name}</h6>
+                              <p>{track.artists[0].name}</p>
                             </div>
                           </div>
                         </div>
@@ -158,62 +152,7 @@ function MainContent(props) {
                     );
                   })}
                 </div>
-              </div>
-            ) : null}
-            {props.moodPlaylistsTag ? (
-              <div className="container">
-                <h2>
-                  {props.currentMood} Playlist!<span>옆으로 밀어서 더보기</span>
-                </h2>
-                <div className="content-result">
-                  {props.moodPlaylists.map((moodPlaylist) => {
-                    return (
-                      <div
-                        id={moodPlaylist.id}
-                        className="content-box col-3"
-                        onClick={() => window.open(`${moodPlaylist.external_urls.spotify}`, "_blank")}
-                      >
-                        <div className="content-box-card">
-                          <div className="content-box-card-cover">
-                            <img src={moodPlaylist.images[0].url} />
-                            <div className="content-box-card-title">
-                              <h6>{moodPlaylist.name}</h6>
-                              <p>{moodPlaylist.owner.display_name}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : null}
-            {props.moodArtistsTag ? (
-              <div className="container">
-                <h2>
-                  {props.currentMood}한 Artist❣ <span>옆으로 밀어서 더보기</span>
-                </h2>
-                <div className="content-result">
-                  {props.moodArtists.map((moodArtist) => {
-                    return (
-                      <div
-                        id={moodArtist.id}
-                        className="content-box col-3"
-                        onClick={() => window.open(`${moodArtist.external_urls.spotify}`, "_blank")}
-                      >
-                        <div className="content-box-card">
-                          <div className="content-box-card-cover">
-                            <img src={moodArtist.images[0].url} />
-                            <div className="content-box-card-title">
-                              <h6>{moodArtist.name}</h6>
-                              <p>더보기</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                <div style={{ clear: "both" }}></div>
               </div>
             ) : null}
           </div>

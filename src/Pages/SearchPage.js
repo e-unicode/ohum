@@ -12,15 +12,15 @@ function SearchPage(props) {
   //모달보여주기
   const [modalShow, setModalShow] = useState(false);
 
-  const [selectedTracks, setSelectedTracks] = useState(JSON.parse(localStorage.getItem("selectedTracks")) || []); // 로컬스토리지에서 저장된 데이터를 가져옵니다.
+  const [selectedTracks, setSelectedTracks] = useState(JSON.parse(localStorage.getItem("selectedTracks")) || []);
   const [selectedTracksIds, setSelectedTracksIds] = useState(JSON.parse(localStorage.getItem("selectedTracksIds")) || []);
 
   const handleSaveTrack = (track) => {
     //기존 데이터가 있는 경우 복사해서 다시 넣기
-    setSelectedTracks([...selectedTracks, track]); 
+    setSelectedTracks([...selectedTracks, track]);
     setSelectedTracksIds([...selectedTracksIds, track.id]);
     //stringify 후 로컬스토리지에 저장
-    localStorage.setItem("selectedTracks", JSON.stringify([...selectedTracks, track])); 
+    localStorage.setItem("selectedTracks", JSON.stringify([...selectedTracks, track]));
     localStorage.setItem("selectedTracksIds", JSON.stringify([...selectedTracksIds, track.id]));
   };
 
@@ -80,7 +80,7 @@ function SearchPage(props) {
             <div className="search-result">
               {props.searchTracks.map((track) => {
                 return (
-                  <div id={track.id} className="result-box in-bl" onClick={() => window.open(`${track.external_urls.spotify}`, "_blank")}>
+                  <div id={track.id} className="result-box in-bl" onClick={() => handleSaveTrack(track)}>
                     <div className="result-box-card" onClick={() => setModalShow(true)}>
                       <div className="result-box-card-cover">
                         <img src={track.album.images[0].url} />
@@ -107,7 +107,7 @@ function SearchPage(props) {
               {props.searchAlbums.map((album) => {
                 return (
                   <div id={album.id} className="result-box in-bl" onClick={() => window.open(`${album.external_urls.spotify}`, "_blank")}>
-                    <div className="result-box-card" onClick={() => setModalShow(true)}>
+                    <div className="result-box-card">
                       <div className="result-box-card-cover">
                         <img src={album.images[0].url} />
                       </div>
@@ -133,7 +133,7 @@ function SearchPage(props) {
               {props.searchPlaylists.map((playlist) => {
                 return (
                   <div id={playlist.id} className="result-box in-bl" onClick={() => window.open(`${playlist.external_urls.spotify}`, "_blank")}>
-                    <div className="result-box-card" onClick={() => setModalShow(true)}>
+                    <div className="result-box-card">
                       <div className="result-box-card-cover">
                         <img src={playlist.images[0].url} />
                       </div>

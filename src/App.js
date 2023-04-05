@@ -60,6 +60,10 @@ function App() {
   const [recommendedTracks, setRecommendedTracks] = useState([]);
   const [recommendedTracksTag, setRecommendedTracksTag] = useState(false);
   const [selectedTracksIds, setSelectedTracksIds] = useState(JSON.parse(localStorage.getItem("selectedTracksIds")) || []);
+  //mood기반 추천트랙, 아티스트 가져오기
+  const [moodRecommendedTracks, setMoodRecommendedTracks] = useState([]);
+  const [moodRecommendedTracksTag, setMoodRecommendedTracksTag] = useState(false);
+
   //spotify 토큰 가져오기
   useEffect(() => {
     //API access token
@@ -120,7 +124,7 @@ function App() {
     })();
   }, []);
 
-  //위치&날씨 가져오기
+  //위치&날씨->mood 가져오기
   useEffect(() => {
     function getWeatherAndMood(position) {
       const lat = position.coords.latitude;
@@ -200,6 +204,22 @@ function App() {
       .then(() => {
         setHotPlaylistsTag(true);
       });
+
+    let moodTrackId = await fetch(`https://api.spotify.com/v1/search?q=${currentMood}&type=track`, searchParameters)
+      .then((response) => response.json())
+      .then((data) => {
+        return data.tracks.items[0].id;
+      });
+
+    await fetch("https://api.spotify.com/v1/recommendations?limit=10&seed_tracks=" + moodTrackId, searchParameters)
+      .then((response) => response.json())
+      .then((data) => {
+        setMoodRecommendedTracks(data);
+        console.log(data);
+      })
+      .then(() => {
+        setMoodRecommendedTracksTag(true);
+      });
   }
 
   useEffect(() => {
@@ -213,16 +233,25 @@ function App() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + accessToken,
+        Authorization: "Bearer " + accessToken,
       },
     };
-
-    await fetch("https://api.spotify.com/v1/recommendations?limit=5&seed_tracks=" + selectedTracksIds.join(","), searchParameters)
-      .then((response) => response.json())
-      .then((data) => {
-        setRecommendedTracks(data.tracks);
-        console.log(data.tracks);
-      });
+    if (selectedTracksIds.length > 0) {
+      if (selectedTracksIds.length >= 5) {
+        selectedTracksIds.length = 5;
+        await fetch("https://api.spotify.com/v1/recommendations?limit=5&seed_tracks=" + selectedTracksIds.join(","), searchParameters)
+          .then((response) => response.json())
+          .then((data) => {
+            setRecommendedTracks(data.tracks);
+          });
+      } else {
+        await fetch("https://api.spotify.com/v1/recommendations?limit=5&seed_tracks=" + selectedTracksIds.join(","), searchParameters)
+          .then((response) => response.json())
+          .then((data) => {
+            setRecommendedTracks(data.tracks);
+          });
+      }
+    }
   }
 
   async function searchSpotify() {
@@ -308,6 +337,8 @@ function App() {
                   hotPlaylistsTag={hotPlaylistsTag}
                   hotPlaylists={hotPlaylists}
                   currentMood={currentMood}
+                  moodRecommendedTracks={moodRecommendedTracks}
+                  moodRecommendedTracksTag={moodRecommendedTracksTag}
                 />
               )}
             </>
@@ -326,7 +357,13 @@ function App() {
                   searchPlaylists={searchPlaylists}
                 />
               ) : (
-                <PostPage weather={weather} weatherTag={weatherTag} place={place} getRecommendations={getRecommendations} recommendedTracks={recommendedTracks} />
+                <PostPage
+                  weather={weather}
+                  weatherTag={weatherTag}
+                  place={place}
+                  getRecommendations={getRecommendations}
+                  recommendedTracks={recommendedTracks}
+                />
               )}
             </>
           }
