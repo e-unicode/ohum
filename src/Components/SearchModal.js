@@ -1,7 +1,11 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import { useNavigate } from "react-router-dom";
 
 function SearchModal(props) {
+  
+  let navigate = useNavigate();
+
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
@@ -30,7 +34,12 @@ function SearchModal(props) {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="dark">
-          <a style={{ textDecoration: "none", color: "#F2F2F2", transition: "color 0.2s" }} href="/post">
+          <a
+            style={{ textDecoration: "none", color: "#F2F2F2", transition: "color 0.2s" }}
+            onClick={() => {
+              navigate("/post");
+            }}
+          >
             음악담기
           </a>
         </Button>
