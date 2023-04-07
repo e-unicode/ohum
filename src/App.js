@@ -298,115 +298,122 @@ function App() {
   }
 
   return (
-    <Routes>
-      <Route
-        path="/*"
-        element={
-          <>
-            <Header now={now} weather={weather} searchSpotify={searchSpotify} setSearchInputTag={setSearchInputTag} setSearchInput={setSearchInput} />
+    
+      <Routes>
+        <Route
+          path="/*"
+          element={
+            <>
+              <Header
+                now={now}
+                weather={weather}
+                searchSpotify={searchSpotify}
+                setSearchInputTag={setSearchInputTag}
+                setSearchInput={setSearchInput}
+              />
 
-            <Outlet></Outlet>
+              <Outlet></Outlet>
 
-            <Footer now={now} weather={weather} weatherTag={weatherTag} currentMood={currentMood} />
-          </>
-        }
-      >
-        <Route
-          path=""
-          element={
-            <>
-              {searchInputTag ? (
-                <SearchPage
-                  searchArtistName={searchArtistName}
-                  searchTopTracks={searchTopTracks}
-                  searchTracks={searchTracks}
-                  searchAlbums={searchAlbums}
-                  searchPlaylists={searchPlaylists}
-                />
-              ) : (
-                <MainContent
-                  weatherTag={weatherTag}
-                  moodPlaylists={moodPlaylists}
-                  moodPlaylistsTag={moodPlaylistsTag}
-                  moodTracks={moodTracks}
-                  moodTracksTag={moodTracksTag}
-                  moodArtists={moodArtists}
-                  moodArtistsTag={moodArtistsTag}
-                  randomNum={randomNum}
-                  randomNum2={randomNum2}
-                  hotPlaylistsTag={hotPlaylistsTag}
-                  hotPlaylists={hotPlaylists}
-                  currentMood={currentMood}
-                  moodRecommendedTracks={moodRecommendedTracks}
-                  moodRecommendedTracksTag={moodRecommendedTracksTag}
-                />
-              )}
+              <Footer now={now} weather={weather} weatherTag={weatherTag} currentMood={currentMood} />
             </>
           }
-        />
-        <Route
-          path="post"
-          element={
-            <>
-              {searchInputTag ? (
-                <SearchPage
-                  searchArtistName={searchArtistName}
-                  searchTopTracks={searchTopTracks}
-                  searchTracks={searchTracks}
-                  searchAlbums={searchAlbums}
-                  searchPlaylists={searchPlaylists}
-                />
-              ) : (
-                <PostPage
-                  weather={weather}
-                  weatherTag={weatherTag}
-                  place={place}
-                  getRecommendations={getRecommendations}
-                  recommendedTracks={recommendedTracks}
-                />
-              )}
-            </>
-          }
-        />
-        <Route
-          path="enter"
-          element={
-            <>
-              {searchInputTag ? (
-                <SearchPage
-                  searchArtistName={searchArtistName}
-                  searchTopTracks={searchTopTracks}
-                  searchTracks={searchTracks}
-                  searchAlbums={searchAlbums}
-                  searchPlaylists={searchPlaylists}
-                />
-              ) : (
-                <EnterPage />
-              )}
-            </>
-          }
-        />
-        <Route
-          path="join"
-          element={
-            <>
-              {searchInputTag ? (
-                <SearchPage
-                  searchArtistName={searchArtistName}
-                  searchTopTracks={searchTopTracks}
-                  searchTracks={searchTracks}
-                  searchAlbums={searchAlbums}
-                  searchPlaylists={searchPlaylists}
-                />
-              ) : (
-                <JoinPage />
-              )}
-            </>
-          }
-        />
-        <Route />
-      </Route>
-    </Routes>
+        >
+          <Route
+            path=""
+            element={
+              <>
+                {searchInputTag ? (
+                  <SearchPage
+                    searchArtistName={searchArtistName}
+                    searchTopTracks={searchTopTracks}
+                    searchTracks={searchTracks}
+                    searchAlbums={searchAlbums}
+                    searchPlaylists={searchPlaylists}
+                  />
+                ) : (
+                  <MainContent
+                    weatherTag={weatherTag}
+                    moodPlaylists={moodPlaylists}
+                    moodPlaylistsTag={moodPlaylistsTag}
+                    moodTracks={moodTracks}
+                    moodTracksTag={moodTracksTag}
+                    moodArtists={moodArtists}
+                    moodArtistsTag={moodArtistsTag}
+                    randomNum={randomNum}
+                    randomNum2={randomNum2}
+                    hotPlaylistsTag={hotPlaylistsTag}
+                    hotPlaylists={hotPlaylists}
+                    currentMood={currentMood}
+                    moodRecommendedTracks={moodRecommendedTracks}
+                    moodRecommendedTracksTag={moodRecommendedTracksTag}
+                  />
+                )}
+              </>
+            }
+          />
+          <Route
+            path="post"
+            element={
+              <>
+                {searchInputTag ? (
+                  <SearchPage
+                    searchArtistName={searchArtistName}
+                    searchTopTracks={searchTopTracks}
+                    searchTracks={searchTracks}
+                    searchAlbums={searchAlbums}
+                    searchPlaylists={searchPlaylists}
+                  />
+                ) : (
+                  <PostPage
+                    weather={weather}
+                    weatherTag={weatherTag}
+                    place={place}
+                    getRecommendations={getRecommendations}
+                    recommendedTracks={recommendedTracks}
+                  />
+                )}
+              </>
+            }
+          />
+          <Route
+            path="enter"
+            element={
+              <>
+                {searchInputTag ? (
+                  <SearchPage
+                    searchArtistName={searchArtistName}
+                    searchTopTracks={searchTopTracks}
+                    searchTracks={searchTracks}
+                    searchAlbums={searchAlbums}
+                    searchPlaylists={searchPlaylists}
+                  />
+                ) : (
+                  <EnterPage />
+                )}
+              </>
+            }
+          />
+          <Route
+            path="join"
+            element={
+              <>
+                {searchInputTag ? (
+                  <SearchPage
+                    searchArtistName={searchArtistName}
+                    searchTopTracks={searchTopTracks}
+                    searchTracks={searchTracks}
+                    searchAlbums={searchAlbums}
+                    searchPlaylists={searchPlaylists}
+                  />
+                ) : (
+                  <JoinPage />
+                )}
+              </>
+            }
+          />
+          <Route />
+        </Route>
+      </Routes>
   );
 }
 

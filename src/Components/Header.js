@@ -5,8 +5,12 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import "./Header.css";
+import { useNavigate } from "react-router-dom";
 
 function Header(props) {
+
+  let navigate = useNavigate();
+
   return (
     <div className="header">
       <Navbar key="md" expand="md">
@@ -66,16 +70,16 @@ function Header(props) {
                     </div>
                   </form>
                   <div className="header-nav-content col-6">
-                    <a href="/" className="header-nav-btn">
+                    <a className="header-nav-btn" onClick={()=>{navigate('/')}}>
                       #오늘음악
                     </a>
-                    <a href="/post" className="header-nav-btn">
+                    <a className="header-nav-btn" onClick={()=>{navigate('/post')}}>
                       #취향공유
                     </a>
-                    <a href="/enter" className="header-nav-btn">
+                    <a className="header-nav-btn" onClick={()=>{navigate('/enter')}}>
                       #로그인
                     </a>
-                    <a href="/join" className="header-nav-btn">
+                    <a className="header-nav-btn" onClick={()=>{navigate('/join')}}>
                       #가입
                     </a>
                   </div>
