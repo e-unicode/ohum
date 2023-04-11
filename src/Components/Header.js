@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
@@ -8,8 +8,9 @@ import "./Header.css";
 import { useNavigate } from "react-router-dom";
 
 function Header(props) {
-
   let navigate = useNavigate();
+
+  const [selectedTracks, setSelectedTracks] = useState(JSON.parse(localStorage.getItem("selectedTracks")) || []);
 
   return (
     <div className="header">
@@ -45,7 +46,7 @@ function Header(props) {
                             if (e.key === "Enter") {
                               e.preventDefault();
                               props.searchSpotify();
-                              props.setSearchInputTag(true);
+                              navigate("/search");
                             }
                           }}
                           onChange={(e) => {
@@ -58,7 +59,7 @@ function Header(props) {
                           onClick={(e) => {
                             e.preventDefault();
                             props.searchSpotify();
-                            props.setSearchInputTag(true);
+                            navigate("/search");
                           }}
                           className="search-enter"
                         >
@@ -70,17 +71,37 @@ function Header(props) {
                     </div>
                   </form>
                   <div className="header-nav-content col-6">
-                    <a className="header-nav-btn" onClick={()=>{navigate('/')}}>
-                      #오늘음악
+                    <a
+                      className="header-nav-btn"
+                      onClick={() => {
+                        navigate("/");
+                      }}
+                    >
+                      #Now
                     </a>
-                    <a className="header-nav-btn" onClick={()=>{navigate('/post')}}>
-                      #취향공유
+                    <a
+                      className="header-nav-btn"
+                      onClick={() => {
+                        navigate("/post");
+                      }}
+                    >
+                      #MyPlaylist
                     </a>
-                    <a className="header-nav-btn" onClick={()=>{navigate('/enter')}}>
-                      #로그인
+                    <a
+                      className="header-nav-btn"
+                      onClick={() => {
+                        navigate("/enter");
+                      }}
+                    >
+                      {selectedTracks.length > 0 ? "#Logout" : "#Login"}
                     </a>
-                    <a className="header-nav-btn" onClick={()=>{navigate('/join')}}>
-                      #가입
+                    <a
+                      className="header-nav-btn"
+                      onClick={() => {
+                        navigate("/join");
+                      }}
+                    >
+                      #Join
                     </a>
                   </div>
                 </Nav>

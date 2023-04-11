@@ -75,6 +75,7 @@ div {
     /* padding: 0 0 10px 0; */
     border: #262626 solid 0.5px;
     cursor: pointer;
+    position: relative;
 }
 
 .result-box-card-cover {
@@ -126,9 +127,11 @@ p {
     margin: 0;
 }
 
-
-
-
-
-
-
+.close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    cursor: pointer;
+    margin: 2px 5px 0 0 ;
+}

@@ -1,22 +1,40 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 function SearchModal(props) {
-  
   let navigate = useNavigate();
+
+  const [selectedTracks, setSelectedTracks] = useState(JSON.parse(localStorage.getItem("selectedTracks")) || []);
+  const [selectedTracksIds, setSelectedTracksIds] = useState(JSON.parse(localStorage.getItem("selectedTracksIds")) || []);
+
+  const handleRemoveTrack = (track) => {
+  const updatedTracks = selectedTracks.filter((t) => t.id !== track.id);
+  const updatedTrackIds = selectedTracksIds.filter((id) => id !== track.id);
+    setSelectedTracks(updatedTracks);
+    setSelectedTracksIds(updatedTrackIds);
+    localStorage.setItem("selectedTracks", JSON.stringify(updatedTracks));
+    localStorage.setItem("selectedTracksIds", JSON.stringify(updatedTrackIds));
+  };
+
+  useEffect(() => {
+    setSelectedTracks(JSON.parse(localStorage.getItem("selectedTracks")) || []);
+    setSelectedTracksIds(JSON.parse(localStorage.getItem("selectedTracksIds")) || []);
+  }, [props.show]);
 
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">내가 찾는 음악</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">MY PLAYLIST</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div>
-          {props.selectedTracks.length > 0 ? (
-            props.selectedTracks.map((track, i) => (
-              <div key={i} className="result-box in-bl" onClick={() => window.open(`${track.external_urls.spotify}`, "_blank")}>
-                <div className="result-box-card">
+          <p>선택한 트랙은 제거됩니다.</p>
+          {selectedTracks.length > 0 ? (
+            selectedTracks.map((track, i) => (
+              <div key={i} className="result-box in-bl">
+                <div className="result-box-card" onClick={() => handleRemoveTrack(track)}>
                   <div className="result-box-card-cover">
                     <img src={track.album.images[0].url} alt={track.name} />
                   </div>
@@ -40,11 +58,11 @@ function SearchModal(props) {
               navigate("/post");
             }}
           >
-            음악담기
+            CREATE MY PLAYLIST
           </a>
         </Button>
         <Button variant="dark" onClick={props.onHide}>
-          계속담기
+          KEEP GOING
         </Button>
       </Modal.Footer>
     </Modal>

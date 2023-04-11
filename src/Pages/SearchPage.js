@@ -16,13 +16,17 @@ function SearchPage(props) {
   const [selectedTracksIds, setSelectedTracksIds] = useState(JSON.parse(localStorage.getItem("selectedTracksIds")) || []);
 
   const handleSaveTrack = (track) => {
-    //기존 데이터가 있는 경우 복사해서 다시 넣기
-    setSelectedTracks([...selectedTracks, track]);
-    setSelectedTracksIds([...selectedTracksIds, track.id]);
-    //stringify 후 로컬스토리지에 저장
-    localStorage.setItem("selectedTracks", JSON.stringify([...selectedTracks, track]));
-    localStorage.setItem("selectedTracksIds", JSON.stringify([...selectedTracksIds, track.id]));
+    if (selectedTracksIds.includes(track.id)) {
+      alert("이미 추가된 트랙입니다!");
+    } else {
+      setSelectedTracks([...selectedTracks, track]);
+      setSelectedTracksIds([...selectedTracksIds, track.id]);
+      localStorage.setItem("selectedTracks", JSON.stringify([...selectedTracks, track]));
+      localStorage.setItem("selectedTracksIds", JSON.stringify([...selectedTracksIds, track.id]));
+    }
   };
+
+
 
   return (
     <div className="post-main container">
@@ -152,7 +156,7 @@ function SearchPage(props) {
         </>
       ) : null}
 
-      <SearchModal show={modalShow} selectedTracks={selectedTracks} onHide={() => setModalShow(false)} />
+      <SearchModal show={modalShow} onHide={() => setModalShow(false)} selectedTracks={selectedTracks} />
     </div>
   );
 }
