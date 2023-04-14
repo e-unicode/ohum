@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import Offcanvas from "react-bootstrap/Offcanvas";
+import React, { useState } from "react";
+import { Nav, Navbar, Offcanvas } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import "./Header.css";
 import { useNavigate } from "react-router-dom";
+import "./Header.css";
 
 function Header(props) {
   let navigate = useNavigate();

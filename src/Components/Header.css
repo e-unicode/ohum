@@ -74,6 +74,36 @@ div {
 .header-nav-btn:hover {
     color: #3F7EA6;
 }
+.navbar-toggler {
+    border: none;
+    padding: 0;
+    position: relative;
+}
+
+.navbar-toggler:hover {
+    border: none;
+}
+
+.navbar-toggler:active {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.offcanvas-end {
+    background-color: #F2F2F2;
+    text-transform: uppercase;
+}
+
+#offcanvasNavbar-expand-md {
+    width: 300px;
+}
 
 /* 서치바 */
 .search-form {
