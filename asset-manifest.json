@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/TodayMusicClear/static/css/main.ce0c9145.css",
-    "main.js": "/TodayMusicClear/static/js/main.114fdf95.js",
+    "main.css": "/TodayMusicClear/static/css/main.6e3dd71d.css",
+    "main.js": "/TodayMusicClear/static/js/main.b3691971.js",
     "static/js/787.a597fa72.chunk.js": "/TodayMusicClear/static/js/787.a597fa72.chunk.js",
     "index.html": "/TodayMusicClear/index.html",
-    "main.ce0c9145.css.map": "/TodayMusicClear/static/css/main.ce0c9145.css.map",
-    "main.114fdf95.js.map": "/TodayMusicClear/static/js/main.114fdf95.js.map",
+    "main.6e3dd71d.css.map": "/TodayMusicClear/static/css/main.6e3dd71d.css.map",
+    "main.b3691971.js.map": "/TodayMusicClear/static/js/main.b3691971.js.map",
     "787.a597fa72.chunk.js.map": "/TodayMusicClear/static/js/787.a597fa72.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ce0c9145.css",
-    "static/js/main.114fdf95.js"
+    "static/css/main.6e3dd71d.css",
+    "static/js/main.b3691971.js"
   ]
 }
