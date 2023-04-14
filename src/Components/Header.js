@@ -26,7 +26,7 @@ function Header(props) {
             <Navbar.Offcanvas id="offcanvasNavbar-expand-md" aria-labelledby="offcanvasNavbarLabel-expand-md" placement="end">
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title id="offcanvasNavbarLabel-expand-md">
-                  <span className="nav-logo" style={{ display: "block" }}>
+                  <span className="header-nav-logo" style={{ display: "block" }}>
                     Today music is clear
                   </span>
                   오늘 음악 맑음

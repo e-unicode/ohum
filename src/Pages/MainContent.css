@@ -50,6 +50,7 @@ div {
     height: 70vh;
     transition: all 0.5s;
     position: relative;
+    float: left;
 }
 
 .main-track {

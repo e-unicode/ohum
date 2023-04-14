@@ -17,6 +17,7 @@ div {
     color: #262626;
     z-index: 100;
     text-transform: uppercase;
+    float: left;
 }
 
 .footer-content {
