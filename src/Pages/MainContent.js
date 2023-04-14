@@ -8,7 +8,7 @@ function MainContent(props) {
   const [tracksCardTag, setTracksCardTag] = useState(false);
   const [artistsCardTag, setArtistsCardTag] = useState(false);
 
-  const [moodTrackCardTag, setMoodTrackCardTag] = useState(false);
+  // const [moodTrackCardTag, setMoodTrackCardTag] = useState(false);
   return (
     <div className="content">
       {props.weatherTag ? (
@@ -35,7 +35,7 @@ function MainContent(props) {
                     <span>displayed by {props.moodPlaylists[props.randomNum].owner.display_name}</span>
                   </p>
                 ) : (
-                  <p>이 플레이리스트 어때요?</p>
+                  <p>Playlists</p>
                 )}
               </div>
             ) : (
@@ -62,7 +62,7 @@ function MainContent(props) {
                     <span>song by {props.moodTracks[props.randomNum].artists[0].name}</span>
                   </p>
                 ) : (
-                  <p>이 노래 어때요?</p>
+                  <p>Tracks</p>
                 )}
               </div>
             ) : (
@@ -90,7 +90,7 @@ function MainContent(props) {
                     <span>더보기</span>
                   </p>
                 ) : (
-                  <p>이 가수의 음악 어때요?</p>
+                  <p>Artists</p>
                 )}
               </div>
             ) : (
@@ -98,11 +98,10 @@ function MainContent(props) {
             )}
           </div>
           <div className="content-introduce">
-            <div className="introduce">
+            <div className="introduce-text">
               <h3>Pick one that fit today's weather and mood.</h3>
             </div>
           </div>
-
           <div className="content-track">
             {props.hotPlaylistsTag ? (
               <>
@@ -122,8 +121,8 @@ function MainContent(props) {
               </div>
             )}
           </div>
-          <div className="content-introduce">
-            <div className="introduce">
+          <div className="content-introduce2">
+            <div className="introduce-text2">
               <h4>
                 다양한 장르와 분위기의 핫한 플레이리스트를 추천해드립니다. 음악은 우리 삶에서 빼놓을 수 없는 필수품이죠. 함께 즐거운 음악 여행을
                 떠나봅시다!
@@ -156,6 +155,8 @@ function MainContent(props) {
               </div>
             ) : null}
           </div>
+          <div style={{clear: 'both'}}></div>
+
         </div>
       ) : (
         <div className="loading-background">

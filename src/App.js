@@ -308,6 +308,7 @@ function App() {
             <Outlet></Outlet>
 
             <Footer now={now} weather={weather} weatherTag={weatherTag} currentMood={currentMood} />
+            <div style={{clear: 'both'}}></div>
           </>
         }
       >
