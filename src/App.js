@@ -5,7 +5,7 @@ import { Routes, Route, Outlet } from "react-router-dom";
 import JoinPage from "./Components/JoinPage";
 import PostPage from "./Components/PostPage";
 import SearchPage from "./Components/SearchPage";
-import LoginPage from "./Components/LoginPage";
+import EnterPage from "./Components/EnterPage";
 import MainContent from "./Components/MainContent";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
@@ -353,7 +353,7 @@ function App() {
             />
           }
         />
-        <Route path="login" element={<LoginPage />} />
+        <Route path="enter" element={<EnterPage />} />
         <Route path="join" element={<JoinPage />} />
         <Route />
       </Route>

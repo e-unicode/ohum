@@ -88,7 +88,7 @@ function Header(props) {
                     <a
                       className="header-nav-btn"
                       onClick={() => {
-                        navigate("/login");
+                        navigate("/enter");
                       }}
                     >
                       {userId != null ? "#Logout" : "#Login"}

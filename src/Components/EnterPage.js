@@ -3,9 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function LoginPage() {
-  let navigate = useNavigate();
 
+function EnterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userID, setUserId] = useState("");
@@ -90,4 +89,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default EnterPage;
