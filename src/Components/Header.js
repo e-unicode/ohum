@@ -88,7 +88,7 @@ function Header(props) {
                     <a
                       className="header-nav-btn"
                       onClick={() => {
-                        navigate("/enter");
+                        navigate("/login");
                       }}
                     >
                       {selectedTracks.length > 0 ? "#Logout" : "#Login"}

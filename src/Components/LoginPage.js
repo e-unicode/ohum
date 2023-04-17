@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
 
-function EnterPage() {
+function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -73,4 +73,4 @@ function EnterPage() {
   );
 }
 
-export default EnterPage;
+export default LoginPage;
