@@ -41,12 +41,14 @@ div {
     display: inline-block;
 }
 
-.post-main {
+.post {
     width: 100%;
     position: relative;
+    float: left;
+    /* padding-bottom: 30px; */
 }
 
-.post-main h2 {
+.post h2 {
     font-weight: 700;
 }
 
@@ -133,5 +135,15 @@ p {
     right: 0;
     z-index: 1;
     cursor: pointer;
-    margin: 2px 5px 0 0 ;
+    margin: 2px 5px 0 0;
 }
+
+
+@media screen and (max-width : 1200px) {
+    .result-box {
+        width: 33.333%;
+    }
+}
+
+/* 모바일형태로 바꾸기 */
+@media screen and (max-width : 767px) {}

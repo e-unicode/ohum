@@ -129,7 +129,6 @@ function MainContent(props) {
               </h4>
             </div>
           </div>
-
           <div className="content-container">
             {props.moodRecommendedTracksTag ? (
               <div className="container">

@@ -30,7 +30,7 @@ function SearchModal(props) {
       </Modal.Header>
       <Modal.Body>
         <div>
-          <p>선택한 트랙은 제거됩니다.</p>
+          <p style={{marginBottom: '15px', fontWeight: '700'}}>📎선택한 트랙은 제거됩니다.</p>
           {selectedTracks.length > 0 ? (
             selectedTracks.map((track, i) => (
               <div key={i} className="result-box in-bl">

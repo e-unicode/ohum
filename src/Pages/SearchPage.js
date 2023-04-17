@@ -29,7 +29,8 @@ function SearchPage(props) {
 
 
   return (
-    <div className="post-main container">
+    <div className="search-container">
+      <div className="container">
       <div className="index flex w-100">
         {index.map(function (indexName, i) {
           return (
@@ -73,7 +74,7 @@ function SearchPage(props) {
               })}
             </div>
           ) : (
-            <p>Not yet</p>
+            <p style={{marginBottom: '20px'}}>Not yet</p>
           )}
         </>
       ) : null}
@@ -99,7 +100,7 @@ function SearchPage(props) {
               })}
             </div>
           ) : (
-            <p>Not yet</p>
+            <p style={{marginBottom: '20px'}}>Not yet</p>
           )}
         </>
       ) : null}
@@ -125,7 +126,7 @@ function SearchPage(props) {
               })}
             </div>
           ) : (
-            <p>Not yet</p>
+            <p style={{marginBottom: '20px'}}>Not yet</p>
           )}
         </>
       ) : null}
@@ -151,12 +152,13 @@ function SearchPage(props) {
               })}
             </div>
           ) : (
-            <p>Not yet</p>
+            <p style={{marginBottom: '20px'}}>Not yet</p>
           )}
         </>
       ) : null}
 
       <SearchModal show={modalShow} onHide={() => setModalShow(false)} selectedTracks={selectedTracks} />
+      </div>
     </div>
   );
 }

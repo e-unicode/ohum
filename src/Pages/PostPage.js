@@ -1,4 +1,4 @@
-import "./PostPage.css";
+import "./SearchPage";
 import { useState, useEffect } from "react";
 
 function PostPage(props) {
@@ -13,10 +13,10 @@ function PostPage(props) {
   }, [props.weatherTag]);
 
   return (
-    <div className="post-main container">
+    <div className="search-container">
       {selectedTracks.length > 0 ? (
-        <>
-          <h2>Discover my music selection.</h2>
+        <div className="container">
+          <h2>The music I found.</h2>
           <div className="search-result">
             {selectedTracks.map((track) => (
               <div className="result-box in-bl" onClick={() => window.open(`${track.external_urls.spotify}`, "_blank")}>
@@ -60,7 +60,7 @@ function PostPage(props) {
           ) : (
             <h2>취향저격 음악을 준비중이에요. 기다려주세요 ❣</h2>
           )}
-        </>
+        </div>
       ) : (
         <h2>아직 담은 음악이 없어요!</h2>
       )}
