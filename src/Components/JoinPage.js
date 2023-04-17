@@ -1,9 +1,12 @@
 import "../css/JoinPage.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 function JoinPage() {
+  let navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,7 +37,7 @@ function JoinPage() {
       <div className="join-box">
         <div className="join-box-content">
           <h1>가입하기</h1>
-          <p>우리의 취향을 공유해 봐요.</p>
+
           <form onSubmit={submitForm}>
             <div className="form form-w">
               <input className="input" placeholder="사용자 이름" name="name" type="text" value={name} onChange={(e) => setName(e.target.value)} />
@@ -62,13 +65,22 @@ function JoinPage() {
               />
               <span className="input-border"></span>
             </div>
+            <h6>- 사용자 이름은 4글자 이상이며, 영문 대/소문자/숫자로만 이루어져야 합니다.</h6>
+            <h6>- 비밀번호는 8글자 이상이며, 영문 대/소문자/숫자가 포함되어야 합니다.</h6>
+
             <div>
-              <button className="enter" type="submit">
+              <button
+                className="enter"
+                type="submit"
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
                 가입
               </button>
-              <Link to="/">
-                <button className="enter enter-ml">둘러보기</button>
-              </Link>
+                <button className="enter enter-ml"onClick={() => {
+                  navigate("/");
+                }}>둘러보기</button>
             </div>
           </form>
         </div>

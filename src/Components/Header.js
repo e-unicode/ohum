@@ -9,7 +9,7 @@ function Header(props) {
   let navigate = useNavigate();
 
   const [selectedTracks, setSelectedTracks] = useState(JSON.parse(localStorage.getItem("selectedTracks")) || []);
-
+  const userId = localStorage.getItem("userId");
   return (
     <div className="header">
       <Navbar key="md" expand="md">
@@ -91,7 +91,7 @@ function Header(props) {
                         navigate("/login");
                       }}
                     >
-                      {selectedTracks.length > 0 ? "#Logout" : "#Login"}
+                      {userId != null ? "#Logout" : "#Login"}
                     </a>
                     <a
                       className="header-nav-btn"

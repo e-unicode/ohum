@@ -1,13 +1,11 @@
 .join {
     width: 100vw;
     height: 92vh;
-    /* background: #F2F2F2; */
 }
 
 .join-box {
     width: 30%;
     height: 70%;
-    /* background: #F2F2F2; */
     position: absolute;
     top: 0;
     bottom: 0;
@@ -28,25 +26,31 @@
     margin: auto;
 }
 
-
 .join-box-content h1 {
     color: #3F7EA6;
-    /* font-size: 30px; */
     font-weight: 900;
-    margin-bottom: 10px;
-    /* letter-spacing: 0.2em; */
+    margin-bottom: 50px;
 }
 
-.join-box-content p {
+.join-box-content h3 {
+    text-align: justify;
     color: #3F7EA6;
+    font-size: 15px;
+}
+
+.join-box-content h5 {
+    text-align: justify;
+    color: #3F7EA6;
+    font-size: 15px;
     margin-bottom: 50px;
-    /* font-size: 10px; */
 }
 
 .join-box-content h6 {
     text-align: justify;
     color: #3F7EA6;
-    margin-bottom: 50px;
+    font-size: 10px;
+    letter-spacing: -0.1em;
+    margin-bottom: 5px;
 }
 
 .form {
@@ -119,13 +123,10 @@
     color: #F2F2F2;
 }
 
-
-
 @media screen and (max-width : 1200px) {
     .join-box {
         width: 40%;
     }
-
 }
 
 /* 모바일형태로 바꾸기 */
