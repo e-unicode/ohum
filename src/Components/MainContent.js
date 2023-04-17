@@ -1,14 +1,13 @@
 import "../css/MainContent.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Loading from "../Components/Loading";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function MainContent(props) {
   const [playlistsCardTag, setPlaylistsCardTag] = useState(false);
   const [tracksCardTag, setTracksCardTag] = useState(false);
   const [artistsCardTag, setArtistsCardTag] = useState(false);
 
-  // const [moodTrackCardTag, setMoodTrackCardTag] = useState(false);
   return (
     <div className="content">
       {props.weatherTag ? (
@@ -154,8 +153,7 @@ function MainContent(props) {
               </div>
             ) : null}
           </div>
-          <div style={{clear: 'both'}}></div>
-
+          <div style={{ clear: "both" }}></div>
         </div>
       ) : (
         <div className="loading-background">

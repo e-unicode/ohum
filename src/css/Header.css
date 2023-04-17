@@ -101,18 +101,12 @@
     padding-top: 13px;
 }
 
-.search-form .form {
-    /* width: 100%; */
-}
-
 /* styling of Input */
 .search-input {
     color: #262626;
     font-weight: 300;
-    /* font-size: 15px; */
     background-color: transparent;
     width: 100%;
-    /* box-sizing: border-box; */
     padding: 6px;
     padding-block: .5em;
     border: none;
@@ -144,7 +138,6 @@
     text-align: right;
 }
 
-
 @media screen and (max-width : 1200px) {
     .header-nav-content {
         padding-bottom: 5px;
@@ -167,7 +160,6 @@
 
 /* 모바일형태로 바꾸기 */
 @media screen and (max-width : 767px) {
-
     .container-fluid {
         padding: 0;
     }
@@ -214,5 +206,4 @@
         bottom: 0;
         margin: auto;
     }
-
 }

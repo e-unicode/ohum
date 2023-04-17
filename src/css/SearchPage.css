@@ -88,7 +88,7 @@ div {
 /* 검색결과박스 */
 .search-result {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     position: relative;
 }
 
@@ -193,6 +193,9 @@ p {
 
 /* 모바일형태로 바꾸기 */
 @media screen and (max-width : 767px) {
+    .container {
+        padding-bottom: 35px;
+    }
     .result-box {
         width: 50%;
     }
