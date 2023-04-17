@@ -1,4 +1,4 @@
-import "./Join.css";
+import "../css/JoinPage.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";

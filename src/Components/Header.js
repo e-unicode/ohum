@@ -3,7 +3,8 @@ import { Nav, Navbar, Offcanvas } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import "./Header.css";
+import "../css/Header.css";
+
 
 function Header(props) {
   let navigate = useNavigate();

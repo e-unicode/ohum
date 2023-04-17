@@ -1,18 +1,14 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
-
-import { Configuration, OpenAIApi } from "openai";
 import { Routes, Route, Outlet } from "react-router-dom";
-import JoinPage from "./Pages/JoinPage";
-import PostPage from "./Pages/PostPage";
-import SearchPage from "./Pages/SearchPage";
-import EnterPage from "./Pages/EnterPage";
-
-import MainContent from "./Pages/MainContent";
+import JoinPage from "./Components/JoinPage";
+import PostPage from "./Components/PostPage";
+import SearchPage from "./Components/SearchPage";
+import EnterPage from "./Components/EnterPage";
+import MainContent from "./Components/MainContent";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
-
 import MoodData from "./MoodData";
 
 const client_id = process.env.REACT_APP_CLIENT_ID;

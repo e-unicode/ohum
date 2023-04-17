@@ -1,5 +1,4 @@
-import "./Footer.css";
-import Loading from "./Loading";
+import "../css/Footer.css";
 
 function Footer(props) {
   return (

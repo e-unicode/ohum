@@ -1,7 +1,7 @@
-import "./SearchPage.css";
+import "../css/SearchPage.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
-import SearchModal from "../Components/SearchModal.js";
+import SearchModal from "./SearchModal";
 
 function SearchPage(props) {
   //인덱스 보여주기

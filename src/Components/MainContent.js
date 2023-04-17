@@ -1,4 +1,4 @@
-import "./MainContent.css";
+import "../css/MainContent.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Loading from "../Components/Loading";
 import { useState, useEffect } from "react";

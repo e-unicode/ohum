@@ -1,4 +1,4 @@
-import "./SearchPage";
+import "../css/SearchPage.css";
 import { useState, useEffect } from "react";
 
 function PostPage(props) {
