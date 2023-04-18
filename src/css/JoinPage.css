@@ -38,6 +38,11 @@
     font-size: 15px;
 }
 
+.join-box-content h4 {
+    text-align: center;
+    color: #3F7EA6;
+    font-size: 15px;
+}
 .join-box-content h5 {
     text-align: justify;
     color: #3F7EA6;
@@ -70,6 +75,7 @@
     background-color: transparent;
     width: 100%;
     padding-block: 10px;
+    border-radius: 0;
     border: none;
     border-bottom: 0.5px solid #3F7EA6;
 }

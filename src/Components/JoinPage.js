@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 function JoinPage() {
   let navigate = useNavigate();
 
@@ -78,9 +77,14 @@ function JoinPage() {
               >
                 가입
               </button>
-                <button className="enter enter-ml"onClick={() => {
+              <button
+                className="enter enter-ml"
+                onClick={() => {
                   navigate("/");
-                }}>둘러보기</button>
+                }}
+              >
+                둘러보기
+              </button>
             </div>
           </form>
         </div>

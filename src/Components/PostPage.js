@@ -62,7 +62,8 @@ function PostPage(props) {
           )}
         </div>
       ) : (
-        <h2>아직 담은 음악이 없어요!</h2>
+        <div className="container">
+        <h2>아직 담은 음악이 없어요!</h2></div>
       )}
     </div>
   );

@@ -8,7 +8,7 @@ import "../css/Header.css";
 function Header(props) {
   let navigate = useNavigate();
 
-  const [selectedTracks, setSelectedTracks] = useState(JSON.parse(localStorage.getItem("selectedTracks")) || []);
+  // const [selectedTracks, setSelectedTracks] = useState(JSON.parse(localStorage.getItem("selectedTracks")) || []);
   const userId = localStorage.getItem("userId");
   return (
     <div className="header">
@@ -88,10 +88,10 @@ function Header(props) {
                     <a
                       className="header-nav-btn"
                       onClick={() => {
-                        navigate("/enter");
+                        navigate("/login");
                       }}
                     >
-                      {userId != null ? "#Logout" : "#Login"}
+                      {userId === null ? "#Login" : "#Logout"}
                     </a>
                     <a
                       className="header-nav-btn"
