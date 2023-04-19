@@ -1,5 +1,5 @@
 {
-  "name": "ohoum",
+  "name": "ohum",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -54,5 +54,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://e-unicode.github.io/ohoum"
+  "homepage": "https://e-unicode.github.io/ohum"
 }
