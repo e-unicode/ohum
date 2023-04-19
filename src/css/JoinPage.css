@@ -43,6 +43,7 @@
     color: #3F7EA6;
     font-size: 15px;
 }
+
 .join-box-content h5 {
     text-align: justify;
     color: #3F7EA6;
@@ -118,6 +119,7 @@
     letter-spacing: 2px;
     display: inline-block;
     margin-top: 50px;
+    font-weight: normal;
 }
 
 .enter-ml {
@@ -139,5 +141,29 @@
 @media screen and (max-width : 767px) {
     .join-box {
         width: 70%;
+    }
+
+    .join-box-content h1 {
+        margin-bottom: 30px;
+    }
+
+    .join-box-content h4 {
+        font-size: 12px;
+        margin-bottom: 30px;
+    }
+
+    .join-box-content h5 {
+        font-size: 12px;
+        margin-bottom: 30px;
+    }
+
+    .join-box-content h6:nth-child(5) {
+        margin-bottom: 30px;
+    }
+
+    .enter {
+        font-size: 10px;
+        letter-spacing: 1px;
+        margin-top: 0;
     }
 }

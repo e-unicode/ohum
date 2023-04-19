@@ -75,7 +75,7 @@ function Header(props) {
                         navigate("/");
                       }}
                     >
-                      #Now
+                      #오늘음악
                     </a>
                     <a
                       className="header-nav-btn"
@@ -83,7 +83,7 @@ function Header(props) {
                         navigate("/post");
                       }}
                     >
-                      #MyPlaylist
+                      #나의음악
                     </a>
                     <a
                       className="header-nav-btn"
@@ -91,7 +91,7 @@ function Header(props) {
                         navigate("/login");
                       }}
                     >
-                      {userId === null ? "#Login" : "#Logout"}
+                      {userId === null ? "#로그인" : "#로그아웃"}
                     </a>
                     <a
                       className="header-nav-btn"
@@ -99,7 +99,7 @@ function Header(props) {
                         navigate("/join");
                       }}
                     >
-                      #Join
+                      #가입하기
                     </a>
                   </div>
                 </Nav>

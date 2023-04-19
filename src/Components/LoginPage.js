@@ -25,10 +25,10 @@ function LoginPage() {
       }
       // 로컬 스토리지에 아이디 저장
       localStorage.setItem("userId", email);
-      window.location.href = "/ohoum";
+      window.location.href = "/ohum";
     } else {
       event.preventDefault();
-      window.location.href = "/ohoum";
+      window.location.href = "/ohum";
     }
   }
 
@@ -111,7 +111,7 @@ function LoginPage() {
                       navigate("/post");
                     }}
                   >
-                    내 플레이리스트 보기
+                    플레이리스트
                   </button>
                 )}
               </div>

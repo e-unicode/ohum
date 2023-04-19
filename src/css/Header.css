@@ -144,8 +144,9 @@
     }
 
     .header-nav-btn {
-        font-size: 13px;
-        margin-left: 13px;
+        font-size: 12px;
+        margin-left: 10px;
+        letter-spacing: -0.5px;
     }
 
     .header-logo-content {
