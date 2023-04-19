@@ -25,10 +25,10 @@ function LoginPage() {
       }
       // 로컬 스토리지에 아이디 저장
       localStorage.setItem("userId", email);
-      window.location.href = "/TodayMusicClear";
+      window.location.href = "/ohoum";
     } else {
       event.preventDefault();
-      window.location.href = "/TodayMusicClear";
+      window.location.href = "/ohoum";
     }
   }
 

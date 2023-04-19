@@ -1,5 +1,5 @@
 {
-  "name": "front_ohum",
+  "name": "ohoum",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -54,5 +54,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://e-unicode.github.io/TodayMusicClear"
+  "homepage": "https://e-unicode.github.io/ohoum"
 }

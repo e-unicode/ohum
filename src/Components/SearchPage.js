@@ -152,7 +152,7 @@ function SearchPage(props) {
               })}
             </div>
           ) : (
-            <p style={{marginBottom: '30ㅔㅌ'}}>Not yet</p>
+            <p style={{marginBottom: '30px'}}>Not yet</p>
           )}
         </>
       ) : null}
