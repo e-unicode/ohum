@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/ohoum/static/css/main.363821a7.css",
-    "main.js": "/ohoum/static/js/main.a181a0c6.js",
-    "static/js/787.a1d2f837.chunk.js": "/ohoum/static/js/787.a1d2f837.chunk.js",
-    "index.html": "/ohoum/index.html",
-    "main.363821a7.css.map": "/ohoum/static/css/main.363821a7.css.map",
-    "main.a181a0c6.js.map": "/ohoum/static/js/main.a181a0c6.js.map",
-    "787.a1d2f837.chunk.js.map": "/ohoum/static/js/787.a1d2f837.chunk.js.map"
+    "main.css": "/ohum/static/css/main.363821a7.css",
+    "main.js": "/ohum/static/js/main.f9cb7cf6.js",
+    "static/js/787.54cb2819.chunk.js": "/ohum/static/js/787.54cb2819.chunk.js",
+    "index.html": "/ohum/index.html",
+    "main.363821a7.css.map": "/ohum/static/css/main.363821a7.css.map",
+    "main.f9cb7cf6.js.map": "/ohum/static/js/main.f9cb7cf6.js.map",
+    "787.54cb2819.chunk.js.map": "/ohum/static/js/787.54cb2819.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.363821a7.css",
-    "static/js/main.a181a0c6.js"
+    "static/js/main.f9cb7cf6.js"
   ]
 }
