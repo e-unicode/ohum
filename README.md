@@ -1,18 +1,14 @@
-# Getting Started with Create React App
+# 오늘 음악 맑음(WEB)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+이 프로젝트는 스포티파이 API를 이용하여 음악 추천 웹사이트를 구현한 것입니다. 프로젝트에서는 현재 위치와 날씨 상태, 사용자의 취향 등을 고려하여 사용자에게 맞는 음악 추천을 제공합니다. 프로젝트에 대한 자세한 내용과 사용 기술 등은 [프로젝트 소개 페이지](https://branch-quart-d0d.notion.site/ac9a9515ad474f5fb6951bd19ba768e2)에서 확인할 수 있습니다.
 
-## Available Scripts
+## 프로젝트 구현 과정
 
-In the project directory, you can run:
+이 코드는 음악 추천 사이트를 구현하는 코드로, Spotify API를 활용하여 음악 데이터를 가져와 추천하는 기능을 제공합니다.
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### `Spotify API`를 사용한 데이터 접근
+◦ `client_id``client_secret``weather_api_key``openai_api_key`를 process.env를 통해 환경 변수로 설정(보안성 향상)
+◦ Spotify API `access token` 가져오기
 
 ### `npm test`
 
