@@ -6,16 +6,16 @@
 
 이 코드는 음악 추천 사이트를 구현하는 코드로, Spotify API를 활용하여 음악 데이터를 가져와 추천하는 기능을 제공합니다.
 
-### `Spotify API`를 사용한 데이터 접근
-◦ `client_id``client_secret``weather_api_key``openai_api_key`를 process.env를 통해 환경 변수로 설정(보안성 향상)
-◦ Spotify API `access token` 가져오기
+### Spotify API를 사용한 데이터 접근
+◦ `client_id` `client_secret` `weather_api_key` `openai_api_key`를 `process.env`를 통해 환경 변수로 설정(보안성 향상)\
+◦ Spotify API `액세스 토큰` 가져오기
 
-### `npm test`
+### 음악 추천 기반 데이터 가져오기
+◦ `OpenWeatherMap API`를 사용하여 위치 정보에 따른 날씨 정보를 가져오기
+◦ `OpenAI API`를 사용하여 날씨에 따른 감정 키워드 20개 추천받고 `MoodData.js`데이터 파일로 저장하기(저장된 데이터를 사용하는 이유: OpenAI가 반복된 키워드를 학습하고 추천해주어서 다양한 키워드를 추천받기 어려웠음)
+◦ 현재 위치에 따른 날씨를 가져온 후 그에 따른 감정 키워드를 결정합니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
+### `Mood`키워드를 Spotify 검색 키워드로 사용하기
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
