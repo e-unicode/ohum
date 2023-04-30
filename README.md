@@ -1,66 +1,39 @@
 # 오늘 음악 맑음(WEB)
-
 이 프로젝트는 스포티파이 API를 이용하여 음악 추천 웹사이트를 구현한 것입니다. 프로젝트에서는 현재 위치와 날씨 상태, 사용자의 취향 등을 고려하여 사용자에게 맞는 음악 추천을 제공합니다. 프로젝트에 대한 자세한 내용과 사용 기술 등은 [프로젝트 소개 페이지](https://branch-quart-d0d.notion.site/ac9a9515ad474f5fb6951bd19ba768e2)에서 확인할 수 있습니다.
 
 ## 프로젝트 구현 과정
-
 이 코드는 음악 추천 사이트를 구현하는 코드로, Spotify API를 활용하여 음악 데이터를 가져와 추천하는 기능을 제공합니다.
 
-### Spotify API를 사용한 데이터 접근
-◦ `client_id` `client_secret` `weather_api_key` `openai_api_key`를 `process.env`를 통해 환경 변수로 설정(보안성 향상)\
-◦ Spotify API `액세스 토큰` 가져오기
+### 데이터 접근에 대한 보안성 확보
+◦ `client_id` `client_secret` `weather_api_key` `openai_api_key`를 `process.env`를 통해 환경 변수로 설정합니다.\
+◦ Spotify API `액세스 토큰` 가져옵니다.
 
 ### 음악 추천 기반 데이터 가져오기
-◦ `OpenWeatherMap API`를 사용하여 위치 정보에 따른 날씨 정보를 가져오기
-◦ `OpenAI API`를 사용하여 날씨에 따른 감정 키워드 20개 추천받고 `MoodData.js`데이터 파일로 저장하기(저장된 데이터를 사용하는 이유: OpenAI가 반복된 키워드를 학습하고 추천해주어서 다양한 키워드를 추천받기 어려웠음)
-◦ 현재 위치에 따른 날씨를 가져온 후 그에 따른 감정 키워드를 결정합니다.
+◦ 위치와 관련된 정보를 나타내는 state 변수를 만들고, `OpenWeatherMap API`를 사용하여 위치 정보에 따른 날씨 정보를 가져옵니다.\
+◦ 이 정보는 사용자의 위치에 따라 달라지고 사용자가 사이트를 방문할 때마다 업데이트 됩니다.
+◦ `MoodData.js`데이터 파일에서 날씨에 따른 기분 키워드 20가지를 가져오고 사용자의 현재 기분을 나타내는 state 변수를 만든 후 랜덤으로 한 가지 기분을 결정합니다.\
+(미리 저장된 데이터를 사용하는 이유: OpenAI가 반복된 키워드를 학습하고 추천해주어서 다양한 키워드를 추천받기 어려웠음)\
 
-### `Mood`키워드를 Spotify 검색 키워드로 사용하기
+### 결정된 `Mood`키워드를 Spotify 검색 키워드로 사용하기
+◦ 결정된 기분에 대한 음악 플레이리스트, 트랙, 아티스트를 저장할 state 변수를 만듭니다.\
+◦ 이 변수를 `https://api.spotify.com/v1/search` 엔드포인트에 GET 요청을 합니다.
+◦ 비동기 함수 `recommendMusic()`를 정의하고 currentMood 변수를 검색어로 사용합니다.\
+◦ 입력한 검색어에 따라 플레이리스트, 트랙, 아티스트로 결과가 나타납니다. 이 결과 중 한 가지를 10초마다 하나씩 페이지에 나타냅니다.\
+◦ Mood 키워드가 아닌 검색어를 입력하여도 입력한 검색어에 따라 `TopTrack`, `Track`, `Album`, `Playlist`가 나타납니다.\
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 결정된 `Mood`키워드로 검색된 트랙을 바탕으로 음악 추천받기
+◦ 결정된 Mood 키워드로 검색한 트랙 데이터의 id를 가져옵니다.\
+◦ 이 id를 음악 추천 엔드포인트에 GET 요청을 보내고 그 결과로 10개의 트랙을 가져옵니다.\
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 위치에 따른 핫플레이리스트 가져오기
+◦ `OpenWeatherMap API`를 사용하여 위치 정보를 가져온 후 `place`변수에 저장합니다.\
+◦ 이 place 변수를 `https://api.spotify.com/v1/browse/featured-playlists?country=` 엔드포인트에 넣고 GET 요청을 합니다.\
+◦ 현재 위치의 핫플레이리스트, 바이럴 뮤직 등의 플레이리스트를 가져옵니다.\
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Spotify API를 통하여 가져온 데이트를 각 state 변수에 저장하고 페이지 컴포넌트에서 불러와 사용하기
+◦ `Routes`, `Route`, `Outlet`은 react-router-dom 라이브러리에서 제공하는 컴포넌트로, URL 경로에 따라 다른 컴포넌트를 렌더링할 수 있도록 해줍니다.\
+◦ `Header`와 `Footer` 컴포넌트는 모든 페이지에서 공통으로 사용하는 요소로, 해당 컴포넌트에서 `Link`를 사용하여 다른 페이지로 이동할 수 있도록 설정되어 있습니다.\
+◦ JoinPage, LoginPage, MainContent, PostPage, SearchPage 등의 컴포넌트는 각각 회원가입, 로그인, 추천 음악 페이지, 내가 선택한 음악 페이지, 검색 페이지 등의 기능을 담당하고 있습니다.\
+◦ `props`를 사용하여 각 컴포넌트에 추천 음악, 핫플레이리스트 등을 전달하고 메인 화면, 검색 화면을 구성할 수 있도록 합니다.\
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**자세한 코드는 파일을 확인해주세요.**
